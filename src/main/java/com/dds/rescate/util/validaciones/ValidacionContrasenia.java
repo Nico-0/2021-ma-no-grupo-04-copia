@@ -13,6 +13,7 @@ public abstract class ValidacionContrasenia {
 	public void validar(String username, String password){
 		if(this.condicion(username, password))
 			throw new PasswordException(mensaje);
+		
 	}
 
 	protected abstract boolean condicion(String username, String password);

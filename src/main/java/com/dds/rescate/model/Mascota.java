@@ -16,6 +16,8 @@ public class Mascota {
         this.carateristicas = carateristicas;
         this.sexo = sexo;
     }
+    
+    public Mascota() {}
 
     public String getTipoMascota() {
         return tipoMascota;
