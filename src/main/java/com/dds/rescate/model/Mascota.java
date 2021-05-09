@@ -5,15 +5,15 @@ public class Mascota {
     private String nombre;
     private String apodo;
     private String descripcion;
-    private String carateristicas;
+    private String caracteristicas;
     private Sexo sexo;
 
-    public Mascota(String tipoMascota, String nombre, String apodo, String descripcion, String carateristicas, Sexo sexo) {
+    public Mascota(String tipoMascota, String nombre, String apodo, String descripcion, String caracteristicas, Sexo sexo) {
         this.tipoMascota = tipoMascota;
         this.nombre = nombre;
         this.apodo = apodo;
         this.descripcion = descripcion;
-        this.carateristicas = carateristicas;
+        this.caracteristicas = caracteristicas;
         this.sexo = sexo;
     }
     
@@ -51,12 +51,12 @@ public class Mascota {
         this.descripcion = descripcion;
     }
 
-    public String getCarateristicas() {
-        return carateristicas;
+    public String getCaracteristicas() {
+        return caracteristicas;
     }
 
-    public void setCarateristicas(String carateristicas) {
-        this.carateristicas = carateristicas;
+    public void setCaracteristicas(String caracteristica) {
+        this.caracteristicas = caracteristica;
     }
 
     public Sexo getSexo() {
