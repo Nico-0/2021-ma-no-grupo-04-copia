@@ -5,7 +5,7 @@ import com.dds.rescate.model.Usuario;
 import com.dds.rescate.service.GeneradorUsuario;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) {/*
         Usuario edu = new Usuario("eduRios","edu7298765");
         GeneradorUsuario generadorUsuario = new GeneradorUsuario();
         generadorUsuario.registrarUsuario(edu);
@@ -15,5 +15,6 @@ public class Main {
         edu.registrarMascota(mascota);
        
         System.out.println("La mascota es: " + edu.getMascotas().size());
+        */
     }
 }

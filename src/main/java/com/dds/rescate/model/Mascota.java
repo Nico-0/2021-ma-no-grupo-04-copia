@@ -7,6 +7,7 @@ public class Mascota {
     private String descripcion;
     private String caracteristicas;
     private Sexo sexo;
+    private boolean perdida;
 
     public Mascota(String tipoMascota, String nombre, String apodo, String descripcion, String caracteristicas, Sexo sexo) {
         this.tipoMascota = tipoMascota;
@@ -15,9 +16,27 @@ public class Mascota {
         this.descripcion = descripcion;
         this.caracteristicas = caracteristicas;
         this.sexo = sexo;
+        this.perdida = false;
     }
     
     public Mascota() {}
+
+    public boolean estaPerdida(){
+        return this.perdida;
+    }
+
+    public void perder(){
+        this.perdida = true;
+    }
+
+    public void recuperar(){
+        this.perdida = false;
+    }
+
+    public void recuperarYNotificar(Contacto contacto, String mensaje){
+        this.recuperar();
+        contacto.notificarTodoMedio(contacto.getNombre() + ": " + mensaje);
+    }
 
     public String getTipoMascota() {
         return tipoMascota;

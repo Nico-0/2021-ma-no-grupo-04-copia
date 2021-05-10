@@ -10,3 +10,5 @@ Eduardo Ríos - rios.eduardo.0892@gmail.com,
 Christian Zelaya - Christian.zelaya.93.cz@gmail.com
 
 Links:
+
+[Enunciado](https://aulasvirtuales.frba.utn.edu.ar/pluginfile.php/918221/mod_resource/content/1/TP%20DDS%202021.pdf)
