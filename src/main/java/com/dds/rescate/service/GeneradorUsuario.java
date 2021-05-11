@@ -32,17 +32,21 @@ public class GeneradorUsuario {
         getUsuarioRepository().add(usuario);
     }
 
-    public void iniciarSesion(String username, String password) {
+    public String iniciarSesion(String username, String password) {
+        String mensaje = null;
         if(cont==3) {
-            throw new UsuarioException("Limite de intentos");
+            throw new UsuarioException("Llego al Limite de intentos");
         }
         try {
             validarUsuario(username,password);
             cont = 0;
+
+            mensaje = "Logeado!";
         }catch(UsuarioException e){
-            e.getMessage();
+           mensaje = e.getMessage();
             cont++;
         }
+        return mensaje;
     }
 
     private void validarContrasenia(String username, String password){
