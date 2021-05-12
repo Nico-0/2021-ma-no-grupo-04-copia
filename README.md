@@ -12,3 +12,5 @@ Christian Zelaya - Christian.zelaya.93.cz@gmail.com
 Links:
 
 [Enunciado](https://aulasvirtuales.frba.utn.edu.ar/pluginfile.php/918221/mod_resource/content/1/TP%20DDS%202021.pdf)
+
+DDC - https://lucid.app/lucidchart/invitations/accept/inv_82cd7d8f-a800-47b0-9014-c87b805585a1
