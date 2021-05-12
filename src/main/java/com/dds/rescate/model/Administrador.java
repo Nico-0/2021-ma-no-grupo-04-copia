@@ -8,7 +8,7 @@ public class Administrador extends Usuario{
 		// TODO Auto-generated constructor stub
 	}
 	public void agregarCaracteristicas (String descripcion){
-		// Mascota.setCaracteristicas(descripcion);
+		//Mascota.setCaracteristicas(descripcion);
 	}
 	
 }
