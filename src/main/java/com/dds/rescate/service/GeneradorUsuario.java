@@ -3,7 +3,7 @@ package com.dds.rescate.service;
 import com.dds.rescate.exception.UsuarioException;
 import com.dds.rescate.model.Usuario;
 import com.dds.rescate.util.validaciones.ComprobarCaracteresRepetidos;
-import com.dds.rescate.util.validaciones.ComprobarSiPoseeMasDe8Caracteres;
+import com.dds.rescate.util.validaciones.superarLongitudMinima;
 import com.dds.rescate.util.validaciones.ValidacionContrasenia;
 import com.dds.rescate.util.validaciones.ValidarTopPeoresContrasenias;
 
@@ -16,7 +16,7 @@ public class GeneradorUsuario {
 
     private int cont = 0;
 
-    private List<ValidacionContrasenia> validaciones = Arrays.asList(new ComprobarCaracteresRepetidos(),new ComprobarSiPoseeMasDe8Caracteres(),new ValidarTopPeoresContrasenias());
+    private List<ValidacionContrasenia> validaciones = Arrays.asList(new ComprobarCaracteresRepetidos(),new superarLongitudMinima(),new ValidarTopPeoresContrasenias());
 
     private List<Usuario> usuarioRepository = new ArrayList<>();
 

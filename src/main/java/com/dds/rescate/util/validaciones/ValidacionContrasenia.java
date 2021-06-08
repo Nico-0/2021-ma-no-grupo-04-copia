@@ -4,6 +4,7 @@ import com.dds.rescate.exception.PasswordException;
 
 public abstract class ValidacionContrasenia {
 	protected String mensaje;
+	public static final Integer LONGITUD_MINIMA = 8;
 
 	protected ValidacionContrasenia(String mensaje){
 		this.mensaje = mensaje;
