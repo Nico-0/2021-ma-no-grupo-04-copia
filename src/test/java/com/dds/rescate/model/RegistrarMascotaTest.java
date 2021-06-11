@@ -9,6 +9,7 @@ import org.junit.Test;
 public class RegistrarMascotaTest {
 	
 	UsuarioDuenio christian;
+	DatosPersonales perfilChristian;
     Mascota perro;
     Contacto hermano;
     Notificador notificador;
@@ -17,7 +18,8 @@ public class RegistrarMascotaTest {
     public void init(){
     	
     	hermano = new Contacto("Leo", "Z", "z@a.com", notificador);
-    	christian = new UsuarioDuenio("UsuarioChris", "Chris1234", "Christian", "Z", new Date(), "123456789", hermano);
+    	perfilChristian = new DatosPersonales("Christian", "Z",  new Date(), 123456789, hermano);
+    	christian = new UsuarioDuenio("UsuarioChris", "Chris1234", perfilChristian);
         perro = new Mascota("Perro", "Jey", "Jey", "Pitbull", "Marron", Sexo.MACHO);
     }
     
