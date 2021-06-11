@@ -16,14 +16,14 @@ public class EncontrarMascotaTest {
     Notificador notificador;
 
     @Before
-    public void init(){
+    /*public void init(){
         notificador = new NotificadorSMS();
         unPrimo = new Contacto("Ceci", "lio", "a@a.com", notificador);
         perfilPepito = new DatosPersonales("Pedro", "Lopez", new Date(), 12345678, unPrimo);
         pepito = new UsuarioDuenio("Pedro777", "contradificil", perfilPepito);
         gato = new Mascota("gato", "michi", "michi", "un animal peludo de 4 patas", "pasar caracteristicas a clase", Sexo.MACHO);
         gato.perder();
-    }
+    }*/
 
     @Test
     public void recuperarMascota(){

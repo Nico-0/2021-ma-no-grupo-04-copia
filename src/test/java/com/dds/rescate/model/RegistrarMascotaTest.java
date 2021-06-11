@@ -15,13 +15,13 @@ public class RegistrarMascotaTest {
     Notificador notificador;
 
     @Before
-    public void init(){
+    /*public void init(){
     	
     	hermano = new Contacto("Leo", "Z", "z@a.com", notificador);
     	perfilChristian = new DatosPersonales("Christian", "Z",  new Date(), 123456789, hermano);
     	christian = new UsuarioDuenio("UsuarioChris", "Chris1234", perfilChristian);
         perro = new Mascota("Perro", "Jey", "Jey", "Pitbull", "Marron", Sexo.MACHO);
-    }
+    }*/
     
     @Test
     public void registrarMascota(){
