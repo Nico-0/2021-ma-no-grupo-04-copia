@@ -13,7 +13,6 @@ public class RegistrarMascotaTest {
     Mascota perro;
     Contacto hermano;
     Notificador notificador;
-    
 
     @Before
     /*public void init(){
