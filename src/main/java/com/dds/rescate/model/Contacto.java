@@ -7,6 +7,7 @@ public class Contacto {
     public String nombre;
     public String apellido;
     public String email;
+
     public List<Notificador> formasNotificacion = new ArrayList<>();
 
     public Contacto(String nombre, String apellido, String email, Notificador notificadorMinimo) {

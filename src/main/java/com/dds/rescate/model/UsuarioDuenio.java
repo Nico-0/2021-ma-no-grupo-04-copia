@@ -7,19 +7,11 @@ import java.util.List;
 public class UsuarioDuenio extends Usuario{
 
     private List<Mascota> mascotas = new ArrayList<>();
-    private String nombre;
-    private String apellido;
-    private Date nacimiento;
-    private String documento;
-    private List<Contacto> datosContacto = new ArrayList<>();
+    private DatosPersonales perfil;
 
-    public UsuarioDuenio(String username, String password, String nombre, String apellido, Date nacimiento, String documento, Contacto contactoMinimo) {
+    public UsuarioDuenio(String username, String password, DatosPersonales perfil) {
         super(username, password);
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.nacimiento = nacimiento;
-        this.documento = documento;
-        this.datosContacto.add(contactoMinimo);
+        this.perfil = perfil;
     }
 
     public List<Mascota> getMascotas() {
