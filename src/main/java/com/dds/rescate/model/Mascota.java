@@ -1,11 +1,11 @@
 package com.dds.rescate.model;
-
+/*
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.List;
+
 
 import org.json.JSONObject;
 
@@ -15,6 +15,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+*/
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.dds.rescate.service.ImageLoader.resizeImage;
 
 public class Mascota {
     private String tipoMascota;
@@ -24,6 +30,7 @@ public class Mascota {
     private List<CaracteristicaMascota> caracteristicas;
     private Sexo sexo;
     private boolean perdida;
+    private List<String> fotos = new ArrayList<>();
 
     public Mascota(String tipoMascota, String nombre, String apodo, String descripcion, List<CaracteristicaMascota> caracteristicas, Sexo sexo) throws Exception {
         this.tipoMascota = tipoMascota;
@@ -118,5 +125,20 @@ public class Mascota {
 
     public void setSexo(Sexo sexo) {
         this.sexo = sexo;
+    }
+
+    //Carga una imagen "imagen.jpg" de resources/ImgTemp
+    //Se guarda estandarizada en resources/Imagenes
+    //Identificada solo por el nombre, dentro de mascota
+    public void cargarImagen(String nombre) {
+        try {
+            resizeImage(nombre);
+            this.fotos.add(nombre);
+            System.out.println("Se carga la foto " + nombre);
+        }
+        catch (IOException ex){
+            System.out.println("No existe la imagen " + nombre);
+        }
+
     }
 }
