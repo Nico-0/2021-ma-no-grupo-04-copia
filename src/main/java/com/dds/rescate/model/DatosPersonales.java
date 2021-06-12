@@ -5,17 +5,48 @@ import java.util.Date;
 import java.util.List;
 
 public class DatosPersonales {
-    public String nombre;
-    public String apellido;
-    public Date fechaNacimiento;
-    public Integer nroDoc;
-    public List<Contacto> contactos = new ArrayList<>();
+    private String nombre;
+    private String apellido;
+    private Date nacimiento;
+    private String documento;
+    private List<Contacto> datosContacto = new ArrayList<>();
 
-    public DatosPersonales(String nombre, String apellido, Date fechaNacimiento, Integer nroDoc, Contacto contactoMinimo){
+    public DatosPersonales(String nombre, String apellido, Date nacimiento, String documento, List<Contacto> datosContacto) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
-        this.nroDoc = nroDoc;
-        this.contactos.add(contactoMinimo);
+        this.nacimiento = nacimiento;
+        this.documento = documento;
+        this.datosContacto = datosContacto;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public String getApellido() {
+        return apellido;
+    }
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    public Date getNacimiento() {
+        return nacimiento;
+    }
+    public void setNacimiento(Date nacimiento) {
+        this.nacimiento = nacimiento;
+    }
+    public String getDocumento() {
+        return documento;
+    }
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+    public List<Contacto> getDatosContacto() {
+        return datosContacto;
+    }
+    public void setDatosContacto(List<Contacto> datosContacto) {
+        this.datosContacto = datosContacto;
     }
 }

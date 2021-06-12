@@ -12,4 +12,17 @@ public class Formulario {
         this.descripcion = descripcion;
         this.ubicacionEncontrada = ubicacionEncontrada;
     }
+
+    public DatosPersonales getDatosPersonales() {
+        return datosPersonales;
+    }
+    public void setDatosPersonales(DatosPersonales datos) {
+        this.datosPersonales = datos;
+    }
+    public String getDescripcion() {
+        return descripcion;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.dds.rescate.service.PublicacionService;
+
 public class UsuarioDuenio extends Usuario{
 
     private List<Mascota> mascotas = new ArrayList<>();
@@ -31,5 +33,8 @@ public class UsuarioDuenio extends Usuario{
     }
 
 
+    public void publicarMascotaPerdida(Formulario formulario) {
+    	PublicacionService.getInstance().generarPublicacion(formulario);
+    }
 
 }
