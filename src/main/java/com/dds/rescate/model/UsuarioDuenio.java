@@ -1,7 +1,6 @@
 package com.dds.rescate.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UsuarioDuenio extends Usuario{
@@ -14,6 +13,7 @@ public class UsuarioDuenio extends Usuario{
         this.perfil = perfil;
     }
 
+    //Getteers y Setters
     public List<Mascota> getMascotas() {
         return mascotas;
     }
@@ -22,6 +22,15 @@ public class UsuarioDuenio extends Usuario{
         this.mascotas = mascotas;
     }
 
+    public DatosPersonales getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(DatosPersonales perfil) {
+        this.perfil = perfil;
+    }
+
+    //Metodos
     public void registrarMascota(Mascota mascota) {
         this.mascotas.add(mascota);
     }

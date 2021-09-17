@@ -1,20 +1,34 @@
 package com.dds.rescate.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PublicacionService {
-    public List<Publicacion> publicaciones;
 
-    public List<Publicacion> mostrarPublicaciones(){
-        return this.publicaciones;
+    //Metodos
+    public void confirmarMascotaEncontrada(Mascota mascotaPerdida, Formulario formulario){
+        //TODO
     }
-    public void quitarPublicacion(){
+    public void quitarPublicacion(Publicacion publicacion){
+        //TODO
+    }
+    public void generarPublicacion(Formulario formularioPubli){
+        //TODO
+    }
+    public void aceptarPublicacion (Publicacion publicacionNueva){
+        //TODO
+    }
+    public void generarInteresAdopcion(String descripcion){
+        //TODO
+    }
+    public List<Publicacion> obtenerMascotasDisponiblesParaAdoptar(){
 
-    }
-    public void generarPublicacion(Publicacion publicacion){
+        List<Publicacion> publis = new ArrayList<Publicacion>();
 
+        return publis;
     }
-    public void aceptarPublicacion(){
+    public  PublicacionService getInstance(){
+        return new PublicacionService();
+    }
 
-    }
 }

@@ -5,6 +5,7 @@ public class Ubicacion {
 	private String direccion;
 	private float lat;
 	private float _long;
+
 	public String getDireccion() {
 		return direccion;
 	}

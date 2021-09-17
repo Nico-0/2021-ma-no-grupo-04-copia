@@ -1,5 +1,7 @@
 package com.dds.rescate.model;
 
+import java.util.List;
+
 public class Hogar {
 	
 	private String id;
@@ -10,7 +12,7 @@ public class Hogar {
 	private int capacidad;
 	private int lugares_disponibles;
 	private boolean patio;
-	private String[] caracteristicas;
+	private List<Caracteristica> caracteristicas;
 	
 	
 	
@@ -50,10 +52,10 @@ public class Hogar {
 	public void setPatio(boolean patio) {
 		this.patio = patio;
 	}
-	public String[] getCaracteristicas() {
+	public List<Caracteristica> getCaracteristicas() {
 		return caracteristicas;
 	}
-	public void setCaracteristicas(String[] caracteristicas) {
+	public void setCaracteristicas(List<Caracteristica> caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
 	public String getId() {
