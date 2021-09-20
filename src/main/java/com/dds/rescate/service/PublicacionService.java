@@ -1,8 +1,6 @@
 package com.dds.rescate.service;
 
-import com.dds.rescate.model.Estado;
-import com.dds.rescate.model.Formulario;
-import com.dds.rescate.model.Publicacion;
+import com.dds.rescate.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +10,6 @@ public class PublicacionService {
     List<Publicacion> publicacionesPendientes = new ArrayList<>();
     
     private static PublicacionService instance;
-    
-    
 
 	
 	private PublicacionService() {
@@ -31,12 +27,11 @@ public class PublicacionService {
         return publicaciones;
     }
 
-    public void generarPublicacion(Formulario formulario) {
-        Publicacion publicacion = new Publicacion();
+    public void generarPublicacion(Formulario formulario, UsuarioDuenio autor, Asociacion asociacionAsignada) {
+        Publicacion publicacion = new Publicacion(autor, asociacionAsignada, Estado.PENDIENTE);
         publicacion.setDescripcion(formulario.getDescripcion());
         publicacion.setNombreRescatista(formulario.getDatosPersonales().getNombre());
         publicacion.setContactos(formulario.getDatosPersonales().getDatosContacto());
-        publicacion.setEstado(Estado.PENDIENTE);
         publicacionesPendientes.add(publicacion);
     }
 

@@ -2,9 +2,9 @@ package com.dds.rescate.service;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+//import java.net.http.HttpClient;
+//import java.net.http.HttpRequest;
+//import java.net.http.HttpResponse;
 
 import com.dds.rescate.model.ApiMap;
 import com.google.gson.Gson;
@@ -14,7 +14,7 @@ public class HogarApiService {
 	public HogarApiService() {
 		// TODO Auto-generated constructor stub
 	}
-	
+	/*
 	public void getHogares() {
     	HttpClient client = HttpClient.newHttpClient();
     	HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://api.refugiosdds.com.ar/api/hogares?offset=4"))
@@ -32,5 +32,5 @@ public class HogarApiService {
             e.printStackTrace();
           }   
     }
-
+*/
 }

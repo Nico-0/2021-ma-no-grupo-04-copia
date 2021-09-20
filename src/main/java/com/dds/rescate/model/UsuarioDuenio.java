@@ -9,6 +9,7 @@ public class UsuarioDuenio extends Usuario{
 
     private List<Mascota> mascotas = new ArrayList<>();
     private DatosPersonales perfil;
+    private Asociacion asociacionCercana;
 
     public UsuarioDuenio(String username, String password, DatosPersonales perfil) {
         super(username, password);
@@ -43,7 +44,7 @@ public class UsuarioDuenio extends Usuario{
 
 
     public void publicarMascotaPerdida(Formulario formulario) {
-    	PublicacionService.getInstance().generarPublicacion(formulario);
+    	PublicacionService.getInstance().generarPublicacion(formulario, this, asociacionCercana);
     }
 
 }

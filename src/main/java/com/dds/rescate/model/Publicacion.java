@@ -1,5 +1,7 @@
 package com.dds.rescate.model;
 import java.time.LocalDateTime;
+import java.util.List;
+
 public class Publicacion {
 
     public UsuarioDuenio autor;
@@ -50,6 +52,20 @@ public class Publicacion {
     //Metodos
     public void darDeBaja(){
         //TODO PAra todos las clases de las que hereda
+    }
+
+    public void setDescripcion(String descripcion) {
+    }
+
+    public void setNombreRescatista(String nombre) {
+    }
+
+    public void setEstado(Estado estado) {
+        this.estadoPublicacion = estado;
+    }
+
+    public void setContactos(List<Contacto> contactos) {
+        //TODO asignar los contactos
     }
 }
 

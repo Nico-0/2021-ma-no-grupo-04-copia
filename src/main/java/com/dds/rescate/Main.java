@@ -7,7 +7,9 @@ import com.dds.rescate.service.GeneradorUsuario;
 import com.dds.rescate.service.HogarApiService;
 
 public class Main {
-    public static void main(String[] args) {/*
+    public static void main(String[] args) {
+        System.out.println("Hola");
+        /*
         Usuario edu = new Usuario("eduRios","edu7298765");
         GeneradorUsuario generadorUsuario = new GeneradorUsuario();
         generadorUsuario.registrarUsuario(edu);

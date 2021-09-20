@@ -18,4 +18,12 @@ public class DatosPersonales {
         this.nroDoc = nroDoc;
         this.contactos.add(contactoMinimo);
     }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public List<Contacto> getDatosContacto() {
+        return this.contactos;
+    }
 }

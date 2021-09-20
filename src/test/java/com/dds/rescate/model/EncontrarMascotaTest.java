@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,16 +15,23 @@ public class EncontrarMascotaTest {
     Contacto unPrimo;
     DatosPersonales perfilPepito;
     Notificador notificador;
+    Caracteristica color;
+    CaracteristicaMascota colorM;
+    List<CaracteristicaMascota> caracteristicas = new ArrayList<>();
 
     @Before
-    /*public void init(){
+    public void init() throws Exception {
         notificador = new NotificadorSMS();
-        unPrimo = new Contacto("Ceci", "lio", "a@a.com", notificador);
+        unPrimo = new Contacto("Ceci", "lio", "a@a.com", notificador, 12345678);
         perfilPepito = new DatosPersonales("Pedro", "Lopez", new Date(), 12345678, unPrimo);
         pepito = new UsuarioDuenio("Pedro777", "contradificil", perfilPepito);
-        gato = new Mascota("gato", "michi", "michi", "un animal peludo de 4 patas", "pasar caracteristicas a clase", Sexo.MACHO);
+        color = new Caracteristica("Color");
+        colorM = new CaracteristicaMascota(color, "naranja");
+        CatalogoCaracteristicas.getInstance().agregarCaracteristica(color);
+        caracteristicas.add(colorM);
+        gato = new Mascota("gato", "michi", "michi", "un animal peludo de 4 patas", caracteristicas, Sexo.MACHO);
         gato.perder();
-    }*/
+    }
 
     @Test
     public void recuperarMascota(){

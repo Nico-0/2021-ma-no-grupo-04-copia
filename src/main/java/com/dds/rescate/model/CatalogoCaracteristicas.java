@@ -1,10 +1,11 @@
 package com.dds.rescate.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CatalogoCaracteristicas {
 
-	private List<Caracteristica> caracteristicas;
+	private List<Caracteristica> caracteristicas= new ArrayList<>();
 	private static CatalogoCaracteristicas instance;
 	
 	public static CatalogoCaracteristicas getInstance() {
