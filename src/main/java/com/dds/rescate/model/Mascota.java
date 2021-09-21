@@ -16,6 +16,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 */
+import com.dds.rescate.exception.ValidadorException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ public class Mascota {
     private boolean perdida;
     private List<String> fotos = new ArrayList<>();
 
-    public Mascota(String tipoMascota, String nombre, String apodo, String descripcion, List<CaracteristicaMascota> caracteristicas, Sexo sexo) throws Exception {
+    public Mascota(String tipoMascota, String nombre, String apodo, String descripcion, List<CaracteristicaMascota> caracteristicas, Sexo sexo) throws ValidadorException {
         this.tipoMascota = tipoMascota;
         this.nombre = nombre;
         this.apodo = apodo;
@@ -44,12 +46,12 @@ public class Mascota {
     
     public Mascota() {}
     
-    public List<CaracteristicaMascota> validarCaracteristicas(List<CaracteristicaMascota> caracteristicas) throws Exception  {
+    public List<CaracteristicaMascota> validarCaracteristicas(List<CaracteristicaMascota> caracteristicas) throws ValidadorException  {
     	
     	for (int i=0; i<caracteristicas.size(); i++)
         {
     		if(!existeCaracteristicaEnCatalogo(caracteristicas.get(i).getCaracteristica())) {
-    			throw new Exception("No existe la caracteristica " + caracteristicas.get(i).getCaracteristica() + " en el catalogo");
+    			throw new ValidadorException("No existe la caracteristica " + caracteristicas.get(i).getCaracteristica() + " en el catalogo");
     		}
         };
     	

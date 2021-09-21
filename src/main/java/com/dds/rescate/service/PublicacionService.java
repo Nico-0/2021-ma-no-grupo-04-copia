@@ -26,6 +26,9 @@ public class PublicacionService {
     public List<Publicacion> mostrarPublicaciones(){
         return publicaciones;
     }
+    public List<Publicacion> getPendientes(){
+        return publicacionesPendientes;
+    }
 
     public void generarPublicacion(Formulario formulario, UsuarioDuenio autor, Asociacion asociacionAsignada) {
         Publicacion publicacion = new Publicacion(autor, asociacionAsignada, Estado.PENDIENTE);
@@ -38,4 +41,28 @@ public class PublicacionService {
     public void aceptarPublicaciones() {
 
     }
+    /*
+    public void aceptarPublicacion (Publicacion publicacionNueva){
+        //TODO
+    }*/
+
+    public void confirmarMascotaEncontrada(Mascota mascotaPerdida, Formulario formulario){
+        //TODO
+    }
+    public void quitarPublicacion(Publicacion publicacion){
+        //TODO
+    }
+
+    public void generarInteresAdopcion(String descripcion){
+        //TODO
+    }
+    public List<Publicacion> obtenerMascotasDisponiblesParaAdoptar(){
+
+        List<Publicacion> publis = new ArrayList<>();
+
+        return publis;
+    }
+
+
+
 }

@@ -1,0 +1,17 @@
+<html>
+<head> <title> Publicaciones </title> </head>
+
+<body>
+
+	<b>Bienvenido:</b> {{ Titulo }}  <br><br>
+
+    {{#each Publicaciones}}
+        <ul>
+          <li><b>Autor:</b> {{this.autorString}} <b>Asociacion:</b> {{this.asociacionString}} <b>Estado:</b> {{this.estadoString}} </li>>
+
+        </ul>>
+    {{/each}}
+
+</body>
+
+</html>

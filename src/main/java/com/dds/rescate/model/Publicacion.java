@@ -49,6 +49,16 @@ public class Publicacion {
         this.estadoPublicacion = estadoPublicacion;
     }
 
+    public String getAutorString(){
+        return this.autor.getNombre();
+    }
+    public String getAsociacionString(){
+        return this.asociacionAsignada.getNombre();
+    }
+    public String getEstadoString(){
+        return this.estadoPublicacion.toString();
+    }
+
     //Metodos
     public void darDeBaja(){
         //TODO PAra todos las clases de las que hereda

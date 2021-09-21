@@ -42,9 +42,11 @@ public class UsuarioDuenio extends Usuario{
         return this.mascotas.stream().filter(mascota -> mascota.estaPerdida()).count();
     }
 
-
     public void publicarMascotaPerdida(Formulario formulario) {
     	PublicacionService.getInstance().generarPublicacion(formulario, this, asociacionCercana);
     }
 
+    public String getNombre(){
+        return this.perfil.getNombre();
+    }
 }

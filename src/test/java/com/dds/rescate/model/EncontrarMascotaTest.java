@@ -1,5 +1,6 @@
 package com.dds.rescate.model;
 
+import com.dds.rescate.exception.ValidadorException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class EncontrarMascotaTest {
     List<CaracteristicaMascota> caracteristicas = new ArrayList<>();
 
     @Before
-    public void init() throws Exception {
+    public void init() throws ValidadorException {
         notificador = new NotificadorSMS();
         unPrimo = new Contacto("Ceci", "lio", "a@a.com", notificador, 12345678);
         perfilPepito = new DatosPersonales("Pedro", "Lopez", new Date(), 12345678, unPrimo);

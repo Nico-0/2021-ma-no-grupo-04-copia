@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.dds.rescate.exception.ValidadorException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +22,7 @@ public class RegistrarMascotaTest {
     List<CaracteristicaMascota> caracteristicas = new ArrayList<>();
 
     @Before
-    public void init() throws Exception {
+    public void init() throws ValidadorException {
     	
     	hermano = new Contacto("Leo", "Z", "z@a.com", notificador, 800333);
     	perfilChristian = new DatosPersonales("Christian", "Z",  new Date(), 123456789, hermano);
