@@ -12,12 +12,12 @@ import spark.Response;
 
 public class MuroPublicaciones {
 
-    public static ModelAndView show(Request request, Response response) {
+    public static ModelAndView muro(Request request, Response response) {
         HashMap<String, Object> viewModel = new HashMap<>();
         List<Publicacion> publicaciones = PublicacionService.getInstance().getPendientes();
         viewModel.put("Titulo", "Lista publicaciones");
         viewModel.put("Publicaciones", publicaciones);
 
-        return new ModelAndView(viewModel, "publis.hbs");
+        return new ModelAndView(viewModel, "muro.hbs");
     }
 }

@@ -1,9 +1,7 @@
-<html>
-<head> <title> Publicaciones </title> </head>
+{{#partial "contenido"}}
 
-<body>
-
-	<b>Bienvenido:</b> {{ Titulo }}  <br><br>
+    <h1 class = "content">Muro de publicaciones</h1>
+    <b>Bienvenido:</b> {{ Titulo }}  <br><br>
 
     {{#each Publicaciones}}
         <ul>
@@ -12,6 +10,6 @@
         </ul>>
     {{/each}}
 
-</body>
+{{/partial}}
 
-</html>
+{{>layout.hbs}}

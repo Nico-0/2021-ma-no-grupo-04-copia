@@ -8,8 +8,8 @@ import javax.imageio.ImageIO;
 
 public class ImageLoader {
 
-    static int anchoGlobal = 200;
-    static int altoGlobal = 150;
+    static int anchoGlobal = 320;
+    static int altoGlobal = 320;
     static String PATH = "src\\main\\resources\\";
 
     public static void resizeImage(String nombre) throws IOException{
