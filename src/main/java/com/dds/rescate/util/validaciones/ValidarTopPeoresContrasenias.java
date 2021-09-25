@@ -14,7 +14,7 @@ public class ValidarTopPeoresContrasenias extends ValidacionContrasenia {
     private List<String> contrasenias;
 
     public ValidarTopPeoresContrasenias() {
-        super("La Password es debil");
+        super("La Password es debil (presente en top 10k)");
 
         URL urlArchivo = getResource("10k-most-common.txt");
         LectorArchivos lectorArchivos = new LectorArchivos(urlArchivo);

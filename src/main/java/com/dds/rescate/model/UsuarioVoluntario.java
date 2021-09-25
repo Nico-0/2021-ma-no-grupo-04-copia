@@ -1,10 +1,10 @@
 package com.dds.rescate.model;
 
-public class Voluntario extends Usuario{
+public class UsuarioVoluntario extends Usuario{
     public Asociacion asociacion;
 
     //Constructor
-    public Voluntario(String username, String password, Asociacion asociacion){
+    public UsuarioVoluntario(String username, String password, Asociacion asociacion){
         super(username, password);
         this.asociacion = asociacion;
     }
@@ -21,5 +21,10 @@ public class Voluntario extends Usuario{
     //Metodos
     public void aceptarPublicacion(Publicacion publicacion){
         //Todo
+    }
+
+    @Override
+    public String getTipo(){
+        return "voluntario";
     }
 }

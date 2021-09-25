@@ -22,7 +22,7 @@ public class GeneradorUsuarioTest {
         Usuario fulano = new Usuario("fulano","fulano7298765");
         GeneradorUsuario generadorUsuario = new GeneradorUsuario();
         generadorUsuario.registrarUsuario(fulano);
-        assertEquals(1,generadorUsuario.getUsuarioRepository().size());
+        assertEquals(1,generadorUsuario.getUsuarios().size());
     }
     
     @Test(expected = PasswordException.class)
@@ -30,7 +30,7 @@ public class GeneradorUsuarioTest {
         Usuario fulano = new Usuario("fulano","fulano7298755");
         GeneradorUsuario generadorUsuario = new GeneradorUsuario();
         generadorUsuario.registrarUsuario(fulano);
-        System.out.println(generadorUsuario.getUsuarioRepository().size());
+        System.out.println(generadorUsuario.getUsuarios().size());
     }
 
     @Test

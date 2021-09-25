@@ -1,5 +1,6 @@
 package com.dds.rescate.service;
 
+import com.dds.rescate.exception.PasswordException;
 import com.dds.rescate.exception.UsuarioException;
 import com.dds.rescate.model.Usuario;
 import com.dds.rescate.util.validaciones.ComprobarCaracteresRepetidos;
@@ -16,11 +17,20 @@ public class GeneradorUsuario {
 
     private int cont = 0;
 
-    private List<ValidacionContrasenia> validaciones = Arrays.asList(new ComprobarCaracteresRepetidos(),new superarLongitudMinima(),new ValidarTopPeoresContrasenias());
+    private final List<ValidacionContrasenia> validaciones = Arrays.asList(new ComprobarCaracteresRepetidos(),new superarLongitudMinima(),new ValidarTopPeoresContrasenias());
 
     private List<Usuario> usuarioRepository = new ArrayList<>();
 
-    public List<Usuario> getUsuarioRepository() {
+    private static GeneradorUsuario instance = null;
+
+    public static GeneradorUsuario getInstance() {
+        if(instance == null) {
+            instance = new GeneradorUsuario();
+        }
+        return instance;
+    }
+
+    public List<Usuario> getUsuarios() {
         return usuarioRepository;
     }
 
@@ -29,8 +39,44 @@ public class GeneradorUsuario {
 
     public void registrarUsuario(Usuario usuario){
         validarContrasenia(usuario.getUsername(),usuario.getPassword());
-        getUsuarioRepository().add(usuario);
+        getUsuarios().add(usuario);
     }
+
+    private void validarContrasenia(String username, String password){
+        this.validaciones.forEach(validacion -> validacion.validar(username, password));
+    }
+
+    public Boolean checkUsuario(String username, String password){
+        Boolean existe = false;
+        Usuario usuarioBuscado = obtenerUsuario(username);
+        if(usuarioBuscado.getPassword().equals(password)){
+            existe = true;
+        }
+
+        return existe;
+    }
+
+    public Usuario obtenerUsuario(String username){
+        List<Usuario> usuarios;
+        usuarios = this.getUsuarios().stream().filter(user->(username.equals(user.getUsername()))).collect(Collectors.toList());
+        if(usuarios.size() == 0){
+            throw new RuntimeException("No existe el usuario");
+        }
+
+        return usuarios.get(0);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public String iniciarSesion(String username, String password) {
         String mensaje = null;
@@ -49,15 +95,11 @@ public class GeneradorUsuario {
         return mensaje;
     }
 
-    private void validarContrasenia(String username, String password){
-        this.validaciones.forEach(validacion -> validacion.validar(username, password));
-    }
-
     private int validarUsuario(String username, String password) {
         List<Usuario> us= new ArrayList<>();
         int cont = 0;
         Usuario usuario = new Usuario(username,password);
-        us =this.usuarioRepository.stream().filter(userRepo->validar(userRepo, usuario)).collect(Collectors.toList());
+        us =this.getUsuarios().stream().filter(userRepo->validar(userRepo, usuario)).collect(Collectors.toList());
         cont++;
 
         if(us.size()==0) {

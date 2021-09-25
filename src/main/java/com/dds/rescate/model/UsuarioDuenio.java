@@ -49,4 +49,8 @@ public class UsuarioDuenio extends Usuario{
     public String getNombre(){
         return this.perfil.getNombre();
     }
+    @Override
+    public String getTipo(){
+        return "comun";
+    }
 }

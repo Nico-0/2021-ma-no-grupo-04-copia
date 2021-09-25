@@ -53,7 +53,7 @@
 
         </div>
         <div class="col-md-6 cols">
-            <h3>Registro (de adorno)</h3>
+            <h3>Registro</h3>
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -70,7 +70,7 @@
                 <div class="tab-pane fade show active" id="comun" role="tabpanel" aria-labelledby="home-tab">
                     <legend>Registro de usuario común:</legend>
                     <fieldset>
-                        <form action="xxxxxxxxx#" method="post">
+                        <form action="/registro/comun" method="post">
                             <label>Nombre Usuario:</label>
                             <input type="text" id="user_name" name="user_name" placeholder="Nombre usuario..." required><br><br>
                             <label>Contraseña:</label>
@@ -82,7 +82,7 @@
                 <div class="tab-pane fade" id="voluntario" role="tabpanel" aria-labelledby="profile-tab">
                     <legend>Registro de usuario voluntario:</legend>
                     <fieldset>
-                        <form action="xxxxxxxx#" method="post">
+                        <form action="/registro/voluntario" method="post">
                             <label>Nombre Usuario:</label>
                             <input type="text" id="user_name" name="user_name" placeholder="Nombre usuario..." required><br><br>
                             <label>Contraseña:</label>
@@ -96,12 +96,12 @@
                 <div class="tab-pane fade" id="administrador" role="tabpanel" aria-labelledby="contact-tab">
                     <legend>Registro de usuario administrador:</legend>
                     <fieldset>
-                        <form action="xxxxxxx#" method="post">
+                        <form action="/registro/admin" method="post">
                             <label>Nombre Usuario:</label>
                             <input type="text" id="user_name" name="user_name" placeholder="Nombre usuario..." required><br><br>
                             <label>Contraseña:</label>
                             <input type="text" id="password" name="password" placeholder="Contraseña..." required><br><br>
-                            <label>Nueva organización:</label>
+                            <label>Nombre organización:</label>
                             <input type="text" id="asociacion" name="asociacion" placeholder="Nombre asociación..." required><br><br>
                             <input type="submit" value="Registrarse">
                         </form>
