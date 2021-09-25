@@ -5,7 +5,11 @@ import spark.Request;
 import spark.Response;
 
 public class Gestion {
-    public static ModelAndView gestion(Request req, Response res){
-        return new ModelAndView(null, "gestion.hbs");
+    public static ModelAndView gestion(Request request, Response response) {
+        String tipoUsuario = request.cookie("tipoUsuario");
+        if (tipoUsuario.equals("administrador"))
+            return new ModelAndView(null, "gestion.hbs");
+        else
+            return new ModelAndView(null, "gestionFail.hbs");
     }
 }

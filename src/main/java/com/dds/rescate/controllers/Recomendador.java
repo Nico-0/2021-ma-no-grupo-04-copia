@@ -5,7 +5,7 @@ import spark.Request;
 import spark.Response;
 
 public class Recomendador {
-    public static ModelAndView recomendador(Request req, Response res){
+    public static ModelAndView recomendador(Request request, Response response){
         return new ModelAndView(null, "recomendacion.hbs");
     }
 }

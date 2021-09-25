@@ -5,7 +5,7 @@ import spark.Request;
 import spark.Response;
 
 public class Perfil {
-    public static ModelAndView perfil(Request req, Response res){
+    public static ModelAndView perfil(Request request, Response response){
         return new ModelAndView(null, "perfil.hbs");
     }
 }

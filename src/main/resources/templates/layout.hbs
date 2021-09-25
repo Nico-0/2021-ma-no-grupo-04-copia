@@ -38,7 +38,11 @@
                             <li><a class="dropdown-item" href="/mis_mascotas">Mis mascotas</a></li>
                             <li><a class="dropdown-item" href="/mis_publicaciones">Mis publicaciones</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                            <li>
+                                <form action="/logout" method="post">
+                                    <input class="dropdown-item" type="submit" value="Sign out">
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -47,7 +51,7 @@
     </main>
 
 
-        <div>
+        <div style="padding-left:10px">
          {{#block "contenido"}}
          {{/block}}
         </div>

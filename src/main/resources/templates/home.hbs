@@ -2,7 +2,23 @@
 
     <h1 class = "content">Bievenido a Patitas</h1>
 
-    Iniciar sesión
+    Nombre usuario: {{username}} <br>
+    Nombre persona: {{nombrePersona}} <br>
+    Tipo usuario: {{tipoUsuario}}
+
+    <br>
+
+
+    <fieldset>
+        <legend>Logout:</legend>
+            <form action="/logout" method="post">
+
+                <input type="submit" value="Cerrar sesión">
+            </form>
+
+    </fieldset>
+
+
 
 {{/partial}}
 

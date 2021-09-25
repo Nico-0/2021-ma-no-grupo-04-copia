@@ -22,6 +22,9 @@ public class Router {
         Spark.get("/mis_mascotas", MisMascotas::show, engine);
         Spark.get("/mis_publicaciones", MisPublicaciones::show, engine);
 
+        Spark.post("/", HomeController::login);
+
+        Spark.post("/logout", HomeController::logout);
 
     }
 }
