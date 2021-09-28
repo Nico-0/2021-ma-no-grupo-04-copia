@@ -1,5 +1,9 @@
 package com.dds.rescate.model;
+import com.dds.rescate.model.Enum.EstadoPubli;
+import com.dds.rescate.model.Enum.TipoMascota;
+
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Publicacion {
@@ -7,14 +11,16 @@ public class Publicacion {
     public UsuarioDuenio autor;
     public Asociacion asociacionAsignada;
     public LocalDateTime fechaCreacion;
-    public Estado estadoPublicacion;
+    public EstadoPubli estadoPublicacion;
+    private TipoMascota tipoMascota;
 
     //Cnstructor
-    public Publicacion(UsuarioDuenio autor, Asociacion asociacionAsignada, Estado estado) {
+    public Publicacion(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota) {
         this.autor = autor;
         this.asociacionAsignada = asociacionAsignada;
         this.fechaCreacion = LocalDateTime.now();
-        this.estadoPublicacion = estado;
+        this.estadoPublicacion = EstadoPubli.PENDIENTE;
+        this.tipoMascota = tipoMascota;
     }
 
     public UsuarioDuenio getAutor() {
@@ -41,11 +47,16 @@ public class Publicacion {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Estado getEstadoPublicacion() {
+    public String getFechaString(){
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        return getFechaCreacion().format(formatter);
+    }
+
+    public EstadoPubli getEstadoPublicacion() {
         return estadoPublicacion;
     }
 
-    public void setEstadoPublicacion(Estado estadoPublicacion) {
+    public void setEstadoPublicacion(EstadoPubli estadoPublicacion) {
         this.estadoPublicacion = estadoPublicacion;
     }
 
@@ -58,10 +69,27 @@ public class Publicacion {
     public String getEstadoString(){
         return this.estadoPublicacion.toString();
     }
+    public String getTipoPublihbs(){
+        return "no existe publicacion sin herencia";
+    }
+    public String getTipoPubli(){
+        return "generica";
+    }
+    public String getAnimal(){
+        return tipoMascota.toString();
+    }
 
     //Metodos
+    public Boolean isPendiente(){
+        return this.estadoPublicacion == EstadoPubli.PENDIENTE;
+    }
+
+    public void aceptarPublicacion(){
+        this.estadoPublicacion = EstadoPubli.PUBLICADA;
+    }
+
     public void darDeBaja(){
-        //TODO PAra todos las clases de las que hereda
+        this.estadoPublicacion = EstadoPubli.CANCELADA;
     }
 
     public void setDescripcion(String descripcion) {
@@ -70,13 +98,19 @@ public class Publicacion {
     public void setNombreRescatista(String nombre) {
     }
 
-    public void setEstado(Estado estado) {
-        this.estadoPublicacion = estado;
+    public void setEstado(EstadoPubli estadoPubli) {
+        this.estadoPublicacion = estadoPubli;
     }
 
     public void setContactos(List<Contacto> contactos) {
         //TODO asignar los contactos
     }
+
+    public String getTipoMascotaString(){
+        return tipoMascota.toString();
+    }
+
+
 }
 
 

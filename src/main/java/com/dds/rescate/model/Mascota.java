@@ -17,6 +17,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 */
 import com.dds.rescate.exception.ValidadorException;
+import com.dds.rescate.model.Enum.Sexo;
+import com.dds.rescate.model.Enum.TipoMascota;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,16 +27,16 @@ import java.util.List;
 import static com.dds.rescate.service.ImageLoader.resizeImage;
 
 public class Mascota {
-    private String tipoMascota;
+    private TipoMascota tipoMascota;
     private String nombre;
     private String apodo;
     private String descripcion;
     private List<CaracteristicaMascota> caracteristicas;
     private Sexo sexo;
     private boolean perdida;
-    private List<String> fotos = new ArrayList<>();
+    private List<Foto> fotos = new ArrayList<>();
 
-    public Mascota(String tipoMascota, String nombre, String apodo, String descripcion, List<CaracteristicaMascota> caracteristicas, Sexo sexo) throws ValidadorException {
+    public Mascota(TipoMascota tipoMascota, String nombre, String apodo, String descripcion, List<CaracteristicaMascota> caracteristicas, Sexo sexo, String fotoMinima) throws ValidadorException {
         this.tipoMascota = tipoMascota;
         this.nombre = nombre;
         this.apodo = apodo;
@@ -42,6 +44,7 @@ public class Mascota {
         this.caracteristicas = validarCaracteristicas(caracteristicas);
         this.sexo = sexo;
         this.perdida = false;
+        this.fotos.add(new Foto(fotoMinima));
     }
     
     public Mascota() {}
@@ -81,11 +84,11 @@ public class Mascota {
         contacto.notificarTodoMedio(contacto.getNombre() + ": " + mensaje);
     }
 
-    public String getTipoMascota() {
+    public TipoMascota getTipoMascota() {
         return tipoMascota;
     }
 
-    public void setTipoMascota(String tipoMascota) {
+    public void setTipoMascota(TipoMascota tipoMascota) {
         this.tipoMascota = tipoMascota;
     }
 
@@ -107,6 +110,10 @@ public class Mascota {
 
     public String getDescripcion() {
         return descripcion;
+    }
+
+    public List<Foto> getFotos() {
+        return fotos;
     }
 
     public void setDescripcion(String descripcion) {
@@ -135,7 +142,7 @@ public class Mascota {
     public void cargarImagen(String nombre) {
         try {
             resizeImage(nombre);
-            this.fotos.add(nombre);
+            this.fotos.add(new Foto(nombre));
             System.out.println("Se carga la foto " + nombre);
         }
         catch (IOException ex){

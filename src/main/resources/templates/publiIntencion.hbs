@@ -1,0 +1,24 @@
+<div class="carta">
+    <div class="container">
+Interés de Adopción
+
+        <br><br><br>
+
+        <div class="contenedor">
+            <br>
+            <p>Interesado: {{nombreInteresado}}</p>
+            <p>Preferencias:</p>
+            {{#each preferencias}}
+                {{this.nombrePreferencia}},
+            {{/each}}
+            <p>Comodidades:</p>
+            {{#each comodidades}}
+                {{this.nombreComodidad}},
+            {{/each}}
+            <form action="/aaaaaaaaaaa" method="post" align="right">
+                <input type="submit" value="Ver Detalles">
+            </form>
+        </div>
+
+    </div>
+</div>

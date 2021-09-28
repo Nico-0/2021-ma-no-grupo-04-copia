@@ -3,12 +3,42 @@
     <h1 class = "content">Muro de publicaciones</h1>
     <b>Bienvenido:</b> {{ Titulo }}  <br><br>
 
-    {{#each Publicaciones}}
-        <ul>
-          <li><b>Autor:</b> {{this.autorString}} <b>Asociacion:</b> {{this.asociacionString}} <b>Estado:</b> {{this.estadoString}} </li>>
+    <br>
 
-        </ul>>
+    <form action="/muro" method="GET">
+        <label>Animal:</label>
+        <select name="animal">
+            <option value="all">Todos</option>
+            <option value="GATO">Gato</option>
+            <option value="PERRO">Perro</option>
+            <option value="MINIPIG">MiniPig</option>
+        </select>
+        <label>Tipo Publicación:</label>
+        <select name="tipoPubli">
+            <option value="all">Todas</option>
+            <option value="perdida">Perdida</option>
+            <option value="adopcion">En adopción</option>
+        </select>
+        <label>Ordenar:</label>
+        <select name="orden">
+            <option value="default">Orden</option>
+            <option value="autor">Por autor</option>
+            <option value="asociacion">Por asociación</option>
+            <option value="fecha">Por fecha</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Actualizar" >
+    </form>
+
+    <br>
+
+
+    {{#each Publicaciones}}
+            {{>(lookup . 'this.tipoPublihbs') autorString=autorString asociacionString=asociacionString estadoMascotaString=estadoMascotaString fechaString=fechaString}}
+        <br>
     {{/each}}
+
+
 
 {{/partial}}
 

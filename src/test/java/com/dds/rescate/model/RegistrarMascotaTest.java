@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.dds.rescate.exception.ValidadorException;
+import com.dds.rescate.model.Enum.Sexo;
+import com.dds.rescate.model.Enum.TipoMascota;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,7 +34,7 @@ public class RegistrarMascotaTest {
         colorM = new CaracteristicaMascota(color, "marron");
         CatalogoCaracteristicas.getInstance().agregarCaracteristica(color);
         caracteristicas.add(colorM);
-        perro = new Mascota("Perro", "Jey", "Jey", "Pitbull", caracteristicas, Sexo.MACHO);
+        perro = new Mascota(TipoMascota.PERRO, "Jey", "Jey", "Pitbull", caracteristicas, Sexo.MACHO,"perro.jpg");
     }
     
     @Test

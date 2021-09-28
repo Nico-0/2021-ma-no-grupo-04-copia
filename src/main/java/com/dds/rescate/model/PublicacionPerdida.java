@@ -1,26 +1,31 @@
 package com.dds.rescate.model;
 
+import com.dds.rescate.model.Enum.EstadoEncontrada;
+import com.dds.rescate.model.Enum.TipoMascota;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class PublicacionPerdida extends Publicacion {
 
     public Foto foto;
     public String descripcion;
-    public String nombreRescatista;
-    public List<Contacto> contacto;
-    public Boolean estaPerdido;
-
+    //public String nombreRescatista; seria el autor heredado
+    public List<Contacto> contactos = new ArrayList<>();;
+    public Ubicacion ubicacionEncontrada;
+    public String hogarTransito;
+    public EstadoEncontrada estadoEncontrada;
 
     //Constructor
-    public PublicacionPerdida(UsuarioDuenio autor, Asociacion asociacionAsignada, Estado estadoPublicacion,
-                              Foto fotoPubli, String descripcion, String nombreRescatista,
-                              List<Contacto> contacto) {
-        super(autor, asociacionAsignada, estadoPublicacion);
-        this.foto = fotoPubli;
+    public PublicacionPerdida(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota,
+                              String fotoPubli, EstadoEncontrada estadoEncontrada, String descripcion, Contacto contactoMinimo) {
+        super(autor, asociacionAsignada, tipoMascota);
+        //TODO asociacionAsignada debe ser la mas cercana a la ubicacionEncontrada
+        this.foto = new Foto(fotoPubli);
         this.descripcion = descripcion;
-        this.nombreRescatista = nombreRescatista;
-        this.contacto = contacto;
-        this.estaPerdido = true;
+        this.contactos.add(contactoMinimo);
+        this.estadoEncontrada = estadoEncontrada;
+        //TODO se crea la nueva mascota en el sistema al adoptarse o aca?
     }
 
     //Getters y Setters
@@ -41,31 +46,33 @@ public class PublicacionPerdida extends Publicacion {
     }
 
     public String getNombreRescatista() {
-        return nombreRescatista;
+        return this.autor.getPerfil().getNombre();
     }
 
-    public void setNombreRescatista(String nombreRescatista) {
-        this.nombreRescatista = nombreRescatista;
+    public List<Contacto> getContactos() {
+        return contactos;
     }
 
-    public List<Contacto> getContacto() {
-        return contacto;
+    public void addContacto(Contacto contacto) {
+        this.contactos.add(contacto);
     }
 
-    public void setContacto(List<Contacto> contacto) {
-        this.contacto = contacto;
+    @Override
+    public String getTipoPublihbs(){
+        return "publiPerdida.hbs";
     }
 
-    public Boolean getEstaPerdido() {
-        return estaPerdido;
+    @Override
+    public String getTipoPubli(){
+        return "perdida";
     }
 
-    public void setEstaPerdido(Boolean estaPerdido) {
-        this.estaPerdido = estaPerdido;
+    public String getEstadoMascotaString(){
+        return estadoEncontrada.toString();
     }
 
-    //Metodos
-    public void aceptarPublicacion(){
-        //TODO
+    public String getFotoString(){
+        return foto.nombreFoto;
     }
+
 }

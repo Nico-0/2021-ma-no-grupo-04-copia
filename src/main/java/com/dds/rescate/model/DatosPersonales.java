@@ -9,6 +9,7 @@ public class DatosPersonales {
     public String apellido;
     public Date fechaNacimiento;
     public Integer nroDoc;
+    public Ubicacion direccion;
     public List<Contacto> contactos = new ArrayList<>();
 
     public DatosPersonales(String nombre, String apellido, Date fechaNacimiento, Integer nroDoc, Contacto contactoMinimo){

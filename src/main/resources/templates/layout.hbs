@@ -1,6 +1,7 @@
 <html>
     <head>
         <title> Patitas </title>
+        <link href="/dds.css" rel="stylesheet">
         <link href="/bootstrap.min.css" rel="stylesheet">
         <link href="/headers.css" rel="stylesheet">
     </head>
@@ -28,10 +29,12 @@
                         <li><a href="/aprobar" class="nav-link px-2 link-dark">Aprobar Publicaciones</a></li>
                         <li><a href="/gestion" class="nav-link px-2 link-dark">Gestión Organización</a></li>
                     </ul>
+                    {{!-- This comment may contain mustaches like }} --}}
+                   {{!-- <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"> {{username}}, {{tipoUsuario}} </div> --}}
 
                     <div class="dropdown text-end">
                         <a href="/perfil" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="mascota.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+                            <img src="/mascota.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                             <li><a class="dropdown-item" href="/perfil">Perfil</a></li>

@@ -1,6 +1,8 @@
 package com.dds.rescate.model;
 
 import com.dds.rescate.exception.ValidadorException;
+import com.dds.rescate.model.Enum.Sexo;
+import com.dds.rescate.model.Enum.TipoMascota;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +32,7 @@ public class EncontrarMascotaTest {
         colorM = new CaracteristicaMascota(color, "naranja");
         CatalogoCaracteristicas.getInstance().agregarCaracteristica(color);
         caracteristicas.add(colorM);
-        gato = new Mascota("gato", "michi", "michi", "un animal peludo de 4 patas", caracteristicas, Sexo.MACHO);
+        gato = new Mascota(TipoMascota.GATO, "michi", "michi", "un animal peludo de 4 patas", caracteristicas, Sexo.MACHO, "gato.jpg");
         gato.perder();
     }
 

@@ -9,6 +9,8 @@ public class Server {
         DebugScreen.enableDebugScreen();
         Spark.staticFiles.location("/public");
         Bootstrap.init();
+        Data.init();
+
         Router.configure();
 
 

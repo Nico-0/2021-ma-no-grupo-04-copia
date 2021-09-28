@@ -1,5 +1,7 @@
 package com.dds.rescate.model;
 
+import com.dds.rescate.model.Enum.TipoMascota;
+
 import java.util.List;
 
 public class PublicacionIntencionDeAdopcion extends Publicacion {
@@ -8,11 +10,10 @@ public class PublicacionIntencionDeAdopcion extends Publicacion {
     List<Extra> comodidades;
 
     //Constructor
-    public PublicacionIntencionDeAdopcion(UsuarioDuenio autor, Asociacion asociacionAsignada,
+    public PublicacionIntencionDeAdopcion(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota,
                                           List<Caracteristica> preferenciasPubli,
-                                          List<Extra> comodidadesPubli,
-                                          Estado estadoPublicacion) {
-        super(autor, asociacionAsignada, estadoPublicacion);
+                                          List<Extra> comodidadesPubli) {
+        super(autor, asociacionAsignada, tipoMascota);
         this.preferencias = preferenciasPubli;
         this.comodidades = comodidadesPubli;
     }
@@ -45,4 +46,15 @@ public class PublicacionIntencionDeAdopcion extends Publicacion {
     public void confirmarAdopcion(PublicacionAdopcion publicacion){
         //TODO
     }
+
+    @Override
+    public String getTipoPublihbs(){
+        return "publiIntencion.hbs";
+    }
+
+    @Override
+    public String getTipoPubli(){
+        return "intencion";
+    }
+
 }

@@ -38,6 +38,7 @@ public class LoginController {
 
                 response.redirect("/");
             }
+            throw new RuntimeException("Contraseña incorrecta");
         }
 
         return null;
@@ -89,6 +90,7 @@ public class LoginController {
             String asociacion = request.queryParams("asociacion");
 
             //TODO no dar asociacion null
+            //TODO verificar que la asociacion ya exista
             UsuarioVoluntario nuevoUsuario = new UsuarioVoluntario(username, password, null);
             GeneradorUsuario.getInstance().registrarUsuario(nuevoUsuario);
 
@@ -111,6 +113,7 @@ public class LoginController {
             String asociacion = request.queryParams("asociacion");
 
             //TODO asociar organizacion al administrador
+            //TODO crear organizacion si no existe
             UsuarioAdministrador nuevoUsuario = new UsuarioAdministrador(username, password);
             GeneradorUsuario.getInstance().registrarUsuario(nuevoUsuario);
 
