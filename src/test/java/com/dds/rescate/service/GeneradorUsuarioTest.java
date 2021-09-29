@@ -69,7 +69,7 @@ public class GeneradorUsuarioTest {
         }catch(PasswordException e){
             mensajeError = e.getMessage();
         }
-        assertEquals("La Password es debil",mensajeError);
+        assertEquals("La Password es debil (presente en top 10k)",mensajeError);
     }
 
     @Test

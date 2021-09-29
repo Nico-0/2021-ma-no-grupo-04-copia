@@ -1,7 +1,9 @@
 package com.dds.rescate.model;
 
 import com.dds.rescate.model.Enum.EstadoPubli;
+import com.dds.rescate.util.Global;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PublicacionAdopcion extends Publicacion {
@@ -9,18 +11,19 @@ public class PublicacionAdopcion extends Publicacion {
     public List<Respuesta> respuestasPreguntasAsociacion;
     public List<Respuesta> respuestasPreguntasGenerales;
     public Mascota mascota;
-    public EstadoPubli estadoPublicacion;
+    private List<CaracteristicaMascota> requerimientos;
 
     //Constructor
     public PublicacionAdopcion(UsuarioDuenio autor, Asociacion asociacionAsignada,
                                List<Respuesta> respuestasPreguntasAsociacion,
                                List<Respuesta> respuestasPreguntasGenerales,
-                               Mascota mascotaPublicacion) {
+                               Mascota mascotaPublicacion, List<CaracteristicaMascota> reqGenerales) {
         super(autor, asociacionAsignada, mascotaPublicacion.getTipoMascota());
+        Global.getInstance().validarRequerimientosGenerales(reqGenerales);
         this.respuestasPreguntasAsociacion = respuestasPreguntasAsociacion;
         this.respuestasPreguntasGenerales = respuestasPreguntasGenerales;
         this.mascota = mascotaPublicacion;
-
+        this.requerimientos = reqGenerales;
     }
 
     //Getters y Setters
@@ -56,6 +59,10 @@ public class PublicacionAdopcion extends Publicacion {
         this.estadoPublicacion = estadoPublicacion;
     }
 
+    public List<CaracteristicaMascota> getRequerimientos(){
+        return requerimientos;
+    }
+
     //Metodos
     public void contactarDuenio(UsuarioDuenio adoptante){
         //TODO
@@ -84,7 +91,7 @@ public class PublicacionAdopcion extends Publicacion {
     }
 
     public String getFotoString(){
-        return mascota.getFotos().get(0).nombreFoto;
+        return mascota.getFotoString();
     }
 
 

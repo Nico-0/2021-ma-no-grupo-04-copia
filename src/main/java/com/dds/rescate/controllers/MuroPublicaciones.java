@@ -19,6 +19,7 @@ public class MuroPublicaciones {
         viewModel.put("Titulo", "Lista publicaciones");
 
         List<Publicacion> publicaciones = PublicacionService.getInstance().getPublicadas();
+        publicaciones = publicaciones.stream().filter(publicacion -> !publicacion.getTipoPubli().equals("intencion")).collect(Collectors.toList());
 
         String animal = request.queryParams("animal");
         String tipoPubli = request.queryParams("tipoPubli");

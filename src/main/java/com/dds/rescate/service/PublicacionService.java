@@ -34,6 +34,10 @@ public class PublicacionService {
 	    return publicaciones.stream().filter(Publicacion::isPendiente).collect(Collectors.toList());
     }
 
+    public List<Publicacion> getDeTipo(String tipoPubli){
+        return publicaciones.stream().filter(publicacion -> publicacion.getTipoPubli().equals(tipoPubli)).collect(Collectors.toList());
+    }
+
     public void generarPublicacion(Formulario formulario, UsuarioDuenio autor, Asociacion asociacionAsignada) {
         Publicacion publicacion = new Publicacion(autor, asociacionAsignada, TipoMascota.MINIPIG);
         publicacion.setDescripcion(formulario.getDescripcion());
@@ -46,17 +50,13 @@ public class PublicacionService {
 
     }
 
-    public void generarPublicacionPerdida(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota, String nombreFoto, EstadoEncontrada estadoEncontrada, Contacto contactoMinimo) {
-
-	    //TODO se elige el contacto o se saca del usuario rescatista?
-        Publicacion nuevaPublicacion = new PublicacionPerdida(autor, asociacionAsignada, tipoMascota, nombreFoto, estadoEncontrada,"",contactoMinimo);
-
-        publicaciones.add(nuevaPublicacion);
+    public void agregarPublicacion(Publicacion publicacion){
+        publicaciones.add(publicacion);
     }
 
-    public void generarPublicacionAdopcion(UsuarioDuenio autor, Asociacion asociacionAsignada, Mascota mascota) {
+    public void generarPublicacionIntencion(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota) {
 
-        Publicacion nuevaPublicacion = new PublicacionAdopcion(autor, asociacionAsignada, null, null, mascota);
+        Publicacion nuevaPublicacion = new PublicacionIntencionDeAdopcion(autor, asociacionAsignada, tipoMascota, null, null);
 
         publicaciones.add(nuevaPublicacion);
     }
@@ -77,9 +77,7 @@ public class PublicacionService {
         //TODO
     }
 
-    public void generarInteresAdopcion(String descripcion){
-        //TODO
-    }
+
     public List<Publicacion> obtenerMascotasDisponiblesParaAdoptar(){
 
         List<Publicacion> publis = new ArrayList<>();

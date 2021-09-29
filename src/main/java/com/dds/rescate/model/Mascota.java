@@ -1,26 +1,11 @@
 package com.dds.rescate.model;
-/*
+
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
-
-import org.json.JSONObject;
-
-import com.google.gson.Gson;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-*/
 import com.dds.rescate.exception.ValidadorException;
 import com.dds.rescate.model.Enum.Sexo;
 import com.dds.rescate.model.Enum.TipoMascota;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,22 +16,28 @@ public class Mascota {
     private String nombre;
     private String apodo;
     private String descripcion;
-    private List<CaracteristicaMascota> caracteristicas;
+    private List<CaracteristicaMascota> caracteristicas = new ArrayList<>();
+    private Asociacion asociacionRegistrada;
     private Sexo sexo;
     private boolean perdida;
     private List<Foto> fotos = new ArrayList<>();
 
-    public Mascota(TipoMascota tipoMascota, String nombre, String apodo, String descripcion, List<CaracteristicaMascota> caracteristicas, Sexo sexo, String fotoMinima) throws ValidadorException {
+    public Mascota(TipoMascota tipoMascota, String nombre, String apodo, String descripcion, Asociacion asociacionRegistrada,
+                   List<CaracteristicaMascota> caracteristicas, Sexo sexo, String fotoMinima) throws ValidadorException {
+        asociacionRegistrada.validarCaracteristicasAsociacion(caracteristicas);
+        this.asociacionRegistrada = asociacionRegistrada;
+        this.caracteristicas = caracteristicas;
         this.tipoMascota = tipoMascota;
         this.nombre = nombre;
         this.apodo = apodo;
         this.descripcion = descripcion;
-        this.caracteristicas = validarCaracteristicas(caracteristicas);
+        //this.caracteristicas = validarCaracteristicas(caracteristicas);
         this.sexo = sexo;
         this.perdida = false;
         this.fotos.add(new Foto(fotoMinima));
     }
-    
+
+
     public Mascota() {}
     
     public List<CaracteristicaMascota> validarCaracteristicas(List<CaracteristicaMascota> caracteristicas) throws ValidadorException  {
@@ -56,7 +47,7 @@ public class Mascota {
     		if(!existeCaracteristicaEnCatalogo(caracteristicas.get(i).getCaracteristica())) {
     			throw new ValidadorException("No existe la caracteristica " + caracteristicas.get(i).getCaracteristica() + " en el catalogo");
     		}
-        };
+        }
     	
     	return caracteristicas;
     }
@@ -114,6 +105,10 @@ public class Mascota {
 
     public List<Foto> getFotos() {
         return fotos;
+    }
+
+    public String getFotoString(){
+        return this.fotos.get(0).nombreFoto;
     }
 
     public void setDescripcion(String descripcion) {

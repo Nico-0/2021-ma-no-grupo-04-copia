@@ -26,6 +26,7 @@ public class PublicacionPerdida extends Publicacion {
         this.contactos.add(contactoMinimo);
         this.estadoEncontrada = estadoEncontrada;
         //TODO se crea la nueva mascota en el sistema al adoptarse o aca?
+        //TODO se elige el contacto o se saca del usuario rescatista?
     }
 
     //Getters y Setters

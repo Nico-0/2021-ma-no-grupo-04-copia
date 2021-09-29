@@ -2,6 +2,84 @@
 
     <h1 class = "content">Recomendaciones de adopción</h1>
 
+    <br><br>
+Por ahora se muestran las intenciones de todos, no solo del usuario en sesión
+    <fieldset>
+        <form action="/recomendador/regenerar" method="post">
+            <input type="submit" value="Regenerar recomendaciones">
+        </form>
+    </fieldset>
+
+    <br><br>
+
+
+
+    {{#each Intenciones}}
+    <div class="row" style="padding-right:20px">
+        <div class="col">
+            {{>publiIntencion.hbs}}
+
+        </div>
+        <div class="col-7">
+
+            <div class="bd-example">
+                <div id="n{{@index}}" class="carousel slide" data-bs-ride="carousel" data-bs-interval="0">
+                    <div class="carousel-indicators">
+                        {{#each recomendaciones}}
+                        <button type="button" data-bs-target="#n{{../@index}}" data-bs-slide-to="{{@index}}" aria-label="Slide 2" class="{{#if @index}}{{else}}active{{/if}}"></button>
+                        {{/each}}
+                    </div>
+                    <div class="carousel-inner">
+
+                        {{#each recomendaciones}}
+                            <div class="carousel-item {{#if @index}}{{else}}active{{/if}}">
+                            <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#555" dy=".3em">.</text></svg>
+
+                            <div class="carousel-caption d-none d-md-block">
+                                <div><p style="float: left;"><img src="/{{this.adopcion.fotoString}}" height="200px" width="200px" border="1px"></p>
+                                    <p><b>Nombre mascota</b>: {{this.adopcion.nombreMascota}}</p>
+                                    <p><b>Apodo mascota</b>: {{this.adopcion.apodoMascota}}</p>
+                                    <p><b>Tipo mascota</b>: {{this.adopcion.tipoMascotaString}}</p>
+                                    <p><b>Dueño</b>: {{this.adopcion.autorString}}</p>
+                                    <p><b>Asociacion</b>: {{this.adopcion.asociacionString}}</p>
+                                    <p><b>Caracteristicas coincidentes</b>: {{this.cantidadCaracteristicas}}</p>
+                                    <p><b>Requerimientos coincidentes</b>: {{this.cantidadRequerimientos}}</p>
+                                    <b>Caracteristicas</b>:
+                                    {{#each caracteristicas}}
+                                        {{this.nombre}}: {{this.valor}},
+                                    {{/each}}
+                                    <br>
+                                    <b>Requerimientos</b>:
+                                    {{#each requerimientos}}
+                                        {{this.nombre}}: {{this.valor}},
+                                    {{/each}}
+                                </div>
+
+                            </div>
+                        </div>
+                        {{/each}}
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#n{{@index}}" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#n{{@index}}" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+
+    {{/each}}
+
+
+<br>
+    {{now}}
 
 
 {{/partial}}

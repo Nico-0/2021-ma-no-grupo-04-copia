@@ -1,4 +1,4 @@
-<div class="carta">
+<div class="carta2">
     <div class="container">
 Interés de Adopción
 
@@ -6,15 +6,19 @@ Interés de Adopción
 
         <div class="contenedor">
             <br>
-            <p>Interesado: {{nombreInteresado}}</p>
-            <p>Preferencias:</p>
+            <p><b>Interesado</b>: {{autorString}}</p>
+            <p><b>Animal</b>: {{animal}}</p>
+            <b>Preferencias</b>:
             {{#each preferencias}}
-                {{this.nombrePreferencia}},
+                {{this.nombre}}: {{this.valor}},
             {{/each}}
-            <p>Comodidades:</p>
+            <br><br>
+            <b>Comodidades</b>:
             {{#each comodidades}}
-                {{this.nombreComodidad}},
+                {{this.nombre}}: {{this.valor}},
             {{/each}}
+            <br><br><br>
+            <p><b>Ultima reco</b>: {{ultimaRecomendacion}}</p>
             <form action="/aaaaaaaaaaa" method="post" align="right">
                 <input type="submit" value="Ver Detalles">
             </form>

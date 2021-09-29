@@ -8,8 +8,8 @@ import static com.dds.rescate.controllers.LoginController.verificarLogin;
 
 public class Router {
     public static void configure() {
-        HandlebarsTemplateEngine engine =
-                new HandlebarsTemplateEngine();
+
+        HandlebarsTemplateEngine engine = new Server();
 
         Spark.before((request, response)-> {
             if(request.requestMethod().equals("GET") && !request.pathInfo().equals("/") && verificarLogin(request).equals("null")) {
@@ -26,7 +26,7 @@ public class Router {
         Spark.get("/", HomeController::home, engine);
 
         Spark.get("/muro", MuroPublicaciones::muro, engine);
-        Spark.get("/recomendador", Recomendador::recomendador, engine);
+        Spark.get("/recomendador", RecomendadorController::recomendador, engine);
         Spark.get("/aprobar", Aprobar::aprobar, engine);
         Spark.get("/gestion", Gestion::gestion, engine);
         Spark.get("/perfil", Perfil::perfil, engine);
@@ -42,5 +42,8 @@ public class Router {
         Spark.post("/registro/admin", LoginController::admin);
 
         Spark.get("/registro/sucess", LoginController::sucess, engine);
+
+        Spark.post("/recomendador/regenerar", RecomendadorController::recomendar);
+
     }
 }

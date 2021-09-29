@@ -3,7 +3,7 @@ package com.dds.rescate.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CatalogoCaracteristicas {
+public class CatalogoCaracteristicas {  //TODO para que sirve?
 
 	private List<Caracteristica> caracteristicas= new ArrayList<>();
 	private static CatalogoCaracteristicas instance;

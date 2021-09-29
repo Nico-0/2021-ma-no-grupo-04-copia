@@ -1,13 +1,13 @@
 package com.dds.rescate.model;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Asociacion {
 
     public String nombre;
     public List<Caracteristica> caracteristicas;
-    public List<Pregunta> preguntasParaPublicarEnAdopcion;
-    public List<Pregunta> preguntasGenerales;
+    public List<Pregunta> preguntasParaPublicarEnAdopcion; //para hacer una publicacion mas detallada, no tiene otra funcionalidad
 
     //Constructor
 
@@ -15,7 +15,6 @@ public class Asociacion {
         this.nombre = nombre;
         this.caracteristicas = caracteristicas;
         this.preguntasParaPublicarEnAdopcion = preguntasParaPublicarEnAdopcion;
-        this.preguntasGenerales = preguntasGenerales;
     }
 
     //Getters y Setters
@@ -43,19 +42,32 @@ public class Asociacion {
         this.preguntasParaPublicarEnAdopcion = preguntasParaPublicarEnAdopcion;
     }
 
-    public List<Pregunta> getPreguntasGenerales() {
-        return preguntasGenerales;
-    }
-
-    public void setPreguntasGenerales(List<Pregunta> preguntasGenerales) {
-        this.preguntasGenerales = preguntasGenerales;
-    }
 
     //Metodos
     public void agregarCaracteristica(Caracteristica caracteristicaNueva){
         this.caracteristicas.add(caracteristicaNueva);
     }
     public void agregarPregunta(Pregunta preguntaNueva){
-        this.preguntasGenerales.add(preguntaNueva);
+        this.preguntasParaPublicarEnAdopcion.add(preguntaNueva);
     }
+
+    public void validarCaracteristicasAsociacion(List<CaracteristicaMascota> caracteristicasDadas) {
+        if(caracteristicas != null) {
+            List<String> caracteristicasAsociacion = getCaracteristicasString();
+            List<String> caracteristicasMascota = getCaracteristicasMascotaString(caracteristicasDadas);
+            Boolean contieneTodas = caracteristicasMascota.containsAll(caracteristicasAsociacion);
+            if (!contieneTodas)
+                throw new RuntimeException("No se completaron todas las caracteristicas que pide la asociacion");
+        }
+    }
+
+    public List<String> getCaracteristicasString() {
+        return caracteristicas.stream().map(caracteristica -> caracteristica.getNombre()).collect(Collectors.toList());
+    }
+
+    private List<String> getCaracteristicasMascotaString(List<CaracteristicaMascota> caracteristicasDadas) {
+        return caracteristicasDadas.stream().map(caracteristica -> caracteristica.getCaracteristica().getNombre()).collect(Collectors.toList());
+    }
+
+
 }

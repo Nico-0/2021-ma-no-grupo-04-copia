@@ -21,6 +21,7 @@ public class EncontrarMascotaTest {
     Caracteristica color;
     CaracteristicaMascota colorM;
     List<CaracteristicaMascota> caracteristicas = new ArrayList<>();
+    Asociacion asociacion;
 
     @Before
     public void init() throws ValidadorException {
@@ -32,7 +33,8 @@ public class EncontrarMascotaTest {
         colorM = new CaracteristicaMascota(color, "naranja");
         CatalogoCaracteristicas.getInstance().agregarCaracteristica(color);
         caracteristicas.add(colorM);
-        gato = new Mascota(TipoMascota.GATO, "michi", "michi", "un animal peludo de 4 patas", caracteristicas, Sexo.MACHO, "gato.jpg");
+        asociacion = new Asociacion(null, null, null, null);
+        gato = new Mascota(TipoMascota.GATO, "michi", "michi", "un animal peludo de 4 patas", asociacion, caracteristicas, Sexo.MACHO, "gato.jpg");
         gato.perder();
     }
 

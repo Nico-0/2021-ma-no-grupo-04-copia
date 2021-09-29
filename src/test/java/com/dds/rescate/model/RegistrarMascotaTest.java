@@ -22,6 +22,7 @@ public class RegistrarMascotaTest {
     Caracteristica color;
     CaracteristicaMascota colorM;
     List<CaracteristicaMascota> caracteristicas = new ArrayList<>();
+    Asociacion asociacion;
 
     @Before
     public void init() throws ValidadorException {
@@ -34,7 +35,8 @@ public class RegistrarMascotaTest {
         colorM = new CaracteristicaMascota(color, "marron");
         CatalogoCaracteristicas.getInstance().agregarCaracteristica(color);
         caracteristicas.add(colorM);
-        perro = new Mascota(TipoMascota.PERRO, "Jey", "Jey", "Pitbull", caracteristicas, Sexo.MACHO,"perro.jpg");
+        asociacion = new Asociacion(null, null, null, null);
+        perro = new Mascota(TipoMascota.PERRO, "Jey", "Jey", "Pitbull", asociacion, caracteristicas, Sexo.MACHO,"perro.jpg");
     }
     
     @Test
