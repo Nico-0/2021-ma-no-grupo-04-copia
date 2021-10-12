@@ -131,6 +131,11 @@ public class Mascota {
         this.sexo = sexo;
     }
 
+    public String getNombreAsociacionString(){
+        return this.asociacionRegistrada.getNombre();
+    }
+    public String getSexoString(){return this.sexo.toString();}
+
     //Carga una imagen "imagen.jpg" de resources/ImgTemp
     //Se guarda estandarizada en resources/Imagenes
     //Identificada solo por el nombre, dentro de mascota
@@ -145,4 +150,17 @@ public class Mascota {
         }
 
     }
+
+    @Override
+    public String toString() {
+        return "Mascota{" +
+                "tipoMascota=" + tipoMascota +
+                ", nombre='" + nombre + '\'' +
+                ", apodo='" + apodo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", sexo=" + sexo +
+                ", fotos=" + fotos +
+                '}';
+    }
+
 }

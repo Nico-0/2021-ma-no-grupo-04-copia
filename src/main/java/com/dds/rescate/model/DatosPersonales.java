@@ -24,6 +24,26 @@ public class DatosPersonales {
         return this.nombre;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public Integer getNroDoc() {
+        return nroDoc;
+    }
+
+    public Ubicacion getDireccion() {
+        return direccion;
+    }
+
+    public List<Contacto> getContactos() {
+        return contactos;
+    }
+
     public List<Contacto> getDatosContacto() {
         return this.contactos;
     }

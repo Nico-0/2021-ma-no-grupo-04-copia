@@ -1,8 +1,30 @@
 {{#partial "contenido"}}
-
+<div>
     <h1 class = "content">Mis mascotas</h1>
+    
+    {{#each Mascotas}}
+            <div class="cuadroMascota">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <img src="/{{fotoString}}" alt="{{this.nombre}}" style="width:100%">
+                        </div>
+                    <div class="col">
+                        <h4><b>{{this.nombre}}</b> - {{this.apodo}}</h4>
+                        <p><b>Tipo Mascota</b>: {{this.tipoMascota}}</p>
+                        <p><b>Nombre Mascota</b>: {{this.nombre}}</p>
+                        <p><b>Apodo Mascota</b>: {{this.apodo}}</p>
+                        <p><b>Sexo</b>: {{this.sexoString}}</p>
+                        <p><b>Descripcion Mascota</b>: {{this.descripcion}}</p>
+                        <p><b>Asociacion</b>: {{this.nombreAsociacionString}}</p>
+                    </div>
+                    </div>
 
-
+                </div>
+            </div>
+            <br>
+    {{/each}}
+</div>
 {{/partial}}
 
 {{>layout.hbs}}

@@ -53,4 +53,8 @@ public class UsuarioDuenio extends Usuario{
     public String getTipo(){
         return "comun";
     }
+
+    public void agregarMascota(Mascota nuevaMascota){
+        this.mascotas.add(nuevaMascota);
+    }
 }

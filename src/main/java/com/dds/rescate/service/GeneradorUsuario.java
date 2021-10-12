@@ -66,6 +66,10 @@ public class GeneradorUsuario {
         return usuarios.get(0);
     }
 
+    public void agregarUsuario(Usuario nuevo){
+        this.usuarioRepository.add(nuevo);
+    }
+
 
 
 

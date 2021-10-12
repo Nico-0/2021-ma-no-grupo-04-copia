@@ -1,6 +1,9 @@
 {{#partial "contenido"}}
 
-    <h1 class = "content">Mis Publicaciones</h1>
+    {{#each Publicaciones}}
+            {{>(lookup . 'this.tipoPublihbs') autorString=autorString asociacionString=asociacionString estadoMascotaString=estadoMascotaString fechaString=fechaString}}
+        <br>
+    {{/each}}
 
 
 {{/partial}}

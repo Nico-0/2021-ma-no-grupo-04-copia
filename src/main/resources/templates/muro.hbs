@@ -1,5 +1,5 @@
 {{#partial "contenido"}}
-
+<div align ="center">
     <h1 class = "content">Muro de publicaciones</h1>
     <b>Bienvenido:</b> {{ Titulo }}  <br><br>
 
@@ -32,14 +32,14 @@
 
     <br>
 
-
+    
     {{#each Publicaciones}}
             {{>(lookup . 'this.tipoPublihbs') autorString=autorString asociacionString=asociacionString estadoMascotaString=estadoMascotaString fechaString=fechaString}}
         <br>
     {{/each}}
 
 
-
+</div>
 {{/partial}}
 
 {{>layout.hbs}}
