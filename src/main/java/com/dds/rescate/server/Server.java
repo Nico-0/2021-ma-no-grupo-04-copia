@@ -18,7 +18,7 @@ public class Server extends HandlebarsTemplateEngine {
         Spark.port(9000);
         DebugScreen.enableDebugScreen();
         Spark.staticFiles.location("/public");
-        Bootstrap.init();
+        //Bootstrap.init();
         Data.init();
 
         Router.configure();

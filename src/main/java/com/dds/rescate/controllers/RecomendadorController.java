@@ -14,6 +14,10 @@ import java.util.List;
 public class RecomendadorController {
     public static ModelAndView recomendador(Request request, Response response){
         HashMap<String, Object> viewModel = new HashMap<>();
+        String username = request.cookie("username");
+        String tipoUsuario = request.cookie("tipoUsuario");
+        viewModel.put("username", username);
+        viewModel.put("tipoUsuario", tipoUsuario);
 
         List<Publicacion> publicaciones = PublicacionService.getInstance().getDeTipo("intencion");
 

@@ -44,7 +44,4 @@ public class DatosPersonales {
         return contactos;
     }
 
-    public List<Contacto> getDatosContacto() {
-        return this.contactos;
-    }
 }

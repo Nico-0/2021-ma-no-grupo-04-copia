@@ -15,8 +15,11 @@ import java.util.stream.Collectors;
 public class MisPublicaciones {
     public static ModelAndView show(Request request, Response response){
         HashMap<String, Object> viewMisPublicaciones = new HashMap<>();
-
         String username = request.cookie("username");
+        String tipoUsuario = request.cookie("tipoUsuario");
+        viewMisPublicaciones.put("username", username);
+        viewMisPublicaciones.put("tipoUsuario", tipoUsuario);
+
         GeneradorUsuario repoUsuarios = GeneradorUsuario.getInstance();
         UsuarioDuenio user = (UsuarioDuenio) repoUsuarios.obtenerUsuario(username);
 

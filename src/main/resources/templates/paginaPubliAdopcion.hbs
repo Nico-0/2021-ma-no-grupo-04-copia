@@ -1,0 +1,32 @@
+{{#partial "contenido"}}
+    <h1 class = "content">Publicación Adopción</h1>
+    ID: {{Publicacion.idString}}
+    <br><br>
+
+    {{#with Publicacion}}
+    {{>publiAdopcion.hbs}}
+
+    <br>
+
+    {{#if isPublicada}}
+        Publicacion vigente
+        <form action="/publicaciones/{{idString}}/adoptar" method="post" align="left">
+            <input type="submit" value="Adoptar mascota">
+        </form>
+    {{/if}}
+
+    {{#if isFinalizada}}
+        Mascota ya adoptada
+        <p><b>Dueño original</b>: {{autorString}}</p>
+        <p><b>Nuevo dueño</b>: {{adoptanteString}}</p>
+        <p><b>Fecha de adopción</b>: {{fechaAdopcion}}</p>
+        <br>
+        <p>Se ha notificado al dueño de su adopcion. Si no recibe su nueva mascota a la brevedad, por favor contacte al dueño original:</p>
+        <p><b>Datos contacto</b>: {{contactoString}}</p>
+    {{/if}}
+
+    {{/with}}
+
+{{/partial}}
+
+{{>layout.hbs}}

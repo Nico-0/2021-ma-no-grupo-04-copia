@@ -12,9 +12,9 @@ public class PublicacionService {
     List<Publicacion> publicaciones = new ArrayList<>();
     //List<Publicacion> publicacionesPendientes = new ArrayList<>(); //se filtran con el estado
     
-    private static PublicacionService instance;
+    private static PublicacionService instance = null;
+    private static int ID_actual;
 
-	
 	private PublicacionService() {
 		super();
 	}
@@ -22,27 +22,36 @@ public class PublicacionService {
 	public static PublicacionService getInstance() {
 		if(instance == null) {
 			instance = new PublicacionService();
+            ID_actual = 0;
 		}
 		return instance;
 	}
 
     public List<Publicacion> getPublicadas(){
-        return publicaciones.stream().filter(publicacion -> !publicacion.isPendiente()).collect(Collectors.toList());
+        return publicaciones.stream().filter(Publicacion::isPublicada).collect(Collectors.toList());
     }
 
     public List<Publicacion> getPendientes(){
 	    return publicaciones.stream().filter(Publicacion::isPendiente).collect(Collectors.toList());
     }
 
+    public List<Publicacion> getFinalizadas(){
+        return publicaciones.stream().filter(Publicacion::isFinalizada).collect(Collectors.toList());
+    }
+
     public List<Publicacion> getDeTipo(String tipoPubli){
         return publicaciones.stream().filter(publicacion -> publicacion.getTipoPubli().equals(tipoPubli)).collect(Collectors.toList());
+    }
+
+    public Publicacion getDeID(String ID_publi){
+        return publicaciones.stream().filter(publicacion -> publicacion.getIdString().equals(ID_publi)).collect(Collectors.toList()).get(0);
     }
 
     public void generarPublicacion(Formulario formulario, UsuarioDuenio autor, Asociacion asociacionAsignada) {
         Publicacion publicacion = new Publicacion(autor, asociacionAsignada, TipoMascota.MINIPIG);
         publicacion.setDescripcion(formulario.getDescripcion());
         publicacion.setNombreRescatista(formulario.getDatosPersonales().getNombre());
-        publicacion.setContactos(formulario.getDatosPersonales().getDatosContacto());
+        publicacion.setContactos(formulario.getDatosPersonales().getContactos());
         publicaciones.add(publicacion);
     }
 
@@ -51,7 +60,9 @@ public class PublicacionService {
     }
 
     public void agregarPublicacion(Publicacion publicacion){
-        publicaciones.add(publicacion);
+        publicacion.setID(ID_actual);
+        ID_actual++;
+	    publicaciones.add(publicacion);
     }
 
     public void generarPublicacionIntencion(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota) {

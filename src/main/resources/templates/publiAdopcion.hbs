@@ -9,6 +9,9 @@ Mascota En Adopción
                 <h4><b>{{nombreMascota}}</b> - {{apodoMascota}}</h4>
                 <p><b>Animal</b>: {{animal}}</p>
                 <p><b>Dueño</b>: {{autorString}}</p>
+                {{#if isFinalizada}}
+                    <p><b>Nuevo dueño</b>: {{adoptanteString}}</p>
+                {{/if}}
                 <p><b>Fecha</b>: {{fechaString}}</p>
             </div>
         </div>
@@ -17,7 +20,7 @@ Mascota En Adopción
             <br>
             <p><b>Ubicación</b>: {{ubicacionDuenio}}</p>
             <p><b>Asociacion asignada</b>: {{asociacionString}}</p>
-            <form action="/aaaaaaaaaaa" method="post" align="right">
+            <form action="/publicaciones/{{idString}}" method="get" align="right">
                 <input type="submit" value="Ver Publicacion">
             </form>
         </div>

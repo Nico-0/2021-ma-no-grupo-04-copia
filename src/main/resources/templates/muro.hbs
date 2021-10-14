@@ -26,6 +26,11 @@
             <option value="asociacion">Por asociación</option>
             <option value="fecha">Por fecha</option>
         </select>
+        <label>Mostrar:</label>
+        <select name="estado">
+            <option value="vigentes">Vigentes</option>
+            <option value="finalizadas">Finalizadas</option>
+        </select>
         <br><br>
         <input type="submit" value="Actualizar" >
     </form>
@@ -34,7 +39,7 @@
 
     
     {{#each Publicaciones}}
-            {{>(lookup . 'this.tipoPublihbs') autorString=autorString asociacionString=asociacionString estadoMascotaString=estadoMascotaString fechaString=fechaString}}
+            {{>(lookup . 'this.tipoPublihbs')}}
         <br>
     {{/each}}
 

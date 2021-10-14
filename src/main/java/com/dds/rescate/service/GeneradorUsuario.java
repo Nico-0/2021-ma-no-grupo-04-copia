@@ -22,10 +22,12 @@ public class GeneradorUsuario {
     private List<Usuario> usuarioRepository = new ArrayList<>();
 
     private static GeneradorUsuario instance = null;
+    private static int ID_actual;
 
     public static GeneradorUsuario getInstance() {
         if(instance == null) {
             instance = new GeneradorUsuario();
+            ID_actual = 0;
         }
         return instance;
     }
@@ -67,6 +69,8 @@ public class GeneradorUsuario {
     }
 
     public void agregarUsuario(Usuario nuevo){
+        nuevo.setID(ID_actual);
+        ID_actual++;
         this.usuarioRepository.add(nuevo);
     }
 

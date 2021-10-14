@@ -47,4 +47,8 @@ public class Contacto {
     public void notificarTodoMedio(String mensaje){
         formasNotificacion.forEach(notificador -> notificador.notificar(mensaje));
     }
+
+    public String getContactoString(){
+        return nombre + " " + apellido + ", " + email + ", " + telefono;
+    }
 }

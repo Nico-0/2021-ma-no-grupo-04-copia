@@ -10,6 +10,8 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.HashMap;
+
 public class LoginController {
 
     public static String verificarLogin(Request request){
@@ -57,8 +59,13 @@ public class LoginController {
     }
 
     public static ModelAndView sucess(Request request, Response response){
+        HashMap<String, Object> viewModel = new HashMap<>();
+        String username = request.cookie("username");
+        String tipoUsuario = request.cookie("tipoUsuario");
+        viewModel.put("username", username);
+        viewModel.put("tipoUsuario", tipoUsuario);
 
-        return new ModelAndView(null, "registro.hbs");
+        return new ModelAndView(viewModel, "registro.hbs");
     }
 
     //TODO verificar que ningun campo se complete con espacios

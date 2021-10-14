@@ -12,7 +12,7 @@ public class Router {
         HandlebarsTemplateEngine engine = new Server();
 
         Spark.before((request, response)-> {
-            if(request.requestMethod().equals("GET") && !request.pathInfo().equals("/") && verificarLogin(request).equals("null")) {
+            if(request.requestMethod().equals("GET") && !request.pathInfo().equals("/") && !request.pathInfo().equals("/muro") && verificarLogin(request).equals("null")) {
                 response.redirect("/");
             }
             //TODO verificar que el usuario loginado exista en el repositorio de usuarios
@@ -44,6 +44,11 @@ public class Router {
         Spark.get("/registro/sucess", LoginController::sucess, engine);
 
         Spark.post("/recomendador/regenerar", RecomendadorController::recomendar);
+
+        Spark.get("/publicaciones", (req, res) -> "Lista de publicaciones aqui");
+        Spark.get("/publicaciones/:id", Publicaciones::show, engine);
+
+        Spark.post("/publicaciones/:id/adoptar", Publicaciones::adoptar);
 
     }
 }

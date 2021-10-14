@@ -18,7 +18,15 @@ public class MuroPublicaciones {
         HashMap<String, Object> viewModel = new HashMap<>();
         viewModel.put("Titulo", "Lista publicaciones");
 
-        List<Publicacion> publicaciones = PublicacionService.getInstance().getPublicadas();
+        String estado = request.queryParams("estado");
+        List<Publicacion> publicaciones;
+
+        if(estado != null && estado.equals("finalizadas"))
+            publicaciones = PublicacionService.getInstance().getFinalizadas();
+        else
+            publicaciones = PublicacionService.getInstance().getPublicadas();
+
+
         publicaciones = publicaciones.stream().filter(publicacion -> !publicacion.getTipoPubli().equals("intencion")).collect(Collectors.toList());
 
         String animal = request.queryParams("animal");
@@ -50,6 +58,12 @@ public class MuroPublicaciones {
         }
 
         viewModel.put("Publicaciones", publicaciones);
+
+
+        String username = request.cookie("username");
+        String tipoUsuario = request.cookie("tipoUsuario");
+        viewModel.put("username", username);
+        viewModel.put("tipoUsuario", tipoUsuario);
         return new ModelAndView(viewModel, "muro.hbs");
     }
 }

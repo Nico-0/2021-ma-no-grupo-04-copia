@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Publicacion {
 
+    public int ID;
     public UsuarioDuenio autor;
     public Asociacion asociacionAsignada;
     public LocalDateTime fechaCreacion;
@@ -21,6 +22,14 @@ public class Publicacion {
         this.fechaCreacion = LocalDateTime.now();
         this.estadoPublicacion = EstadoPubli.PENDIENTE;
         this.tipoMascota = tipoMascota;
+    }
+
+    public String getIdString(){
+        return Integer.toString(ID);
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public UsuarioDuenio getAutor() {
@@ -80,8 +89,16 @@ public class Publicacion {
     }
 
     //Metodos
+    public Boolean isPublicada(){
+        return this.estadoPublicacion == EstadoPubli.PUBLICADA;
+    }
+
     public Boolean isPendiente(){
         return this.estadoPublicacion == EstadoPubli.PENDIENTE;
+    }
+
+    public Boolean isFinalizada(){
+        return this.estadoPublicacion == EstadoPubli.FINALIZADA;
     }
 
     public void aceptarPublicacion(){
@@ -110,6 +127,9 @@ public class Publicacion {
         return tipoMascota.toString();
     }
 
+    public String getContactoString(){
+        return autor.getPerfil().getContactos().get(0).getContactoString();
+    }
 
 }
 

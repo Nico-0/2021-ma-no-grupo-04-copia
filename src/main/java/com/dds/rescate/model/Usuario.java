@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Usuario {
 
+	public int ID;
 	private String username;
 	private String password;
 
@@ -30,5 +31,8 @@ public class Usuario {
 	public String getTipo(){
 		return "usuario";
 	}
-	
+
+	public void setID(int ID) {
+		this.ID = ID;
+	}
 }

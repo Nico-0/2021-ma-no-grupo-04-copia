@@ -2,7 +2,7 @@
     <div class="container">
 Interés de Adopción
 
-        <br><br><br>
+        <br><br>
 
         <div class="contenedor">
             <br>
@@ -17,9 +17,9 @@ Interés de Adopción
             {{#each comodidades}}
                 {{this.nombre}}: {{this.valor}},
             {{/each}}
-            <br><br><br>
+            <br><br>
             <p><b>Ultima reco</b>: {{ultimaRecomendacion}}</p>
-            <form action="/aaaaaaaaaaa" method="post" align="right">
+            <form action="/publicaciones/{{idString}}" method="get" align="right">
                 <input type="submit" value="Ver Detalles">
             </form>
         </div>

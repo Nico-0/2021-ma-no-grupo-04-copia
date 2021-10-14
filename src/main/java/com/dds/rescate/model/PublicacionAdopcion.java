@@ -4,6 +4,7 @@ import com.dds.rescate.model.Enum.EstadoPubli;
 import com.dds.rescate.util.Global;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PublicacionAdopcion extends Publicacion {
@@ -12,6 +13,8 @@ public class PublicacionAdopcion extends Publicacion {
     public List<Respuesta> respuestasPreguntasGenerales;
     public Mascota mascota;
     private List<CaracteristicaMascota> requerimientos;
+    private UsuarioDuenio nuevo_duenio;
+    private Date fecha_adopcion;
 
     //Constructor
     public PublicacionAdopcion(UsuarioDuenio autor, Asociacion asociacionAsignada,
@@ -95,5 +98,19 @@ public class PublicacionAdopcion extends Publicacion {
     }
 
 
+    public void adoptarMascota(UsuarioDuenio nuevo_duenio){
+        setEstadoPublicacion(EstadoPubli.FINALIZADA);
+        this.nuevo_duenio = nuevo_duenio;
+        this.fecha_adopcion = new Date();
+        nuevo_duenio.getMascotas().add(mascota);
+        autor.getMascotas().remove(mascota);
+    }
+
+    public String getAdoptanteString(){
+        return nuevo_duenio.getNombre();
+    }
+    public String getFechaAdopcion(){
+        return fecha_adopcion.toString();
+    }
 
 }
