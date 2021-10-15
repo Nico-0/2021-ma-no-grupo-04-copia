@@ -1,9 +1,11 @@
 package com.dds.rescate.model;
 
 import com.dds.rescate.model.Enum.EstadoEncontrada;
+import com.dds.rescate.model.Enum.EstadoPubli;
 import com.dds.rescate.model.Enum.TipoMascota;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PublicacionPerdida extends Publicacion {
@@ -15,6 +17,7 @@ public class PublicacionPerdida extends Publicacion {
     public Ubicacion ubicacionEncontrada;
     public String hogarTransito;
     public EstadoEncontrada estadoEncontrada;
+    private Date fecha_recuperacion;
 
     //Constructor
     public PublicacionPerdida(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota,
@@ -76,4 +79,15 @@ public class PublicacionPerdida extends Publicacion {
         return foto.nombreFoto;
     }
 
+    public String getFechaRecuperacion(){
+        return fecha_recuperacion.toString();
+    }
+
+    public void recuperarMascota() {
+        setEstadoPublicacion(EstadoPubli.FINALIZADA);
+
+        this.fecha_recuperacion = new Date();
+
+        //TODO pedirle al usuario que de de alta la nueva mascota
+    }
 }

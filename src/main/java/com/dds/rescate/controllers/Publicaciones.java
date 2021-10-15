@@ -1,9 +1,6 @@
 package com.dds.rescate.controllers;
 
-import com.dds.rescate.model.Publicacion;
-import com.dds.rescate.model.PublicacionAdopcion;
-import com.dds.rescate.model.PublicacionIntencionDeAdopcion;
-import com.dds.rescate.model.UsuarioDuenio;
+import com.dds.rescate.model.*;
 import com.dds.rescate.service.GeneradorUsuario;
 import com.dds.rescate.service.PublicacionService;
 import com.dds.rescate.service.Recomendador;
@@ -58,12 +55,16 @@ public class Publicaciones {
         String username = request.cookie("username");
         String tipoUsuario = request.cookie("tipoUsuario");
 
+        UsuarioDuenio duenio_original;
         UsuarioDuenio nuevo_duenio;
         PublicacionAdopcion publicacion;
 
         if(tipoUsuario.equals("comun")){
          nuevo_duenio = (UsuarioDuenio) GeneradorUsuario.getInstance().obtenerUsuario(username);
          publicacion = (PublicacionAdopcion) PublicacionService.getInstance().getDeID(id_publi);
+
+         duenio_original = publicacion.getAutor();
+         verificarCreador(duenio_original, nuevo_duenio);
          publicacion.adoptarMascota(nuevo_duenio);
         }
         else {
@@ -75,4 +76,41 @@ public class Publicaciones {
 
         return null;
     }
+
+    public static Void recuperar(Request request, Response response) {
+
+        String id_publi = request.params(":id");
+
+        String username = request.cookie("username");
+        String tipoUsuario = request.cookie("tipoUsuario");
+
+        PublicacionPerdida publicacion;
+        UsuarioDuenio duenio_original;
+        UsuarioDuenio nuevo_duenio;
+
+        if(tipoUsuario.equals("comun")){
+            publicacion = (PublicacionPerdida) PublicacionService.getInstance().getDeID(id_publi);
+
+            nuevo_duenio = (UsuarioDuenio) GeneradorUsuario.getInstance().obtenerUsuario(username);
+            duenio_original = publicacion.getAutor();
+            verificarCreador(duenio_original, nuevo_duenio);
+
+            publicacion.recuperarMascota();
+        }
+        else {
+            throw new RuntimeException("Solo un usuario de tipo comun puede recuperar");
+        }
+
+
+        response.redirect("/publicaciones/"+id_publi);
+
+        return null;
+    }
+
+    private static void verificarCreador(UsuarioDuenio autor, UsuarioDuenio consumidor){
+        if(autor.equals(consumidor)){
+            throw new RuntimeException("No puede adoptar/recuperar el creador de la publicacion");
+        }
+    }
+
 }

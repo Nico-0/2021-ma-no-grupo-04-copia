@@ -3,6 +3,24 @@
     <h1 class = "content">Mis Publicaciones</h1>
     <br>
 
+    <form action="/mascotas/notificar" method="post">
+        <label>ID chapita: </label>
+        <input type="text" id="ID_chapita" name="ID_chapita" placeholder="ID chapita..." required>
+        <input type="submit" value="Notificar mascota perdida">
+    </form>
+    <form action="/aaaaaaaaaa" method="post">
+        <input type="submit" value="Publicar mascota perdida">
+    </form>
+    <form action="/aaaaaaaaaa" method="post">
+        <input type="submit" value="Publicar mascota en adopción">
+    </form>
+    <form action="/aaaaaaaaaa" method="post">
+        <input type="submit" value="Publicar inteción adopción">
+    </form>
+
+
+    <br><br>
+
     {{#each Publicaciones}}
             {{>(lookup . 'this.tipoPublihbs') }}
         <br>

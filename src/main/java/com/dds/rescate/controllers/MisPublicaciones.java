@@ -26,6 +26,7 @@ public class MisPublicaciones {
         String nombrePerfil = user.getNombre();
 
         List<Publicacion> publicaciones = PublicacionService.getInstance().getPublicadas();
+        //TODO mostrar publicaciones finalizadas?
 
         if(publicaciones.size() > 0){
             publicaciones = publicaciones.stream().filter(publicacion -> publicacion.getAutorString().equals(nombrePerfil)).collect(Collectors.toList());

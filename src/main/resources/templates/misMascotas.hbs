@@ -2,6 +2,13 @@
 <div>
     <h1 class = "content">Mis mascotas</h1>
     <br>
+
+    <form action="/aaaaaaaaaa" method="post">
+        <input type="submit" value="Registrar nueva mascota">
+    </form>
+
+
+    <br><br>
     
     {{#each Mascotas}}
             <div class="cuadroMascota">
@@ -18,6 +25,9 @@
                         <p><b>Sexo</b>: {{this.sexoString}}</p>
                         <p><b>Descripcion Mascota</b>: {{this.descripcion}}</p>
                         <p><b>Asociacion</b>: {{this.nombreAsociacionString}}</p>
+                        <form action="/mascotas/id/publicar" method="get" align="right">
+                            <input type="submit" value="Dar en adopción">
+                        </form>
                     </div>
                     </div>
 
@@ -25,6 +35,9 @@
             </div>
             <br>
     {{/each}}
+
+    <br><br>
+    (Dar en adopción requiere responder manualmente las preguntas)
 </div>
 {{/partial}}
 

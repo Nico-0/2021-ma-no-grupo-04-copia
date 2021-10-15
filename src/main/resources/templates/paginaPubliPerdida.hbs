@@ -1,0 +1,30 @@
+{{#partial "contenido"}}
+    <h1 class = "content">Publicación Mascota Perdida</h1>
+    ID: {{Publicacion.idString}}
+    <br><br>
+
+    {{#with Publicacion}}
+    {{>publiPerdida.hbs}}
+
+    <br>
+
+    {{#if isPublicada}}
+        La mascota aún no se encuentra en manos de su dueño. Presione el botón para recuperarla
+        <form action="/publicaciones/{{idString}}/recuperar" method="post" align="left">
+            <input type="submit" value="Es mi mascota">
+        </form>
+    {{/if}}
+
+    {{#if isFinalizada}}
+        La mascota ha vuelto a su dueño. Gracias por utilizar Patitas al Rescate.
+        <p><b>Fecha de Recuperación</b>: {{fechaRecuperacion}}</p>
+        <br>
+        <p>Se ha notificado al rescatista (o al hogar) sobre el dueño de la mascota. Si no recibe su mascota a la brevedad, por favor vuelva a contactarse:</p>
+        <p><b>Datos contacto</b>: {{contactoString}}</p>
+    {{/if}}
+
+    {{/with}}
+
+{{/partial}}
+
+{{>layout.hbs}}

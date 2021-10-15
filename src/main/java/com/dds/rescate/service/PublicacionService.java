@@ -27,6 +27,10 @@ public class PublicacionService {
 		return instance;
 	}
 
+    public List<Publicacion> getTodas(){
+        return publicaciones;
+    }
+
     public List<Publicacion> getPublicadas(){
         return publicaciones.stream().filter(Publicacion::isPublicada).collect(Collectors.toList());
     }
