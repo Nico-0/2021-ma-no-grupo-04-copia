@@ -12,7 +12,7 @@ public class Hogar {
 	private int capacidad;
 	private int lugares_disponibles;
 	private boolean patio;
-	private List<Caracteristica> caracteristicas;
+	private List<String> caracteristicas;
 	
 	
 	
@@ -52,10 +52,10 @@ public class Hogar {
 	public void setPatio(boolean patio) {
 		this.patio = patio;
 	}
-	public List<Caracteristica> getCaracteristicas() {
+	public List<String> getCaracteristicas() {
 		return caracteristicas;
 	}
-	public void setCaracteristicas(List<Caracteristica> caracteristicas) {
+	public void setCaracteristicas(List<String> caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
 	public String getId() {

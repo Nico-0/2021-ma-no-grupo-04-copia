@@ -7,7 +7,7 @@ public class Asociacion {
 
     public String nombre;
     public List<Caracteristica> caracteristicas;
-    public List<Pregunta> preguntasParaPublicarEnAdopcion; //para hacer una publicacion mas detallada, no tiene otra funcionalidad
+    public List<Pregunta> preguntasParaPublicarEnAdopcion;
 
     //Constructor
 

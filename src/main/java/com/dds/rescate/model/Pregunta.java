@@ -1,13 +1,19 @@
 package com.dds.rescate.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pregunta {
+    public String preguntaNombre;
     public String preguntaDescripcion;
-    public Boolean esGeneral;
+    //public Boolean esGeneral;
+    public List<String> respuestasPosibles = new ArrayList<>();
+    public List<Comparacion> valoresRespuestas = new ArrayList<>();
 
     //Constructor
-    public Pregunta(String preguntaDescripcion, Boolean esGeneral) {
+    public Pregunta(String preguntaNombre, String preguntaDescripcion) {
         this.preguntaDescripcion = preguntaDescripcion;
-        this.esGeneral = esGeneral;
+        //this.esGeneral = esGeneral;
     }
 
     //Getters y Setters
@@ -19,11 +25,8 @@ public class Pregunta {
         this.preguntaDescripcion = preguntaDescripcion;
     }
 
-    public Boolean getEsGeneral() {
-        return esGeneral;
-    }
 
-    public void setEsGeneral(Boolean esGeneral) {
-        this.esGeneral = esGeneral;
-    }
+
+
+
 }
