@@ -53,13 +53,6 @@ public class Recomendador {
         String n = System.lineSeparator();
         HashMap<String, Object> resultado = new HashMap<>();
 
-        /*
-        List<String> preguntasIntencionString = getCaracteristicasString(preguntasIntencion);
-        List<String> preguntasAdopcionString = getCaracteristicasString(preguntasAdopcion);
-        List<String> preguntasAsociacionString = getCaracteristicasString(preguntasIntencion);
-        System.out.println("Asociacion: ");
-        System.out.println("Intencion: "+preguntasIntencionString);
-        System.out.println("Adopcion: "+preguntasAdopcionString);*/
 
         //por cada pregunta en la intencion
         for (int i=0; i<preguntasIntencion.size(); i++) {

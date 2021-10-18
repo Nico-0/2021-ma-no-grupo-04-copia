@@ -51,6 +51,10 @@ public class PublicacionService {
         return publicaciones.stream().filter(publicacion -> publicacion.getIdString().equals(ID_publi)).collect(Collectors.toList()).get(0);
     }
 
+    public List<Publicacion> getIntecionesByUserID(int id_user){
+        return publicaciones.stream().filter(publicacion -> publicacion.getTipoPubli().equals("intencion")).filter(p -> p.getAutor().getID() == id_user).collect(Collectors.toList());
+    }
+
     public void generarPublicacion(Formulario formulario, UsuarioDuenio autor, Asociacion asociacionAsignada) {
         Publicacion publicacion = new Publicacion(autor, asociacionAsignada, TipoMascota.MINIPIG);
         publicacion.setDescripcion(formulario.getDescripcion());
@@ -59,9 +63,6 @@ public class PublicacionService {
         publicaciones.add(publicacion);
     }
 
-    public void reportarMascotaPerdida(Contacto contactoEnChapita){
-
-    }
 
     public void agregarPublicacion(Publicacion publicacion){
         publicacion.setID(ID_actual);

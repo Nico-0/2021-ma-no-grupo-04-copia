@@ -113,4 +113,19 @@ public class Publicaciones {
         }
     }
 
+    public static Void finalizar(Request request, Response response) {
+
+        String id_publi = request.params(":id");
+
+        PublicacionIntencionDeAdopcion publicacion;
+
+        publicacion = (PublicacionIntencionDeAdopcion) PublicacionService.getInstance().getDeID(id_publi);
+
+        publicacion.darDeBaja();
+
+
+        response.redirect("/publicaciones/"+id_publi);
+
+        return null;
+    }
 }

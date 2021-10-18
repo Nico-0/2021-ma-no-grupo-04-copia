@@ -1,0 +1,26 @@
+{{#partial "contenido"}}
+    <h1 class = "content">Publicación de Interés de Adopción</h1>
+    ID: {{Publicacion.idString}}
+    <br><br>
+
+    {{#with Publicacion}}
+    {{>publiIntencion.hbs}}
+
+    <br>
+
+    {{#if isPublicada}}
+        <h2>Publicacion activa</h2>
+        <form action="/publicaciones/{{idString}}/finalizar" method="post" align="left">
+            <input type="submit" value="Dar de baja">
+        </form>
+    {{/if}}
+
+    {{#if isFinalizada}}
+        <h2>Publicacion finalizada</h2>
+    {{/if}}
+
+    {{/with}}
+
+{{/partial}}
+
+{{>layout.hbs}}

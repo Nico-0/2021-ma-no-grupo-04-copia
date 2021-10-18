@@ -50,8 +50,12 @@ public class Router {
 
         Spark.post("/publicaciones/:id/adoptar", Publicaciones::adoptar);
         Spark.post("/publicaciones/:id/recuperar", Publicaciones::recuperar);
+        Spark.post("/publicaciones/:id/finalizar", Publicaciones::finalizar);
 
         Spark.post("/mascotas/notificar", (req, res) -> "Si existe la chapita, entonces el dueño ha sido notificado. El dueño se acercará a su domicilio (a retirar el animal) a la brevedad.");
+
+        Spark.get("/usuarios/:id_user/recomendaciones", RecomendadorController::get_json);
+
 
     }
 }

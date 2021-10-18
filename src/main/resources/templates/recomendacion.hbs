@@ -3,15 +3,23 @@
     <h1 class = "content">Recomendaciones de adopción</h1>
 
     <br><br>
-Por ahora se muestran las intenciones de todos, no solo del usuario en sesión
-    <fieldset>
+
+    <table>
+        <tr>
+            <td>
         <form action="/recomendador/regenerar" method="post">
             <input type="submit" value="Regenerar recomendaciones">
         </form>
-    </fieldset>
+            </td>
+            <td>
+        <form action="/usuarios/{{id_user}}/recomendaciones" method="get">
+            <input type="submit" value="GET recomendaciones json">
+        </form>
+            </td>
+        </tr>
+    </table>
 
     <br><br>
-
 
 
     {{#each Intenciones}}

@@ -37,6 +37,10 @@ public class Recomendacion {
         return Integer.toString(total);
     }
 
+    public int getTotalInt(){
+        return total;
+    }
+
     public StringBuilder getLog_caracteristicas(){
         return log_caracteristicas;
     }

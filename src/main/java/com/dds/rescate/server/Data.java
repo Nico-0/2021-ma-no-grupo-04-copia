@@ -19,7 +19,7 @@ public class Data {
 
 //Generar usuarios
 
-        Contacto contacto = new Contacto("Lucas", "sin apellido", "🙌@✌.com", notiEmail, 800);
+        Contacto contacto = new Contacto("Lucas", "sin apellido", "🙌@✌.com", notiEmail, 118003330);
         Contacto contacto2 = new Contacto("Primero", "Lunes", "cualquiera@gmail.com", notiEmail , 1185855858);
         Contacto contacto3 = new Contacto("Segundo", "Martes", "cualquiera2@gmail.com", notiEmail2 , 1165565654);
 

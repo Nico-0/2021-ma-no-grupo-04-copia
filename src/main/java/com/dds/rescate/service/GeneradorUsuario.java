@@ -74,6 +74,19 @@ public class GeneradorUsuario {
         this.usuarioRepository.add(nuevo);
     }
 
+    public String getIdByUsername(String username){
+        Usuario user = usuarioRepository.stream().filter(u -> u.getUsername().equals(username)).findAny().orElse(null);
+
+        if(user != null){
+            return Integer.toString(user.getID());
+        }
+        return null;
+    }
+
+    public Usuario getUserByID(int id_user){
+        return usuarioRepository.stream().filter(u -> u.getID() == id_user).findAny().orElse(null);
+    }
+
 
 
 

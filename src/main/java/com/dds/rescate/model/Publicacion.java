@@ -4,6 +4,7 @@ import com.dds.rescate.model.Enum.TipoMascota;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 public class Publicacion {
@@ -11,7 +12,7 @@ public class Publicacion {
     public int ID;
     public UsuarioDuenio autor;
     public Asociacion asociacionAsignada;
-    public LocalDateTime fechaCreacion;
+    public Date fechaCreacion;
     public EstadoPubli estadoPublicacion;
     private TipoMascota tipoMascota;
 
@@ -19,9 +20,13 @@ public class Publicacion {
     public Publicacion(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota) {
         this.autor = autor;
         this.asociacionAsignada = asociacionAsignada;
-        this.fechaCreacion = LocalDateTime.now();
+        this.fechaCreacion = new Date();
         this.estadoPublicacion = EstadoPubli.PENDIENTE;
         this.tipoMascota = tipoMascota;
+    }
+
+    public int getId(){
+        return ID;
     }
 
     public String getIdString(){
@@ -48,17 +53,19 @@ public class Publicacion {
         this.asociacionAsignada = asociacionAsignada;
     }
 
-    public LocalDateTime getFechaCreacion() {
+    public Date getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+    public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
     public String getFechaString(){
+        /* Para LocalDateTime
         DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-        return getFechaCreacion().format(formatter);
+        return getFechaCreacion().format(formatter);*/
+        return getFechaCreacion().toString();
     }
 
     public EstadoPubli getEstadoPublicacion() {
@@ -106,7 +113,7 @@ public class Publicacion {
     }
 
     public void darDeBaja(){
-        this.estadoPublicacion = EstadoPubli.CANCELADA;
+        this.estadoPublicacion = EstadoPubli.FINALIZADA;
     }
 
     public void setDescripcion(String descripcion) {
@@ -121,6 +128,10 @@ public class Publicacion {
 
     public void setContactos(List<Contacto> contactos) {
         //TODO asignar los contactos
+    }
+
+    public TipoMascota getTipoMascota(){
+        return tipoMascota;
     }
 
     public String getTipoMascotaString(){
