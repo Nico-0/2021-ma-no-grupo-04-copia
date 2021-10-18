@@ -1,7 +1,6 @@
 package com.dds.rescate.model;
 
 import com.dds.rescate.model.Enum.TipoMascota;
-import com.dds.rescate.util.Global;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,18 +11,19 @@ import java.util.stream.Collectors;
 public class PublicacionIntencionDeAdopcion extends Publicacion {
 
     List<CaracteristicaMascota> preferencias;
-    List<CaracteristicaMascota> comodidades;
+    List<CaracteristicaMascota> preguntas;
     List<Recomendacion> recomendaciones = new ArrayList<>();
     public String ultimaRecomendacion;
 
     //Constructor
     public PublicacionIntencionDeAdopcion(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota,
-                                          List<CaracteristicaMascota> preferenciasPubli, List<CaracteristicaMascota> comodidadesPubli) {
+                                          List<CaracteristicaMascota> preferenciasPubli, List<CaracteristicaMascota> preguntasPubli) {
         super(autor, asociacionAsignada, tipoMascota);
         asociacionAsignada.validarCaracteristicasAsociacion(preferenciasPubli);
-        Global.getInstance().validarRequerimientosGenerales(comodidadesPubli);
+        asociacionAsignada.validarPreguntasAsociacion(preguntasPubli);
+        //TODO validar respuestas a las preguntas y caracteristicas
         this.preferencias = preferenciasPubli;
-        this.comodidades = comodidadesPubli;
+        this.preguntas = preguntasPubli;
         this.ultimaRecomendacion = "nunca";
     }
     //Getters y Setters
@@ -35,12 +35,12 @@ public class PublicacionIntencionDeAdopcion extends Publicacion {
         this.preferencias = preferencias;
     }
 
-    public List<CaracteristicaMascota> getComodidades() {
-        return comodidades;
+    public List<CaracteristicaMascota> getPreguntas() {
+        return preguntas;
     }
 
-    public void setComodidades(List<CaracteristicaMascota> comodidades) {
-        this.comodidades = comodidades;
+    public void setPreguntas(List<CaracteristicaMascota> preguntas) {
+        this.preguntas = preguntas;
     }
 
     public List<Recomendacion> getRecomendaciones() {

@@ -10,9 +10,7 @@ import java.util.stream.Collectors;
 public class Global {
     //En lugar de clase global se podrian guardar en archivo de configuracion
 
-    private static List<String> requerimientos = Arrays.asList("Con patio", "Otros animales", "Casa grande", "Alto presupuesto", "Atencion 8hs");
-
-    private static List<String> preguntasGenerales = Arrays.asList("Usted dueño fue buena persona?", "Cuantas vacunas se dio la mascota?"); //para responder en el detalle de una publicacion en adopcion
+    private static List<String> preguntasGenerales = Arrays.asList("Con patio", "Otros animales", "Casa grande");
 
     private static Global instance;
 
@@ -23,18 +21,14 @@ public class Global {
         return instance;
     }
 
-    public List<String> getRequerimientos(){
-        return requerimientos;
-    }
-
     public List<String> getPreguntasGenerales(){
         return preguntasGenerales;
     }
 
     public void validarRequerimientosGenerales(List<CaracteristicaMascota> requerimientosDados){
-        if(requerimientos != null) {
+        if(preguntasGenerales != null) {
             List<String> preferenciasPublicaciones = getPreferenciasString(requerimientosDados);
-            Boolean contieneTodas = preferenciasPublicaciones.containsAll(requerimientos);
+            Boolean contieneTodas = preferenciasPublicaciones.containsAll(preguntasGenerales);
             if (!contieneTodas)
                 throw new RuntimeException("No se completaron todos los requerimientos generales");
         }

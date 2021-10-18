@@ -25,6 +25,7 @@ public class Mascota {
     public Mascota(TipoMascota tipoMascota, String nombre, String apodo, String descripcion, Asociacion asociacionRegistrada,
                    List<CaracteristicaMascota> caracteristicas, Sexo sexo, String fotoMinima) throws ValidadorException {
         asociacionRegistrada.validarCaracteristicasAsociacion(caracteristicas);
+        //TODO validar respuestas a las caracteristicas
         this.asociacionRegistrada = asociacionRegistrada;
         this.caracteristicas = caracteristicas;
         this.tipoMascota = tipoMascota;

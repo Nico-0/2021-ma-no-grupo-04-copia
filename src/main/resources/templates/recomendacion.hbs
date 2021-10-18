@@ -42,15 +42,15 @@ Por ahora se muestran las intenciones de todos, no solo del usuario en sesión
                                     <p><b>Tipo mascota</b>: {{this.adopcion.tipoMascotaString}}</p>
                                     <p><b>Dueño</b>: {{this.adopcion.autorString}}</p>
                                     <p><b>Asociacion</b>: {{this.adopcion.asociacionString}}</p>
-                                    <p><b>Caracteristicas coincidentes</b>: {{this.cantidadCaracteristicas}}</p>
-                                    <p><b>Requerimientos coincidentes</b>: {{this.cantidadRequerimientos}}</p>
+                                    <p title="{{log_caracteristicas}}"><b>Puntaje caracteristicas</b>: {{this.puntajeCaracteristicas}} (ver log tag title)</p>
+                                    <p title="{{log_preguntas}}"><b>Puntaje preguntas</b>: {{this.puntajePreguntas}} (ver log tag title)</p>
                                     <b>Caracteristicas</b>:
                                     {{#each caracteristicas}}
                                         {{this.nombre}}: {{this.valor}},
                                     {{/each}}
                                     <br>
-                                    <b>Requerimientos</b>:
-                                    {{#each requerimientos}}
+                                    <b>Preguntas</b>:
+                                    {{#each preguntas}}
                                         {{this.nombre}}: {{this.valor}},
                                     {{/each}}
                                 </div>

@@ -1,12 +1,18 @@
 package com.dds.rescate.model;
 
-public class Caracteristica {
+public class Caracteristica {//Pregunta
 
 	private String nombre;
 	private String descripcion;
-	
+
 	public Caracteristica(String nombre) {
 		this.nombre = nombre;
+		this.descripcion = "⸮⸮⸮⸮⸮"+nombre+"?????";
+	}
+
+	public Caracteristica(String nombre, String descripcion) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
 	}
 
 	public String getNombre() {

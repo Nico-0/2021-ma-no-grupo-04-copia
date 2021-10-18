@@ -33,7 +33,7 @@ public class EncontrarMascotaTest {
         colorM = new CaracteristicaMascota(color, "naranja");
         CatalogoCaracteristicas.getInstance().agregarCaracteristica(color);
         caracteristicas.add(colorM);
-        asociacion = new Asociacion(null, null, null, null);
+        asociacion = new Asociacion(null, null, null);
         gato = new Mascota(TipoMascota.GATO, "michi", "michi", "un animal peludo de 4 patas", asociacion, caracteristicas, Sexo.MACHO, "gato.jpg");
         gato.perder();
     }

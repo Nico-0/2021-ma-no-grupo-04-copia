@@ -9,42 +9,24 @@ import java.util.List;
 
 public class PublicacionAdopcion extends Publicacion {
 
-    public List<Respuesta> respuestasPreguntasAsociacion;
-    public List<Respuesta> respuestasPreguntasGenerales;
     public Mascota mascota;
-    private List<CaracteristicaMascota> requerimientos;
+    public List<CaracteristicaMascota> preguntas;
+    //private List<CaracteristicaMascota> preguntasGenerales;
     private UsuarioDuenio nuevo_duenio;
     private Date fecha_adopcion;
 
     //Constructor
     public PublicacionAdopcion(UsuarioDuenio autor, Asociacion asociacionAsignada,
-                               List<Respuesta> respuestasPreguntasAsociacion,
-                               List<Respuesta> respuestasPreguntasGenerales,
-                               Mascota mascotaPublicacion, List<CaracteristicaMascota> reqGenerales) {
+                               Mascota mascotaPublicacion, List<CaracteristicaMascota> preguntas) {
         super(autor, asociacionAsignada, mascotaPublicacion.getTipoMascota());
-        Global.getInstance().validarRequerimientosGenerales(reqGenerales);
-        this.respuestasPreguntasAsociacion = respuestasPreguntasAsociacion;
-        this.respuestasPreguntasGenerales = respuestasPreguntasGenerales;
+        asociacionAsignada.validarPreguntasAsociacion(preguntas);
+        //TODO validar respuestas a las preguntas
         this.mascota = mascotaPublicacion;
-        this.requerimientos = reqGenerales;
+        this.preguntas = preguntas;
     }
 
     //Getters y Setters
-    public List<Respuesta> getRespuestasPreguntasAsociacion() {
-        return respuestasPreguntasAsociacion;
-    }
 
-    public void setRespuestasPreguntasAsociacion(List<Respuesta> respuestasPreguntasAsociacion) {
-        this.respuestasPreguntasAsociacion = respuestasPreguntasAsociacion;
-    }
-
-    public List<Respuesta> getRespuestasPreguntasGenerales() {
-        return respuestasPreguntasGenerales;
-    }
-
-    public void setRespuestasPreguntasGenerales(List<Respuesta> respuestasPreguntasGenerales) {
-        this.respuestasPreguntasGenerales = respuestasPreguntasGenerales;
-    }
 
     public Mascota getMascota() {
         return mascota;
@@ -62,8 +44,8 @@ public class PublicacionAdopcion extends Publicacion {
         this.estadoPublicacion = estadoPublicacion;
     }
 
-    public List<CaracteristicaMascota> getRequerimientos(){
-        return requerimientos;
+    public List<CaracteristicaMascota> getPreguntas(){
+        return preguntas;
     }
 
     //Metodos

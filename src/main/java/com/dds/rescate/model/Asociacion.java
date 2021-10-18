@@ -6,14 +6,15 @@ import java.util.stream.Collectors;
 public class Asociacion {
 
     public String nombre;
-    public List<Caracteristica> caracteristicas;
+    public List<Pregunta> caracteristicasParaRegistrarMascota;
     public List<Pregunta> preguntasParaPublicarEnAdopcion;
+    //TODO agregar caracteristicas y preguntas generales en algun lugar global para todas las asociaciones. Cada asociacion se encarga de dar las respuestas posibles, igual que las propias.
 
     //Constructor
 
-    public Asociacion(String nombre, List<Caracteristica> caracteristicas, List<Pregunta> preguntasParaPublicarEnAdopcion, List<Pregunta> preguntasGenerales) {
+    public Asociacion(String nombre, List<Pregunta> caracteristicasParaRegistrarMascota, List<Pregunta> preguntasParaPublicarEnAdopcion) {
         this.nombre = nombre;
-        this.caracteristicas = caracteristicas;
+        this.caracteristicasParaRegistrarMascota = caracteristicasParaRegistrarMascota;
         this.preguntasParaPublicarEnAdopcion = preguntasParaPublicarEnAdopcion;
     }
 
@@ -26,12 +27,12 @@ public class Asociacion {
         this.nombre = nombre;
     }
 
-    public List<Caracteristica> getCaracteristicas() {
-        return caracteristicas;
+    public List<Pregunta> getCaracteristicas() {
+        return caracteristicasParaRegistrarMascota;
     }
 
-    public void setCaracteristicas(List<Caracteristica> caracteristicas) {
-        this.caracteristicas = caracteristicas;
+    public void setCaracteristicas(List<Pregunta> caracteristicas) {
+        this.caracteristicasParaRegistrarMascota = caracteristicas;
     }
 
     public List<Pregunta> getPreguntasParaPublicarEnAdopcion() {
@@ -44,15 +45,28 @@ public class Asociacion {
 
 
     //Metodos
-    public void agregarCaracteristica(Caracteristica caracteristicaNueva){
-        this.caracteristicas.add(caracteristicaNueva);
+    public void agregarCaracteristica(Pregunta caracteristicaNueva){
+        this.caracteristicasParaRegistrarMascota.add(caracteristicaNueva);
     }
     public void agregarPregunta(Pregunta preguntaNueva){
         this.preguntasParaPublicarEnAdopcion.add(preguntaNueva);
     }
 
-    public void validarCaracteristicasAsociacion(List<CaracteristicaMascota> caracteristicasDadas) {
-        if(caracteristicas != null) {
+
+    public List<String> getCaracteristicasString() {
+        return caracteristicasParaRegistrarMascota.stream().map(caracteristica -> caracteristica.getNombre()).collect(Collectors.toList());
+    }
+
+    public List<String> getPreguntasString() {
+        return preguntasParaPublicarEnAdopcion.stream().map(caracteristica -> caracteristica.getNombre()).collect(Collectors.toList());
+    }
+
+    private List<String> getCaracteristicasMascotaString(List<CaracteristicaMascota> caracteristicasDadas) {
+        return caracteristicasDadas.stream().map(caracteristica -> caracteristica.getCaracteristica().getNombre()).collect(Collectors.toList());
+    }
+
+    public void validarCaracteristicasAsociacion(List<CaracteristicaMascota> caracteristicasDadas){
+        if(caracteristicasParaRegistrarMascota != null) {
             List<String> caracteristicasAsociacion = getCaracteristicasString();
             List<String> caracteristicasMascota = getCaracteristicasMascotaString(caracteristicasDadas);
             Boolean contieneTodas = caracteristicasMascota.containsAll(caracteristicasAsociacion);
@@ -61,13 +75,24 @@ public class Asociacion {
         }
     }
 
-    public List<String> getCaracteristicasString() {
-        return caracteristicas.stream().map(caracteristica -> caracteristica.getNombre()).collect(Collectors.toList());
+    public void validarPreguntasAsociacion(List<CaracteristicaMascota> preguntasDadas){
+        if(preguntasParaPublicarEnAdopcion != null) {
+            if (caracteristicasParaRegistrarMascota != null) {
+                List<String> caracteristicasAsociacion = getPreguntasString();
+                List<String> caracteristicasMascota = getCaracteristicasMascotaString(preguntasDadas);
+                Boolean contieneTodas = caracteristicasMascota.containsAll(caracteristicasAsociacion);
+                if (!contieneTodas)
+                    throw new RuntimeException("No se completaron todas las preguntas que pide la asociacion");
+            }
+        }
     }
 
-    private List<String> getCaracteristicasMascotaString(List<CaracteristicaMascota> caracteristicasDadas) {
-        return caracteristicasDadas.stream().map(caracteristica -> caracteristica.getCaracteristica().getNombre()).collect(Collectors.toList());
+    public Pregunta getPreguntaByNombre(String nombrePregunta){
+        return preguntasParaPublicarEnAdopcion.stream().filter(p -> p.getPregunta().getNombre().equals(nombrePregunta)).findAny().orElse(null);
     }
 
+    public Pregunta getCaracteristicaByNombre(String nombrePregunta){
+        return caracteristicasParaRegistrarMascota.stream().filter(p -> p.getPregunta().getNombre().equals(nombrePregunta)).findAny().orElse(null);
+    }
 
 }

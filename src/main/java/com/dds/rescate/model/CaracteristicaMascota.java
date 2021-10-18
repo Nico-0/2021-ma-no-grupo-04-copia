@@ -1,13 +1,13 @@
 package com.dds.rescate.model;
 
-public class CaracteristicaMascota {
+public class CaracteristicaMascota { //PreguntaMascota
 
 	private Caracteristica caracteristica;
 	private String valor;
 	
-	public CaracteristicaMascota(Caracteristica caracteristica, String valor) {
+	public CaracteristicaMascota(Caracteristica caracteristica, String respuesta) {
 		this.caracteristica = caracteristica;
-		this.valor = valor;
+		this.valor = respuesta;
 	}
 
 	public Caracteristica getCaracteristica() {
