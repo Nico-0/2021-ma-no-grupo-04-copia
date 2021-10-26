@@ -1,7 +1,10 @@
 package com.dds.rescate.model;
 
+import javax.persistence.Embedded;
+
 public class CaracteristicaMascota { //PreguntaMascota
 
+	@Embedded
 	private Caracteristica caracteristica;
 	private String valor;
 	

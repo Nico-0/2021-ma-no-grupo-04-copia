@@ -4,14 +4,14 @@ import com.dds.rescate.model.*;
 import com.dds.rescate.model.Enum.EstadoEncontrada;
 import com.dds.rescate.model.Enum.TipoMascota;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PublicacionService {
     List<Publicacion> publicaciones = new ArrayList<>();
-    //List<Publicacion> publicacionesPendientes = new ArrayList<>(); //se filtran con el estado
-    
+
     private static PublicacionService instance = null;
     private static int ID_actual;
 
@@ -26,6 +26,12 @@ public class PublicacionService {
 		}
 		return instance;
 	}
+
+    private EntityManager entityManager;
+
+    public PublicacionService(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     public List<Publicacion> getTodas(){
         return publicaciones;
@@ -48,7 +54,7 @@ public class PublicacionService {
     }
 
     public Publicacion getDeID(String ID_publi){
-        return publicaciones.stream().filter(publicacion -> publicacion.getIdString().equals(ID_publi)).collect(Collectors.toList()).get(0);
+        return entityManager.createQuery("from Publicacion p where p.id = ?1", Publicacion.class).setParameter(1, ID_publi).getSingleResult();
     }
 
     public List<Publicacion> getIntecionesByUserID(int id_user){

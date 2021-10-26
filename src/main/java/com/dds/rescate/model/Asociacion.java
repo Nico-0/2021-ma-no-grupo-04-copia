@@ -1,17 +1,31 @@
 package com.dds.rescate.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Entity
 public class Asociacion {
-
+    @Id
+    @GeneratedValue
+    public int ID;
     public String nombre;
+
+    @ManyToMany//(cascade=CascadeType.REMOVE)
+    //@OnDelete(action= OnDeleteAction.CASCADE)
+    @JoinTable(name = "asociacion_caracteristica", inverseJoinColumns = { @JoinColumn(name = "caracteristica_id") })
     public List<Pregunta> caracteristicasParaRegistrarMascota;
+
+    @ManyToMany//(cascade=CascadeType.REMOVE)
+    //@OnDelete(action= OnDeleteAction.CASCADE)
+    @JoinTable(name = "asociacion_pregunta", inverseJoinColumns = { @JoinColumn(name = "pregunta_id") })
     public List<Pregunta> preguntasParaPublicarEnAdopcion;
-    //TODO agregar caracteristicas y preguntas generales en algun lugar global para todas las asociaciones. Cada asociacion se encarga de dar las respuestas posibles, igual que las propias.
+
 
     //Constructor
-
     public Asociacion(String nombre, List<Pregunta> caracteristicasParaRegistrarMascota, List<Pregunta> preguntasParaPublicarEnAdopcion) {
         this.nombre = nombre;
         this.caracteristicasParaRegistrarMascota = caracteristicasParaRegistrarMascota;

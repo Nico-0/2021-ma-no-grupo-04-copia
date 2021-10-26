@@ -1,13 +1,19 @@
 package com.dds.rescate.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Usuario {
-
+	@Id
+	@GeneratedValue
 	public int ID;
 	private String username;
 	private String password;
+	@OneToOne
+	public Asociacion asociacion;
 
 	public Usuario(String username, String password) {
 		super();

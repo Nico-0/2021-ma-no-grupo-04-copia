@@ -9,6 +9,7 @@ import java.util.List;
 import com.dds.rescate.exception.ValidadorException;
 import com.dds.rescate.model.Enum.Sexo;
 import com.dds.rescate.model.Enum.TipoMascota;
+import com.dds.rescate.model.Enum.TipoPregunta;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +32,7 @@ public class RegistrarMascotaTest {
     	perfilChristian = new DatosPersonales("Christian", "Z",  new Date(), 123456789, hermano);
     	christian = new UsuarioDuenio("UsuarioChris", "Chris1234", perfilChristian);
 
-        color = new Caracteristica("Color");
+        color = new Caracteristica(TipoPregunta.CARACTERISTICA,"Color");
         colorM = new CaracteristicaMascota(color, "marron");
         CatalogoCaracteristicas.getInstance().agregarCaracteristica(color);
         caracteristicas.add(colorM);

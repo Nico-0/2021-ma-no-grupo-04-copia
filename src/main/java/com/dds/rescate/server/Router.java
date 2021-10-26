@@ -1,15 +1,34 @@
 package com.dds.rescate.server;
 
 import com.dds.rescate.controllers.*;
+import spark.ModelAndView;
+import spark.Route;
 import spark.Spark;
+import spark.TemplateViewRoute;
 import spark.template.handlebars.HandlebarsTemplateEngine;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import static com.dds.rescate.controllers.LoginController.verificarLogin;
 
 public class Router {
+
+    static EntityManagerFactory entityManagerFactory;
+
     public static void configure() {
 
+        entityManagerFactory = Persistence.createEntityManagerFactory("db");
+
         HandlebarsTemplateEngine engine = new Server();
+        /* 		.create()
+				.withDefaultHelpers()
+				.withHelper("isTrue", BooleanHelper.isTrue)
+				.build();
+				import spark.utils.BooleanHelper;
+         */
+
 
         Spark.before((request, response)-> {
             if(request.requestMethod().equals("GET") && !request.pathInfo().equals("/") && !request.pathInfo().equals("/muro") && verificarLogin(request).equals("null")) {
@@ -17,12 +36,12 @@ public class Router {
             }
             //TODO verificar que el usuario loginado exista en el repositorio de usuarios
         });
-/* para persistencia
+
+        /*
         Spark.after((request, response) -> {
-            PerThreadEntityManagers.getEntityManager();
-            PerThreadEntityManagers.closeEntityManager();
-        });
-*/
+
+        });*/
+
         Spark.get("/", HomeController::home, engine);
 
         Spark.get("/muro", MuroPublicaciones::muro, engine);
@@ -46,7 +65,7 @@ public class Router {
         Spark.post("/recomendador/regenerar", RecomendadorController::recomendar);
 
         Spark.get("/publicaciones", (req, res) -> "Lista de publicaciones aqui");
-        Spark.get("/publicaciones/:id", Publicaciones::show, engine);
+        Spark.get("/publicaciones/:id", TemplWithTransaction(Publicaciones::show), engine);
 
         Spark.post("/publicaciones/:id/adoptar", Publicaciones::adoptar);
         Spark.post("/publicaciones/:id/recuperar", Publicaciones::recuperar);
@@ -57,5 +76,37 @@ public class Router {
         Spark.get("/usuarios/:id_user/recomendaciones", RecomendadorController::get_json);
 
 
+    }
+
+    private static TemplateViewRoute TemplWithTransaction(WithTransaction<ModelAndView> fn) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        TemplateViewRoute r = (req, res) -> {
+
+            em.getTransaction().begin();
+
+            ModelAndView result = fn.method(req, res, em);
+            em.getTransaction().commit();
+            return result;
+            //TODO agregar catch de exception
+        };
+
+        em.close();
+
+        return r;
+    }
+    private static Route RouteWithTransaction(WithTransaction<Object> fn) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Route r = (req, res) -> {
+            em.getTransaction().begin();
+
+            Object result = fn.method(req, res, em);
+            em.getTransaction().commit();
+            return result;
+            //TODO agregar catch de exception
+        };
+        em.close();
+
+        return r;
     }
 }

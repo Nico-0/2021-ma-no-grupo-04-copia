@@ -1,4 +1,5 @@
 package com.dds.rescate.model;
+import com.dds.rescate.model.Enum.TipoPregunta;
 import com.dds.rescate.model.Mascota.*;
 
 public class UsuarioAdministrador extends Usuario{
@@ -9,7 +10,7 @@ public class UsuarioAdministrador extends Usuario{
 	}
 	public void agregarCaracteristicas (String descripcion){
 		
-		Caracteristica caracteristica = new Caracteristica(descripcion);
+		Caracteristica caracteristica = new Caracteristica(TipoPregunta.CARACTERISTICA, descripcion);
 		CatalogoCaracteristicas.getInstance().agregarCaracteristica(caracteristica);
 		
 	}

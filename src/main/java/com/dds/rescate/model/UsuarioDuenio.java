@@ -5,11 +5,19 @@ import java.util.List;
 
 import com.dds.rescate.service.PublicacionService;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class UsuarioDuenio extends Usuario{
 
+    @OneToMany
+    @JoinColumn(name = "FK_duenio")
     private List<Mascota> mascotas = new ArrayList<>();
+    @OneToOne
     private DatosPersonales perfil;
-    private Asociacion asociacionCercana;
 
     public UsuarioDuenio(String username, String password, DatosPersonales perfil) {
         super(username, password);
@@ -43,7 +51,7 @@ public class UsuarioDuenio extends Usuario{
     }
 
     public void publicarMascotaPerdida(Formulario formulario) {
-    	PublicacionService.getInstance().generarPublicacion(formulario, this, asociacionCercana);
+    	PublicacionService.getInstance().generarPublicacion(formulario, this, asociacion);
     }
 
     public String getNombre(){

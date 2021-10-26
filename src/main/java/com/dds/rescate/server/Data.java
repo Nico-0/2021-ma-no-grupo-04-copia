@@ -4,13 +4,19 @@ import com.dds.rescate.model.*;
 import com.dds.rescate.model.Enum.EstadoEncontrada;
 import com.dds.rescate.model.Enum.Sexo;
 import com.dds.rescate.model.Enum.TipoMascota;
+import com.dds.rescate.model.Enum.TipoPregunta;
 import com.dds.rescate.service.GeneradorUsuario;
 import com.dds.rescate.service.PublicacionService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.*;
 
 public class Data {
     public static void init(){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("db");
+        EntityManager em = entityManagerFactory.createEntityManager();
 
         PublicacionService instancia = PublicacionService.getInstance();
 
@@ -37,19 +43,46 @@ public class Data {
         UsuarioDuenio user_5 = new UsuarioDuenio("LunesTrece","Contrasenia",datos_5);
         //Test usuario guardado
         GeneradorUsuario repositorio = GeneradorUsuario.getInstance();
-        repositorio.agregarUsuario(user_4);
-        repositorio.agregarUsuario(user_5);
+        //repositorio.agregarUsuario(user_4);
+        //repositorio.agregarUsuario(user_5);
+
+        em.getTransaction().begin();
+        em.createQuery("DELETE FROM Contacto").executeUpdate();
+        em.createQuery("DELETE FROM UsuarioDuenio").executeUpdate();
+        em.createQuery("DELETE FROM DatosPersonales").executeUpdate();
+        em.createQuery("DELETE FROM Usuario").executeUpdate();
+        em.createQuery("DELETE FROM Comparacion").executeUpdate();
+        em.createQuery("DELETE FROM Asociacion").executeUpdate();
+        em.createQuery("DELETE FROM Pregunta").executeUpdate();
+        em.getTransaction().commit();
+
+        em.getTransaction().begin();
+        em.persist(contacto);
+        em.persist(contacto2);
+        em.persist(contacto3);
+        em.persist(datos_1);
+        em.persist(datos_2);
+        em.persist(datos_3);
+        em.persist(datos_4);
+        em.persist(datos_5);
+        em.persist(user_1);
+        em.persist(user_2);
+        em.persist(user_3);
+        em.persist(user_4);
+        em.persist(user_5);
+        em.getTransaction().commit();
+
 
 
 //Generar asociaciones
 
         //generar caracteristicas
-        Caracteristica color = new Caracteristica("color");
-        Caracteristica tamanio = new Caracteristica("tamanio");
-        Caracteristica pelo = new Caracteristica("pelo");
-        Caracteristica cola = new Caracteristica("cola");
-        Caracteristica castrada = new Caracteristica("castrada");
-        Caracteristica cantidadPatas = new Caracteristica("cantidadPatas");
+        Caracteristica color = new Caracteristica(TipoPregunta.CARACTERISTICA, "color");
+        Caracteristica tamanio = new Caracteristica(TipoPregunta.CARACTERISTICA,"tamanio");
+        Caracteristica pelo = new Caracteristica(TipoPregunta.CARACTERISTICA,"pelo");
+        Caracteristica cola = new Caracteristica(TipoPregunta.CARACTERISTICA,"cola");
+        Caracteristica castrada = new Caracteristica(TipoPregunta.CARACTERISTICA,"castrada");
+        Caracteristica cantidadPatas = new Caracteristica(TipoPregunta.CARACTERISTICA,"cantidadPatas");
 
         //generar valor para cada combinacion
         //las combinaciones no registradas dan 0
@@ -92,9 +125,9 @@ public class Data {
 
 
         //generar preguntas generales
-        Caracteristica con_patio = new Caracteristica("Con patio", "⸮Cuenta con un patio enorme?");
-        Caracteristica otros_animales = new Caracteristica("Otros animales", "cuenta o no con otros animales");
-        Caracteristica casa_grande = new Caracteristica("Casa grande");
+        Caracteristica con_patio = new Caracteristica(TipoPregunta.PREGUNTA,"Con patio", "⸮Cuenta con un patio enorme?");
+        Caracteristica otros_animales = new Caracteristica(TipoPregunta.PREGUNTA,"Otros animales", "cuenta o no con otros animales");
+        Caracteristica casa_grande = new Caracteristica(TipoPregunta.PREGUNTA,"Casa grande");
 
         Comparacion patio_grande_chico_1 = new Comparacion("grande","chico",5);
         Comparacion patio_chico_no_1 = new Comparacion("chico","no",5);
@@ -109,10 +142,10 @@ public class Data {
 
 
         //generar preguntas
-        Caracteristica alto_presupuesto = new Caracteristica("Alto presupuesto");
-        Caracteristica atencion_8hs = new Caracteristica("Atencion 8hs");
-        Caracteristica duenio_buena_persona = new Caracteristica("Duenio buena persona", "Usted dueño fue buena persona?");
-        Caracteristica vacunada = new Caracteristica("Vacunada");
+        Caracteristica alto_presupuesto = new Caracteristica(TipoPregunta.PREGUNTA,"Alto presupuesto");
+        Caracteristica atencion_8hs = new Caracteristica(TipoPregunta.PREGUNTA,"Atencion 8hs");
+        Caracteristica duenio_buena_persona = new Caracteristica(TipoPregunta.PREGUNTA,"Duenio buena persona", "Usted dueño fue buena persona?");
+        Caracteristica vacunada = new Caracteristica(TipoPregunta.PREGUNTA,"Vacunada");
 
         Comparacion atencion_10min_1h_1 = new Comparacion("10min","1h",5);
         Comparacion atencion_1h_8hs_1 = new Comparacion("1h","8hs",5);
@@ -134,6 +167,56 @@ public class Data {
         //y por ultimo estas dos lineas
         Asociacion asociacion_1 = new Asociacion("patitas al rescate",caracteristicas_1,preguntas_1);
         Asociacion asociacion_2 = new Asociacion("orejas rescatadas",caracteristicas_2,preguntas_2);
+
+        em.getTransaction().begin();
+      /*  em.persist(color);
+        em.persist(tamanio);
+        em.persist(pelo);
+        em.persist(cola);
+        em.persist(castrada);
+        em.persist(cantidadPatas);*/
+
+        em.persist(blanco_rosa_1);
+        em.persist(negro_marron_1);
+        em.persist(grande_mediano_1);
+        em.persist(mediano_peque_1);
+        em.persist(largo_corto_1);
+        em.persist(corto_sin_1);
+
+        em.persist(caracteristicaColor);
+        em.persist(caracteristicaTamanio);
+        em.persist(caracteristicaPelo);
+        em.persist(caracteristicaCola);
+        em.persist(caracteristicaCastrada);
+        em.persist(caracteristicaPatas);
+
+        em.persist(indistinto_no_1);
+        em.persist(indistinto_si_1);
+        em.persist(dos_tres_1);
+        em.persist(cuatro_tres_1);
+       // em.persist(con_patio);
+       // em.persist(otros_animales);
+        //em.persist(casa_grande);
+        em.persist(patio_grande_chico_1);
+        em.persist(patio_chico_no_1);
+        em.persist(preguntaPatio);
+        em.persist(preguntaOtrosAnimales);
+        em.persist(preguntaCasaGrande);
+
+      /*  em.persist(alto_presupuesto);
+        em.persist(atencion_8hs);
+        em.persist(duenio_buena_persona);
+        em.persist(vacunada);*/
+        em.persist(atencion_1h_8hs_1);
+        em.persist(atencion_10min_1h_1);
+        em.persist(preguntaAltoPresupuesto);
+        em.persist(preguntaAtencion);
+        em.persist(preguntaBuenaPersona);
+        em.persist(preguntaVacunada);
+
+        em.persist(asociacion_1);
+        em.persist(asociacion_2);
+        em.getTransaction().commit();
 
 
 //Generar mascotas

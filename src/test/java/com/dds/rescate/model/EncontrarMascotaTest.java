@@ -3,6 +3,7 @@ package com.dds.rescate.model;
 import com.dds.rescate.exception.ValidadorException;
 import com.dds.rescate.model.Enum.Sexo;
 import com.dds.rescate.model.Enum.TipoMascota;
+import com.dds.rescate.model.Enum.TipoPregunta;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class EncontrarMascotaTest {
         unPrimo = new Contacto("Ceci", "lio", "a@a.com", notificador, 12345678);
         perfilPepito = new DatosPersonales("Pedro", "Lopez", new Date(), 12345678, unPrimo);
         pepito = new UsuarioDuenio("Pedro777", "contradificil", perfilPepito);
-        color = new Caracteristica("Color");
+        color = new Caracteristica(TipoPregunta.CARACTERISTICA,"Color");
         colorM = new CaracteristicaMascota(color, "naranja");
         CatalogoCaracteristicas.getInstance().agregarCaracteristica(color);
         caracteristicas.add(colorM);

@@ -6,20 +6,29 @@ import com.dds.rescate.exception.ValidadorException;
 import com.dds.rescate.model.Enum.Sexo;
 import com.dds.rescate.model.Enum.TipoMascota;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.dds.rescate.service.ImageLoader.resizeImage;
 
+@Entity
 public class Mascota {
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private TipoMascota tipoMascota;
     private String nombre;
     private String apodo;
     private String descripcion;
+    @Transient
     private List<CaracteristicaMascota> caracteristicas = new ArrayList<>();
+    @Transient
     private Asociacion asociacionRegistrada;
     private Sexo sexo;
     private boolean perdida;
+    @Transient
     private List<Foto> fotos = new ArrayList<>();
 
     public Mascota(TipoMascota tipoMascota, String nombre, String apodo, String descripcion, Asociacion asociacionRegistrada,

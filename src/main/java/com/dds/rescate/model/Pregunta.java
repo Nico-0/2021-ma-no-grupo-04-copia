@@ -1,12 +1,28 @@
 package com.dds.rescate.model;
 
+import com.dds.rescate.model.Enum.TipoPregunta;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Pregunta {//Caracteristica
+    @Id
+    @GeneratedValue
+    public int ID;
 
+    @Embedded
     public Caracteristica pregunta;
-    //public Boolean esGeneral;
+
+    @ElementCollection
+    @OnDelete(action= OnDeleteAction.CASCADE)
+    @JoinColumn(name = "Pregunta_ID")
     public List<String> respuestasPosibles;
+
+    @OneToMany
+    @JoinColumn(name = "FK_pregunta")
     public List<Comparacion> valoresRespuestas;
 
     //Constructor
@@ -30,7 +46,7 @@ public class Pregunta {//Caracteristica
     public int obtenerValor(String respuestaUno, String respuestaDos) {
 
         if (!respuestaUno.equals(respuestaDos)) {
-            Comparacion valor = valoresRespuestas.stream().filter(v -> (v.respuesta_unoydos.contains(respuestaUno) && v.respuesta_unoydos.contains(respuestaDos))).findAny().orElse(null);
+            Comparacion valor = obtenerComparacion(respuestaUno, respuestaDos);
 
             if (valor == null) {
                 //System.out.println("La asociacion no asigno el puntaje para el par: " + respuestaUno + " y " + respuestaDos);
@@ -43,6 +59,13 @@ public class Pregunta {//Caracteristica
             return 10;
         }
 
+    }
+
+    private Comparacion obtenerComparacion(String respuestaUno, String respuestaDos){
+        //return valoresRespuestas.stream().filter(v -> (v.respuesta_unoydos.contains(respuestaUno) && v.respuesta_unoydos.contains(respuestaDos))).findAny().orElse(null);
+
+        return valoresRespuestas.stream().filter(v -> ( (v.respuestaUno.equals(respuestaUno) || v.respuestaDos.equals(respuestaUno)) &&
+                                                        (v.respuestaUno.equals(respuestaDos) || v.respuestaDos.equals(respuestaDos))   )   ).findAny().orElse(null);
     }
 
     public String getNombre(){

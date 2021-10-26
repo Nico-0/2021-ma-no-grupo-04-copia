@@ -2,15 +2,24 @@ package com.dds.rescate.model;
 import com.dds.rescate.model.Enum.EstadoPubli;
 import com.dds.rescate.model.Enum.TipoMascota;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Publicacion {
 
+    @Id
+    @GeneratedValue
     public int ID;
+    @Transient
     public UsuarioDuenio autor;
+    @Transient
     public Asociacion asociacionAsignada;
     public Date fechaCreacion;
     public EstadoPubli estadoPublicacion;

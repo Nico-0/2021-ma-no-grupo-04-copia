@@ -1,7 +1,6 @@
 package com.dds.rescate.model;
 
 public class UsuarioVoluntario extends Usuario{
-    public Asociacion asociacion;
 
     //Constructor
     public UsuarioVoluntario(String username, String password, Asociacion asociacion){

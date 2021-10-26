@@ -1,13 +1,21 @@
 package com.dds.rescate.model;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Contacto {
-
+    @Id
+    @GeneratedValue
+    private int id;
     public String nombre;
     public String apellido;
     public String email;
     public Integer telefono;
+    @Transient
     public List<Notificador> formasNotificacion = new ArrayList<>();
 
     public Contacto(String nombre, String apellido, String email, Notificador notificadorMinimo, Integer telefono) {

@@ -3,19 +3,18 @@ package com.dds.rescate.controllers;
 import com.dds.rescate.model.*;
 import com.dds.rescate.service.GeneradorUsuario;
 import com.dds.rescate.service.PublicacionService;
-import com.dds.rescate.service.Recomendador;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.Comparator;
+import javax.persistence.EntityManager;
+
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class Publicaciones {
 
-    public static ModelAndView show(Request request, Response response) {
+    public static ModelAndView show(Request request, Response response, EntityManager em) {
         HashMap<String, Object> viewModel = new HashMap<>();
         String username = request.cookie("username");
         String tipoUsuario = request.cookie("tipoUsuario");
@@ -25,7 +24,8 @@ public class Publicaciones {
 
         String id_publi = request.params(":id");
 
-        Publicacion publicacion = PublicacionService.getInstance().getDeID(id_publi);
+        PublicacionService repo = new PublicacionService(em);
+        Publicacion publicacion = repo.getDeID(id_publi);
         viewModel.put("Publicacion", publicacion);
 
         String tipo_publi = publicacion.getTipoPubli();
