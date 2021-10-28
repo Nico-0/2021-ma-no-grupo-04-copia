@@ -3,6 +3,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.EntityManager;
 import java.util.HashMap;
 
 import static com.dds.rescate.controllers.LoginController.verificarLogin;

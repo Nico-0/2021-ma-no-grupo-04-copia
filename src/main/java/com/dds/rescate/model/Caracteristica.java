@@ -15,7 +15,7 @@ public class Caracteristica {//Pregunta
 	@Enumerated(EnumType.STRING)
 	private TipoPregunta tipo;
 
-	public Caracteristica() { //constructor vacio para hibernate
+	private Caracteristica() { //constructor vacio para hibernate
 	}
 	public Caracteristica(TipoPregunta tipo, String nombre) {
 		this.nombre = nombre;

@@ -11,6 +11,9 @@
 
 		<class>com.dds.rescate.model.Mascota</class>
 		<class>com.dds.rescate.model.Publicacion</class>
+		<class>com.dds.rescate.model.PublicacionPerdida</class>
+		<class>com.dds.rescate.model.PublicacionAdopcion</class>
+		<class>com.dds.rescate.model.PublicacionIntencionDeAdopcion</class>
 		<class>com.dds.rescate.model.Contacto</class>
 		<class>com.dds.rescate.model.DatosPersonales</class>
 		<class>com.dds.rescate.model.Usuario</class>
@@ -19,6 +22,8 @@
 		<class>com.dds.rescate.model.Pregunta</class>
 		<class>com.dds.rescate.model.Caracteristica</class>
 		<class>com.dds.rescate.model.Comparacion</class>
+		<class>com.dds.rescate.model.Recomendacion</class>
+		<class>com.dds.rescate.model.CaracteristicaMascota</class>
 
 
 

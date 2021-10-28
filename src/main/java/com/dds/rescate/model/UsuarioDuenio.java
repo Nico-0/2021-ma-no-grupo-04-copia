@@ -1,20 +1,20 @@
 package com.dds.rescate.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dds.rescate.service.PublicacionService;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class UsuarioDuenio extends Usuario{
 
-    @OneToMany
+    @OneToMany//(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_duenio")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Mascota> mascotas = new ArrayList<>();
     @OneToOne
     private DatosPersonales perfil;
@@ -22,6 +22,9 @@ public class UsuarioDuenio extends Usuario{
     public UsuarioDuenio(String username, String password, DatosPersonales perfil) {
         super(username, password);
         this.perfil = perfil;
+    }
+    private UsuarioDuenio(){
+
     }
 
     //Getteers y Setters
@@ -50,9 +53,6 @@ public class UsuarioDuenio extends Usuario{
         return this.mascotas.stream().filter(mascota -> mascota.estaPerdida()).count();
     }
 
-    public void publicarMascotaPerdida(Formulario formulario) {
-    	PublicacionService.getInstance().generarPublicacion(formulario, this, asociacion);
-    }
 
     public String getNombre(){
         return this.perfil.getNombre();

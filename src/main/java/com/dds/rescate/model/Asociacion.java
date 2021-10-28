@@ -31,6 +31,9 @@ public class Asociacion {
         this.caracteristicasParaRegistrarMascota = caracteristicasParaRegistrarMascota;
         this.preguntasParaPublicarEnAdopcion = preguntasParaPublicarEnAdopcion;
     }
+    private Asociacion(){
+
+    }
 
     //Getters y Setters
     public String getNombre() {

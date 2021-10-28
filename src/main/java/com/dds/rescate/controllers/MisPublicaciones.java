@@ -8,24 +8,26 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class MisPublicaciones {
-    public static ModelAndView show(Request request, Response response){
+    public static ModelAndView show(Request request, Response response, EntityManager em){
         HashMap<String, Object> viewMisPublicaciones = new HashMap<>();
         String username = request.cookie("username");
         String tipoUsuario = request.cookie("tipoUsuario");
         viewMisPublicaciones.put("username", username);
         viewMisPublicaciones.put("tipoUsuario", tipoUsuario);
 
-        GeneradorUsuario repoUsuarios = GeneradorUsuario.getInstance();
+        GeneradorUsuario repoUsuarios = new GeneradorUsuario(em);
         UsuarioDuenio user = (UsuarioDuenio) repoUsuarios.obtenerUsuario(username);
 
         String nombrePerfil = user.getNombre();
 
-        List<Publicacion> publicaciones = PublicacionService.getInstance().getPublicadas();
+        PublicacionService repoPublis = new PublicacionService(em);
+        List<Publicacion> publicaciones = repoPublis.getPublicadas();
         //TODO mostrar publicaciones finalizadas?
 
         if(publicaciones.size() > 0){

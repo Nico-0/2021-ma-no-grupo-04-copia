@@ -1,6 +1,8 @@
 package com.dds.rescate.model;
 
 import com.dds.rescate.model.Enum.TipoPregunta;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -19,10 +21,12 @@ public class Pregunta {//Caracteristica
     @ElementCollection
     @OnDelete(action= OnDeleteAction.CASCADE)
     @JoinColumn(name = "Pregunta_ID")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<String> respuestasPosibles;
 
     @OneToMany
     @JoinColumn(name = "FK_pregunta")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<Comparacion> valoresRespuestas;
 
     //Constructor
@@ -32,6 +36,7 @@ public class Pregunta {//Caracteristica
         this.respuestasPosibles = respuestasPosibles;
         this.valoresRespuestas = valoresRespuestas;
     }
+    private Pregunta(){}
 
     //Getters y Setters
     public Caracteristica getPregunta() {

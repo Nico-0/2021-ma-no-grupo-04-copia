@@ -5,8 +5,10 @@ import java.io.IOException;
 import com.dds.rescate.exception.ValidadorException;
 import com.dds.rescate.model.Enum.Sexo;
 import com.dds.rescate.model.Enum.TipoMascota;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,18 +20,33 @@ public class Mascota {
     @GeneratedValue
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private TipoMascota tipoMascota;
+
     private String nombre;
     private String apodo;
     private String descripcion;
-    @Transient
+
+    @OneToMany//(fetch = FetchType.EAGER)
+    @JoinColumn(name = "FK_mascota")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<CaracteristicaMascota> caracteristicas = new ArrayList<>();
-    @Transient
+
+    @OneToOne
+    @JoinColumn(name = "asoc_id")
     private Asociacion asociacionRegistrada;
+
+    @Enumerated(EnumType.STRING)
     private Sexo sexo;
+
+    @Type(type="yes_no")
     private boolean perdida;
-    @Transient
-    private List<Foto> fotos = new ArrayList<>();
+
+    @ElementCollection//(fetch = FetchType.EAGER)
+    @OnDelete(action= OnDeleteAction.CASCADE)
+    @JoinColumn(name = "Mascota_ID")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<String> fotos = new ArrayList<>();
 
     public Mascota(TipoMascota tipoMascota, String nombre, String apodo, String descripcion, Asociacion asociacionRegistrada,
                    List<CaracteristicaMascota> caracteristicas, Sexo sexo, String fotoMinima) throws ValidadorException {
@@ -44,7 +61,7 @@ public class Mascota {
         //this.caracteristicas = validarCaracteristicas(caracteristicas);
         this.sexo = sexo;
         this.perdida = false;
-        this.fotos.add(new Foto(fotoMinima));
+        this.fotos.add(fotoMinima);
     }
 
 
@@ -113,12 +130,12 @@ public class Mascota {
         return descripcion;
     }
 
-    public List<Foto> getFotos() {
+    public List<String> getFotos() {
         return fotos;
     }
 
     public String getFotoString(){
-        return this.fotos.get(0).nombreFoto;
+        return this.fotos.get(0);
     }
 
     public void setDescripcion(String descripcion) {
@@ -152,7 +169,7 @@ public class Mascota {
     public void cargarImagen(String nombre) {
         try {
             resizeImage(nombre);
-            this.fotos.add(new Foto(nombre));
+            this.fotos.add(nombre);
             System.out.println("Se carga la foto " + nombre);
         }
         catch (IOException ex){

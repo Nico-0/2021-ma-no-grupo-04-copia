@@ -47,9 +47,15 @@ public class Data {
         //repositorio.agregarUsuario(user_5);
 
         em.getTransaction().begin();
-        em.createQuery("DELETE FROM Contacto").executeUpdate();
+        em.createQuery("DELETE FROM CaracteristicaMascota").executeUpdate();
+        em.createQuery("DELETE FROM Recomendacion").executeUpdate();
+        em.createQuery("DELETE FROM PublicacionIntencionDeAdopcion").executeUpdate();
+        em.createQuery("DELETE FROM PublicacionAdopcion").executeUpdate();
+        em.createQuery("DELETE FROM PublicacionPerdida").executeUpdate();
+        em.createQuery("DELETE FROM Mascota").executeUpdate();
         em.createQuery("DELETE FROM UsuarioDuenio").executeUpdate();
         em.createQuery("DELETE FROM DatosPersonales").executeUpdate();
+        em.createQuery("DELETE FROM Contacto").executeUpdate();
         em.createQuery("DELETE FROM Usuario").executeUpdate();
         em.createQuery("DELETE FROM Comparacion").executeUpdate();
         em.createQuery("DELETE FROM Asociacion").executeUpdate();
@@ -169,12 +175,6 @@ public class Data {
         Asociacion asociacion_2 = new Asociacion("orejas rescatadas",caracteristicas_2,preguntas_2);
 
         em.getTransaction().begin();
-      /*  em.persist(color);
-        em.persist(tamanio);
-        em.persist(pelo);
-        em.persist(cola);
-        em.persist(castrada);
-        em.persist(cantidadPatas);*/
 
         em.persist(blanco_rosa_1);
         em.persist(negro_marron_1);
@@ -194,19 +194,13 @@ public class Data {
         em.persist(indistinto_si_1);
         em.persist(dos_tres_1);
         em.persist(cuatro_tres_1);
-       // em.persist(con_patio);
-       // em.persist(otros_animales);
-        //em.persist(casa_grande);
+
         em.persist(patio_grande_chico_1);
         em.persist(patio_chico_no_1);
         em.persist(preguntaPatio);
         em.persist(preguntaOtrosAnimales);
         em.persist(preguntaCasaGrande);
 
-      /*  em.persist(alto_presupuesto);
-        em.persist(atencion_8hs);
-        em.persist(duenio_buena_persona);
-        em.persist(vacunada);*/
         em.persist(atencion_1h_8hs_1);
         em.persist(atencion_10min_1h_1);
         em.persist(preguntaAltoPresupuesto);
@@ -253,20 +247,37 @@ public class Data {
         Mascota perro2 = new Mascota(TipoMascota.PERRO, "Pedro mini", "Caniche", "demasiado chico", asociacion_1, carac_perro_chico, Sexo.MACHO,"perroCaniche.jpg");
         Mascota cerdo = new Mascota(TipoMascota.MINIPIG, "George", "dinosaurio", "salta en charcos de lodo", asociacion_2, carac_cerdo, Sexo.MACHO, "minipig.jpg");
 
+        em.getTransaction().begin();
+        em.persist(perro);
+        em.persist(gato);
+        em.persist(minipig);
+        em.persist(perro2);
+        em.persist(cerdo);
+
+        carac_perro.forEach(em::persist);
+        carac_perro_chico.forEach(em::persist);
+        carac_gato.forEach(em::persist);
+        carac_pig.forEach(em::persist);
+        carac_cerdo.forEach(em::persist);
+
         //Agrego mascota a un Usuario(el que esta en el repo)
         user_4.agregarMascota(perro);
         user_5.agregarMascota(gato);
         user_4.agregarMascota(minipig);
         user_4.agregarMascota(perro2);
         user_4.agregarMascota(cerdo);
+        em.getTransaction().commit();
 
 
 //Generar publicaciones
 
         //de mascota perdida
-        instancia.agregarPublicacion(new PublicacionPerdida(user_1, asociacion_1, TipoMascota.GATO, "gato.jpg", EstadoEncontrada.EXCELENTE,"",contacto));
-        instancia.agregarPublicacion(new PublicacionPerdida(user_2, asociacion_2, TipoMascota.MINIPIG,"minipig.jpg", EstadoEncontrada.BIEN,"",contacto));
-        instancia.agregarPublicacion(new PublicacionPerdida(user_3, asociacion_1, TipoMascota.PERRO,"perro.jpg", EstadoEncontrada.MASO,"",contacto));
+        PublicacionPerdida perdida_1 = new PublicacionPerdida(user_1, asociacion_1, TipoMascota.GATO, "gato.jpg", EstadoEncontrada.EXCELENTE,"",contacto);
+        PublicacionPerdida perdida_2 = new PublicacionPerdida(user_2, asociacion_2, TipoMascota.MINIPIG,"minipig.jpg", EstadoEncontrada.BIEN,"",contacto);
+        PublicacionPerdida perdida_3 = new PublicacionPerdida(user_3, asociacion_1, TipoMascota.PERRO,"perro.jpg", EstadoEncontrada.MASO,"",contacto);
+        //instancia.agregarPublicacion(perdida_1);
+       // instancia.agregarPublicacion(perdida_2);
+       // instancia.agregarPublicacion(perdida_3);
 
 
         //de adopcion
@@ -300,11 +311,11 @@ public class Data {
         PublicacionAdopcion adopcion_3 = new PublicacionAdopcion(user_3, asociacion_1, minipig, preg_3);
         PublicacionAdopcion adopcion_4 = new PublicacionAdopcion(user_1, asociacion_2, perro2, preg_4);
         PublicacionAdopcion adopcion_5 = new PublicacionAdopcion(user_4, asociacion_2, cerdo, preg_5);
-        instancia.agregarPublicacion(adopcion_1);
+        /*instancia.agregarPublicacion(adopcion_1);
         instancia.agregarPublicacion(adopcion_2);
         instancia.agregarPublicacion(adopcion_3);
         instancia.agregarPublicacion(adopcion_4);
-        instancia.agregarPublicacion(adopcion_5);
+        instancia.agregarPublicacion(adopcion_5);*/
 
 
 
@@ -335,14 +346,45 @@ public class Data {
         PublicacionIntencionDeAdopcion intencion_2 = new PublicacionIntencionDeAdopcion(user_4, asociacion_2, TipoMascota.PERRO, pref_2_asoc_2, pregs_2_asoc_2);
         PublicacionIntencionDeAdopcion intencion_3 = new PublicacionIntencionDeAdopcion(user_5, asociacion_1, TipoMascota.MINIPIG, pref_2_asoc_1, pregs_2_asoc_1);
 
-        instancia.agregarPublicacion(intencion_1);
+        /*instancia.agregarPublicacion(intencion_1);
         instancia.agregarPublicacion(intencion_2);
-        instancia.agregarPublicacion(intencion_3);
+        instancia.agregarPublicacion(intencion_3);*/
+
+        em.getTransaction().begin();
+
+        em.persist(perdida_1);
+        em.persist(perdida_2);
+        em.persist(perdida_3);
+
+        preg_1.forEach(em::persist);
+        preg_2.forEach(em::persist);
+        preg_3.forEach(em::persist);
+        preg_4.forEach(em::persist);
+        preg_5.forEach(em::persist);
+        em.persist(adopcion_1);
+        em.persist(adopcion_2);
+        em.persist(adopcion_3);
+        em.persist(adopcion_4);
+        em.persist(adopcion_5);
+
+        pref_1_asoc_1.forEach(em::persist);
+        pref_2_asoc_2.forEach(em::persist);
+        pref_2_asoc_1.forEach(em::persist);
+        pregs_1_asoc_1.forEach(em::persist);
+        pregs_2_asoc_2.forEach(em::persist);
+        pregs_2_asoc_1.forEach(em::persist);
+        em.persist(intencion_1);
+        em.persist(intencion_2);
+        em.persist(intencion_3);
+
+        em.getTransaction().commit();
 
 
-
+        em.getTransaction().begin();
         //voluntario automatico
-        instancia.aceptarPendientes();
+        PublicacionService repo = new PublicacionService(em);
+        repo.aceptarPendientes();
 
+        em.getTransaction().commit();
     }
 }

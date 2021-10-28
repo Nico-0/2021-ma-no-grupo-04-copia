@@ -27,5 +27,6 @@ public class Comparacion {
         this.respuestaDos = respuestaDos;
         this.valor = valor;
     }
+    private Comparacion(){}
 
 }

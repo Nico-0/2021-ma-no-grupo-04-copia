@@ -25,6 +25,7 @@ public class Contacto {
         this.telefono = telefono;
         this.formasNotificacion.add(notificadorMinimo);
     }
+    private Contacto(){}
 
     //Getters ySetters
     public String getNombre(){

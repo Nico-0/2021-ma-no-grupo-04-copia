@@ -10,7 +10,9 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.EntityManager;
 import java.util.HashMap;
+import java.util.List;
 
 public class LoginController {
 
@@ -24,12 +26,12 @@ public class LoginController {
     }
 
 
-    public static Void login(Request request, Response response){
+    public static Void login(Request request, Response response, EntityManager em){
         if(request.queryParams("user_name") != null && request.queryParams("password") != null) {
             String username = request.queryParams("user_name");
             String password = request.queryParams("password");
 
-            GeneradorUsuario repositorio = GeneradorUsuario.getInstance();
+            GeneradorUsuario repositorio = new GeneradorUsuario(em);
             if(repositorio.checkUsuario(username,password)) {
 
                 Usuario usuario = repositorio.obtenerUsuario(username);
@@ -69,7 +71,7 @@ public class LoginController {
     }
 
     //TODO verificar que ningun campo se complete con espacios
-    public static Void comun(Request request, Response response) {
+    public static Void comun(Request request, Response response, EntityManager em) {
         if(request.queryParams("user_name") != null && request.queryParams("password") != null) {
             String username = request.queryParams("user_name");
             String password = request.queryParams("password");
@@ -77,7 +79,8 @@ public class LoginController {
             //TODO crear metodo que no pida datos personales y cargar datos personales en /perfil
 
             UsuarioDuenio nuevoUsuario = new UsuarioDuenio(username, password, null);
-            GeneradorUsuario.getInstance().registrarUsuario(nuevoUsuario);
+            GeneradorUsuario repo = new GeneradorUsuario(em);
+            repo.registrarUsuario(nuevoUsuario);
 
             //login automatico para no ser redireccionado a "/" por spark.before por no tener la cookie
             //cookie en "/" para que no la setee en /registro
@@ -90,7 +93,7 @@ public class LoginController {
         return null;
     }
 
-    public static Void voluntario(Request request, Response response) {
+    public static Void voluntario(Request request, Response response, EntityManager em) {
         if(request.queryParams("user_name") != null && request.queryParams("password") != null && request.queryParams("asociacion") != null) {
             String username = request.queryParams("user_name");
             String password = request.queryParams("password");
@@ -99,7 +102,8 @@ public class LoginController {
             //TODO no dar asociacion null
             //TODO verificar que la asociacion ya exista
             UsuarioVoluntario nuevoUsuario = new UsuarioVoluntario(username, password, null);
-            GeneradorUsuario.getInstance().registrarUsuario(nuevoUsuario);
+            GeneradorUsuario repo = new GeneradorUsuario(em);
+            repo.registrarUsuario(nuevoUsuario);
 
             //login automatico para no ser redireccionado a "/" por spark.before por no tener la cookie
             //cookie en "/" para que no la setee en /registro
@@ -113,7 +117,7 @@ public class LoginController {
         return null;
     }
 
-    public static Void admin(Request request, Response response) {
+    public static Void admin(Request request, Response response, EntityManager em) {
         if(request.queryParams("user_name") != null && request.queryParams("password") != null && request.queryParams("asociacion") != null) {
             String username = request.queryParams("user_name");
             String password = request.queryParams("password");
@@ -122,7 +126,8 @@ public class LoginController {
             //TODO asociar organizacion al administrador
             //TODO crear organizacion si no existe
             UsuarioAdministrador nuevoUsuario = new UsuarioAdministrador(username, password);
-            GeneradorUsuario.getInstance().registrarUsuario(nuevoUsuario);
+            GeneradorUsuario repo = new GeneradorUsuario(em);
+            repo.registrarUsuario(nuevoUsuario);
 
             //login automatico para no ser redireccionado a "/" por spark.before por no tener la cookie
             //cookie en "/" para que no la setee en /registro

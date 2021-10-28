@@ -1,5 +1,8 @@
 package com.dds.rescate.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,8 +19,9 @@ public class DatosPersonales {
     public Integer nroDoc;
     @Transient
     public Ubicacion direccion;
-    @OneToMany
-    @JoinColumn(name = "FK_datosPersonales")
+    @ManyToMany
+    //@JoinColumn(name = "FK_datosPersonales") mejor que datos personales guarde la referencia al contacto (tabla adicional)
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<Contacto> contactos = new ArrayList<>();
 
     public DatosPersonales(String nombre, String apellido, Date fechaNacimiento, Integer nroDoc, Contacto contactoMinimo){
@@ -26,6 +30,9 @@ public class DatosPersonales {
         this.fechaNacimiento = fechaNacimiento;
         this.nroDoc = nroDoc;
         this.contactos.add(contactoMinimo);
+    }
+    private DatosPersonales(){
+
     }
 
     public String getNombre() {

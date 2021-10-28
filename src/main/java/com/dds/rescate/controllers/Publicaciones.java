@@ -48,7 +48,7 @@ public class Publicaciones {
 
     }
 
-    public static Void adoptar(Request request, Response response) {
+    public static Void adoptar(Request request, Response response, EntityManager em) {
 
         String id_publi = request.params(":id");
 
@@ -58,10 +58,12 @@ public class Publicaciones {
         UsuarioDuenio duenio_original;
         UsuarioDuenio nuevo_duenio;
         PublicacionAdopcion publicacion;
+        GeneradorUsuario repoUsers = new GeneradorUsuario(em);
+        PublicacionService repoPublis = new PublicacionService(em);
 
         if(tipoUsuario.equals("comun")){
-         nuevo_duenio = (UsuarioDuenio) GeneradorUsuario.getInstance().obtenerUsuario(username);
-         publicacion = (PublicacionAdopcion) PublicacionService.getInstance().getDeID(id_publi);
+         nuevo_duenio = (UsuarioDuenio) repoUsers.obtenerUsuario(username);
+         publicacion = (PublicacionAdopcion) repoPublis.getDeID(id_publi);
 
          duenio_original = publicacion.getAutor();
          verificarCreador(duenio_original, nuevo_duenio);
@@ -77,7 +79,7 @@ public class Publicaciones {
         return null;
     }
 
-    public static Void recuperar(Request request, Response response) {
+    public static Void recuperar(Request request, Response response, EntityManager em) {
 
         String id_publi = request.params(":id");
 
@@ -87,11 +89,13 @@ public class Publicaciones {
         PublicacionPerdida publicacion;
         UsuarioDuenio duenio_original;
         UsuarioDuenio nuevo_duenio;
+        GeneradorUsuario repoUsers = new GeneradorUsuario(em);
+        PublicacionService repoPublis = new PublicacionService(em);
 
         if(tipoUsuario.equals("comun")){
-            publicacion = (PublicacionPerdida) PublicacionService.getInstance().getDeID(id_publi);
+            publicacion = (PublicacionPerdida) repoPublis.getDeID(id_publi);
 
-            nuevo_duenio = (UsuarioDuenio) GeneradorUsuario.getInstance().obtenerUsuario(username);
+            nuevo_duenio = (UsuarioDuenio) repoUsers.obtenerUsuario(username);
             duenio_original = publicacion.getAutor();
             verificarCreador(duenio_original, nuevo_duenio);
 
@@ -113,13 +117,14 @@ public class Publicaciones {
         }
     }
 
-    public static Void finalizar(Request request, Response response) {
+    public static Void finalizar(Request request, Response response, EntityManager em) {
 
         String id_publi = request.params(":id");
 
         PublicacionIntencionDeAdopcion publicacion;
+        PublicacionService repoPublis = new PublicacionService(em);
 
-        publicacion = (PublicacionIntencionDeAdopcion) PublicacionService.getInstance().getDeID(id_publi);
+        publicacion = (PublicacionIntencionDeAdopcion) repoPublis.getDeID(id_publi);
 
         publicacion.darDeBaja();
 

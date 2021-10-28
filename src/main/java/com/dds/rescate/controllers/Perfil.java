@@ -8,12 +8,13 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.EntityManager;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
 public class Perfil {
-    public static ModelAndView perfil(Request request, Response response){
+    public static ModelAndView perfil(Request request, Response response, EntityManager em){
         HashMap<String, Object> viewProfile = new HashMap<>();
         String username = request.cookie("username");
         String tipoUsuario = request.cookie("tipoUsuario");
@@ -21,7 +22,7 @@ public class Perfil {
         viewProfile.put("tipoUsuario", tipoUsuario);
 
         viewProfile.put("Perfil", "Datos Personales");
-        GeneradorUsuario repoUsuarios = GeneradorUsuario.getInstance();
+        GeneradorUsuario repoUsuarios = new GeneradorUsuario(em);
         UsuarioDuenio user = (UsuarioDuenio) repoUsuarios.obtenerUsuario(username);
 
         //System.out.print(user);

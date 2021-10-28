@@ -2,26 +2,28 @@ package com.dds.rescate.service;
 
 import com.dds.rescate.model.*;
 
+import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Recomendador {
 
-    private static Recomendador instance;
+    private Recomendador(){}
 
-    public static Recomendador getInstance() {
-        if(instance == null) {
-            instance = new Recomendador();
-        }
-        return instance;
+    private EntityManager entityManager;
+
+    public Recomendador(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     //generar recomendaciones para una intencion de adopcion
     public void recomendar(PublicacionIntencionDeAdopcion intencion){
         intencion.getRecomendaciones().clear(); //borrar recomendaciones viejas
         intencion.updateFechaReco();
-        List<Publicacion> publisAdopcion = PublicacionService.getInstance().getDeTipo("adopcion");
+
+        PublicacionService repo = new PublicacionService(entityManager);
+        List<Publicacion> publisAdopcion = repo.getDeTipo("adopcion");
 
         publisAdopcion.stream().forEach(adopcion -> generarRecomendacion(intencion, (PublicacionAdopcion) adopcion));
         //TODO verificar que solo se recomiende el mismo tipo de mascota?
@@ -36,6 +38,7 @@ public class Recomendador {
         HashMap<String, Object> valorPreferencias = calcularValor(intencion.getPreferencias(), adopcion.getMascota().getCaracteristicas(), intencion.getAsociacionAsignada(), "");
         HashMap<String, Object> valorPreguntas = calcularValor(intencion.getPreguntas(), adopcion.getPreguntas(), intencion.getAsociacionAsignada(), "preguntas");
         Recomendacion recomendacion = new Recomendacion(adopcion, valorPreferencias, valorPreguntas);
+        entityManager.persist(recomendacion);
         intencion.addRecomendacion(recomendacion);
     }
 
@@ -102,7 +105,18 @@ public class Recomendador {
 
 
 
+
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    private static Recomendador instance;
+    public static Recomendador getInstance() {
+        if(instance == null) {
+            instance = new Recomendador();
+        }
+        return instance;
+    }
 
     public int caracteristicasCoincidentes(List<CaracteristicaMascota> preferencias, List<CaracteristicaMascota> caracteristicas){
         List<String> caracteristicasString = getCaracteristicasString(caracteristicas);

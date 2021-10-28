@@ -3,20 +3,33 @@ package com.dds.rescate.model;
 import com.dds.rescate.model.Enum.EstadoEncontrada;
 import com.dds.rescate.model.Enum.EstadoPubli;
 import com.dds.rescate.model.Enum.TipoMascota;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class PublicacionPerdida extends Publicacion {
 
-    public Foto foto;
+    public String foto;
     public String descripcion;
-    //public String nombreRescatista; seria el autor heredado
-    public List<Contacto> contactos = new ArrayList<>();;
+
+    @ManyToMany
+    //@JoinColumn(name = "FK_publicacion_perdida")
+    //@LazyCollection(LazyCollectionOption.FALSE)
+    public List<Contacto> contactos = new ArrayList<>();
+
+    @Transient
     public Ubicacion ubicacionEncontrada;
+    @Transient
     public String hogarTransito;
+
+    @Enumerated(EnumType.STRING)
     public EstadoEncontrada estadoEncontrada;
+
     private Date fecha_recuperacion;
 
     //Constructor
@@ -24,20 +37,21 @@ public class PublicacionPerdida extends Publicacion {
                               String fotoPubli, EstadoEncontrada estadoEncontrada, String descripcion, Contacto contactoMinimo) {
         super(autor, asociacionAsignada, tipoMascota);
         //TODO asociacionAsignada debe ser la mas cercana a la ubicacionEncontrada
-        this.foto = new Foto(fotoPubli);
+        this.foto = fotoPubli;
         this.descripcion = descripcion;
         this.contactos.add(contactoMinimo);
         this.estadoEncontrada = estadoEncontrada;
         //TODO se crea la nueva mascota en el sistema al adoptarse o aca?
         //TODO se elige el contacto o se saca del usuario rescatista?
     }
+    private PublicacionPerdida(){}
 
     //Getters y Setters
-    public Foto getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(Foto foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
@@ -76,7 +90,7 @@ public class PublicacionPerdida extends Publicacion {
     }
 
     public String getFotoString(){
-        return foto.nombreFoto;
+        return foto;
     }
 
     public String getFechaRecuperacion(){

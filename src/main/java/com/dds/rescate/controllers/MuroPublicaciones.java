@@ -12,19 +12,22 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.EntityManager;
+
 public class MuroPublicaciones {
 
-    public static ModelAndView muro(Request request, Response response) {
+    public static ModelAndView muro(Request request, Response response, EntityManager em) {
         HashMap<String, Object> viewModel = new HashMap<>();
         viewModel.put("Titulo", "Lista publicaciones");
 
         String estado = request.queryParams("estado");
         List<Publicacion> publicaciones;
 
+        PublicacionService repo = new PublicacionService(em);
         if(estado != null && estado.equals("finalizadas"))
-            publicaciones = PublicacionService.getInstance().getFinalizadas();
+            publicaciones = repo.getFinalizadas();
         else
-            publicaciones = PublicacionService.getInstance().getPublicadas();
+            publicaciones = repo.getPublicadas();
 
 
         publicaciones = publicaciones.stream().filter(publicacion -> !publicacion.getTipoPubli().equals("intencion")).collect(Collectors.toList());

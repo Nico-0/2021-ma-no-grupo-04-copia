@@ -1,18 +1,34 @@
 package com.dds.rescate.model;
 
 import com.dds.rescate.model.Enum.TipoMascota;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Entity
 public class PublicacionIntencionDeAdopcion extends Publicacion {
 
+    @OneToMany//(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "FK_publicacion_intencion")
+    @LazyCollection(LazyCollectionOption.FALSE)
     List<CaracteristicaMascota> preferencias;
+
+    @OneToMany
+    @JoinColumn(name = "FK_publicacion_intencion")
+    @LazyCollection(LazyCollectionOption.FALSE)
     List<CaracteristicaMascota> preguntas;
+
+    @OneToMany
+    @JoinColumn(name = "FK_publicacion_intencion")
+    @LazyCollection(LazyCollectionOption.FALSE)
     List<Recomendacion> recomendaciones = new ArrayList<>();
+
     public String ultimaRecomendacion;
 
     //Constructor
@@ -26,6 +42,10 @@ public class PublicacionIntencionDeAdopcion extends Publicacion {
         this.preguntas = preguntasPubli;
         this.ultimaRecomendacion = "nunca";
     }
+    private PublicacionIntencionDeAdopcion(){
+
+    }
+
     //Getters y Setters
     public List<CaracteristicaMascota> getPreferencias() {
         return preferencias;

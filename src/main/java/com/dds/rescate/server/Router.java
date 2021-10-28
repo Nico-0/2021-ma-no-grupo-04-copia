@@ -44,69 +44,72 @@ public class Router {
 
         Spark.get("/", HomeController::home, engine);
 
-        Spark.get("/muro", MuroPublicaciones::muro, engine);
-        Spark.get("/recomendador", RecomendadorController::recomendador, engine);
+        Spark.get("/muro", TemplWithTransaction(MuroPublicaciones::muro), engine);
+        Spark.get("/recomendador", TemplWithTransaction(RecomendadorController::recomendador), engine);
         Spark.get("/aprobar", Aprobar::aprobar, engine);
         Spark.get("/gestion", Gestion::gestion, engine);
-        Spark.get("/perfil", Perfil::perfil, engine);
-        Spark.get("/mis_mascotas", MisMascotas::show, engine);
-        Spark.get("/mis_publicaciones", MisPublicaciones::show, engine);
+        Spark.get("/perfil", TemplWithTransaction(Perfil::perfil), engine);
+        Spark.get("/mis_mascotas", TemplWithTransaction(MisMascotas::show), engine);
+        Spark.get("/mis_publicaciones", TemplWithTransaction(MisPublicaciones::show), engine);
 
-        Spark.post("/", LoginController::login);
+        Spark.post("/", RouteWithTransaction(LoginController::login));
 
         Spark.post("/logout", LoginController::logout);
 
-        Spark.post("/registro/comun", LoginController::comun);
-        Spark.post("/registro/voluntario", LoginController::voluntario);
-        Spark.post("/registro/admin", LoginController::admin);
+        Spark.post("/registro/comun", RouteWithTransaction(LoginController::comun));
+        Spark.post("/registro/voluntario", RouteWithTransaction(LoginController::voluntario));
+        Spark.post("/registro/admin", RouteWithTransaction(LoginController::admin));
 
         Spark.get("/registro/sucess", LoginController::sucess, engine);
 
-        Spark.post("/recomendador/regenerar", RecomendadorController::recomendar);
+        Spark.post("/recomendador/regenerar", RouteWithTransaction(RecomendadorController::recomendar));
 
         Spark.get("/publicaciones", (req, res) -> "Lista de publicaciones aqui");
         Spark.get("/publicaciones/:id", TemplWithTransaction(Publicaciones::show), engine);
 
-        Spark.post("/publicaciones/:id/adoptar", Publicaciones::adoptar);
-        Spark.post("/publicaciones/:id/recuperar", Publicaciones::recuperar);
-        Spark.post("/publicaciones/:id/finalizar", Publicaciones::finalizar);
+        Spark.post("/publicaciones/:id/adoptar", RouteWithTransaction(Publicaciones::adoptar));
+        Spark.post("/publicaciones/:id/recuperar", RouteWithTransaction(Publicaciones::recuperar));
+        Spark.post("/publicaciones/:id/finalizar", RouteWithTransaction(Publicaciones::finalizar));
 
         Spark.post("/mascotas/notificar", (req, res) -> "Si existe la chapita, entonces el dueño ha sido notificado. El dueño se acercará a su domicilio (a retirar el animal) a la brevedad.");
 
-        Spark.get("/usuarios/:id_user/recomendaciones", RecomendadorController::get_json);
+        Spark.get("/usuarios/:id_user/recomendaciones", RouteWithTransaction(RecomendadorController::get_json));
 
 
     }
 
-    private static TemplateViewRoute TemplWithTransaction(WithTransaction<ModelAndView> fn) {
-        EntityManager em = entityManagerFactory.createEntityManager();
-
+    private static TemplateViewRoute  TemplWithTransaction(WithTransaction<ModelAndView> fn) {
         TemplateViewRoute r = (req, res) -> {
-
+            EntityManager em = entityManagerFactory.createEntityManager();
             em.getTransaction().begin();
-
-            ModelAndView result = fn.method(req, res, em);
-            em.getTransaction().commit();
-            return result;
-            //TODO agregar catch de exception
+            try {
+                ModelAndView result = fn.method(req, res, em);
+                em.getTransaction().commit();
+                return result;
+            } catch (Exception ex) {
+                em.getTransaction().rollback();
+                throw ex;
+            } finally {
+                em.close();
+            }
         };
-
-        em.close();
-
         return r;
     }
     private static Route RouteWithTransaction(WithTransaction<Object> fn) {
-        EntityManager em = entityManagerFactory.createEntityManager();
         Route r = (req, res) -> {
+            EntityManager em = entityManagerFactory.createEntityManager();
             em.getTransaction().begin();
-
-            Object result = fn.method(req, res, em);
-            em.getTransaction().commit();
-            return result;
-            //TODO agregar catch de exception
+            try {
+                Object result = fn.method(req, res, em);
+                em.getTransaction().commit();
+                return result;
+            } catch (Exception ex) {
+                em.getTransaction().rollback();
+                throw ex;
+            } finally {
+                em.close();
+            }
         };
-        em.close();
-
         return r;
     }
 }

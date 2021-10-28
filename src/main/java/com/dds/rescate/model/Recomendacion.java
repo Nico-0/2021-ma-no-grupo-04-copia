@@ -1,15 +1,22 @@
 package com.dds.rescate.model;
 
 
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.List;
 
+@Entity
 public class Recomendacion {
 
+    @Id
+    @GeneratedValue
+    public int ID;
+    @OneToOne
     private PublicacionAdopcion adopcion;
     private int puntajeCaracteristicas;
     private int puntajeRequerimientos;
     private int total;
+
     private StringBuilder log_caracteristicas;
     private StringBuilder log_preguntas;
 

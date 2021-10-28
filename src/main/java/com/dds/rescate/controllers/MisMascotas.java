@@ -7,18 +7,19 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.List;
 
 public class MisMascotas {
-    public static ModelAndView show(Request request, Response response){
+    public static ModelAndView show(Request request, Response response, EntityManager em){
         HashMap<String, Object> viewMascotas = new HashMap<>();
         String username = request.cookie("username");
         String tipoUsuario = request.cookie("tipoUsuario");
         viewMascotas.put("username", username);
         viewMascotas.put("tipoUsuario", tipoUsuario);
 
-        GeneradorUsuario repoUsuarios = GeneradorUsuario.getInstance();
+        GeneradorUsuario repoUsuarios = new GeneradorUsuario(em);
         UsuarioDuenio user = (UsuarioDuenio) repoUsuarios.obtenerUsuario(username);
 
         //System.out.print(user);

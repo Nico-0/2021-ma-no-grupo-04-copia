@@ -2,27 +2,32 @@ package com.dds.rescate.model;
 import com.dds.rescate.model.Enum.EstadoPubli;
 import com.dds.rescate.model.Enum.TipoMascota;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Publicacion {
 
     @Id
     @GeneratedValue
     public int ID;
-    @Transient
+    @OneToOne
     public UsuarioDuenio autor;
-    @Transient
+
+    @OneToOne
+    @JoinColumn(name = "asoc_id")
     public Asociacion asociacionAsignada;
+
     public Date fechaCreacion;
+
+    @Enumerated(EnumType.STRING)
     public EstadoPubli estadoPublicacion;
+
+    @Enumerated(EnumType.STRING)
     private TipoMascota tipoMascota;
 
     //Cnstructor
@@ -32,6 +37,9 @@ public class Publicacion {
         this.fechaCreacion = new Date();
         this.estadoPublicacion = EstadoPubli.PENDIENTE;
         this.tipoMascota = tipoMascota;
+    }
+    public Publicacion(){
+
     }
 
     public int getId(){
@@ -148,7 +156,12 @@ public class Publicacion {
     }
 
     public String getContactoString(){
-        return autor.getPerfil().getContactos().get(0).getContactoString();
+        List<Contacto> contactos = autor.getPerfil().getContactos();
+        if(contactos.size() == 0){
+            throw new RuntimeException("No tiene contactos");
+        }
+
+        return contactos.get(0).getContactoString();
     }
 
 }
