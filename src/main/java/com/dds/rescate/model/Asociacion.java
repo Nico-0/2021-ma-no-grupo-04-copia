@@ -1,8 +1,5 @@
 package com.dds.rescate.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,17 +13,17 @@ public class Asociacion {
 
     @ManyToMany//(cascade=CascadeType.REMOVE)
     //@OnDelete(action= OnDeleteAction.CASCADE)
-    @JoinTable(name = "asociacion_caracteristica", inverseJoinColumns = { @JoinColumn(name = "caracteristica_id") })
-    public List<Pregunta> caracteristicasParaRegistrarMascota;
+    @JoinTable(name = "asociacion_respuestas_caracteristica", inverseJoinColumns = { @JoinColumn(name = "caracteristica_id") })
+    public List<RespuestasAsociacion> caracteristicasParaRegistrarMascota;
 
     @ManyToMany//(cascade=CascadeType.REMOVE)
     //@OnDelete(action= OnDeleteAction.CASCADE)
-    @JoinTable(name = "asociacion_pregunta", inverseJoinColumns = { @JoinColumn(name = "pregunta_id") })
-    public List<Pregunta> preguntasParaPublicarEnAdopcion;
+    @JoinTable(name = "asociacion_respuestas_pregunta", inverseJoinColumns = { @JoinColumn(name = "pregunta_id") })
+    public List<RespuestasAsociacion> preguntasParaPublicarEnAdopcion;
 
 
     //Constructor
-    public Asociacion(String nombre, List<Pregunta> caracteristicasParaRegistrarMascota, List<Pregunta> preguntasParaPublicarEnAdopcion) {
+    public Asociacion(String nombre, List<RespuestasAsociacion> caracteristicasParaRegistrarMascota, List<RespuestasAsociacion> preguntasParaPublicarEnAdopcion) {
         this.nombre = nombre;
         this.caracteristicasParaRegistrarMascota = caracteristicasParaRegistrarMascota;
         this.preguntasParaPublicarEnAdopcion = preguntasParaPublicarEnAdopcion;
@@ -44,28 +41,28 @@ public class Asociacion {
         this.nombre = nombre;
     }
 
-    public List<Pregunta> getCaracteristicas() {
+    public List<RespuestasAsociacion> getCaracteristicas() {
         return caracteristicasParaRegistrarMascota;
     }
 
-    public void setCaracteristicas(List<Pregunta> caracteristicas) {
+    public void setCaracteristicas(List<RespuestasAsociacion> caracteristicas) {
         this.caracteristicasParaRegistrarMascota = caracteristicas;
     }
 
-    public List<Pregunta> getPreguntasParaPublicarEnAdopcion() {
+    public List<RespuestasAsociacion> getPreguntasParaPublicarEnAdopcion() {
         return preguntasParaPublicarEnAdopcion;
     }
 
-    public void setPreguntasParaPublicarEnAdopcion(List<Pregunta> preguntasParaPublicarEnAdopcion) {
+    public void setPreguntasParaPublicarEnAdopcion(List<RespuestasAsociacion> preguntasParaPublicarEnAdopcion) {
         this.preguntasParaPublicarEnAdopcion = preguntasParaPublicarEnAdopcion;
     }
 
 
     //Metodos
-    public void agregarCaracteristica(Pregunta caracteristicaNueva){
+    public void agregarCaracteristica(RespuestasAsociacion caracteristicaNueva){
         this.caracteristicasParaRegistrarMascota.add(caracteristicaNueva);
     }
-    public void agregarPregunta(Pregunta preguntaNueva){
+    public void agregarPregunta(RespuestasAsociacion preguntaNueva){
         this.preguntasParaPublicarEnAdopcion.add(preguntaNueva);
     }
 
@@ -78,11 +75,11 @@ public class Asociacion {
         return preguntasParaPublicarEnAdopcion.stream().map(caracteristica -> caracteristica.getNombre()).collect(Collectors.toList());
     }
 
-    private List<String> getCaracteristicasMascotaString(List<CaracteristicaMascota> caracteristicasDadas) {
+    private List<String> getCaracteristicasMascotaString(List<Respuesta> caracteristicasDadas) {
         return caracteristicasDadas.stream().map(caracteristica -> caracteristica.getCaracteristica().getNombre()).collect(Collectors.toList());
     }
 
-    public void validarCaracteristicasAsociacion(List<CaracteristicaMascota> caracteristicasDadas){
+    public void validarCaracteristicasAsociacion(List<Respuesta> caracteristicasDadas){
         if(caracteristicasParaRegistrarMascota != null) {
             List<String> caracteristicasAsociacion = getCaracteristicasString();
             List<String> caracteristicasMascota = getCaracteristicasMascotaString(caracteristicasDadas);
@@ -92,7 +89,7 @@ public class Asociacion {
         }
     }
 
-    public void validarPreguntasAsociacion(List<CaracteristicaMascota> preguntasDadas){
+    public void validarPreguntasAsociacion(List<Respuesta> preguntasDadas){
         if(preguntasParaPublicarEnAdopcion != null) {
             if (caracteristicasParaRegistrarMascota != null) {
                 List<String> caracteristicasAsociacion = getPreguntasString();
@@ -104,11 +101,11 @@ public class Asociacion {
         }
     }
 
-    public Pregunta getPreguntaByNombre(String nombrePregunta){
+    public RespuestasAsociacion getPreguntaByNombre(String nombrePregunta){
         return preguntasParaPublicarEnAdopcion.stream().filter(p -> p.getPregunta().getNombre().equals(nombrePregunta)).findAny().orElse(null);
     }
 
-    public Pregunta getCaracteristicaByNombre(String nombrePregunta){
+    public RespuestasAsociacion getCaracteristicaByNombre(String nombrePregunta){
         return caracteristicasParaRegistrarMascota.stream().filter(p -> p.getPregunta().getNombre().equals(nombrePregunta)).findAny().orElse(null);
     }
 

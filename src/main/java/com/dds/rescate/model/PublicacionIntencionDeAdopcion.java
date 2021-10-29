@@ -15,17 +15,17 @@ import java.util.stream.Collectors;
 public class PublicacionIntencionDeAdopcion extends Publicacion {
 
     @OneToMany//(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "FK_publicacion_intencion")
+    @JoinColumn(name = "FK_intencion")
     @LazyCollection(LazyCollectionOption.FALSE)
-    List<CaracteristicaMascota> preferencias;
+    List<Respuesta> preferencias;
 
     @OneToMany
-    @JoinColumn(name = "FK_publicacion_intencion")
+    @JoinColumn(name = "FK_intencion")
     @LazyCollection(LazyCollectionOption.FALSE)
-    List<CaracteristicaMascota> preguntas;
+    List<Respuesta> preguntas;
 
     @OneToMany
-    @JoinColumn(name = "FK_publicacion_intencion")
+    @JoinColumn(name = "FK_intencion")
     @LazyCollection(LazyCollectionOption.FALSE)
     List<Recomendacion> recomendaciones = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public class PublicacionIntencionDeAdopcion extends Publicacion {
 
     //Constructor
     public PublicacionIntencionDeAdopcion(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota,
-                                          List<CaracteristicaMascota> preferenciasPubli, List<CaracteristicaMascota> preguntasPubli) {
+                                          List<Respuesta> preferenciasPubli, List<Respuesta> preguntasPubli) {
         super(autor, asociacionAsignada, tipoMascota);
         asociacionAsignada.validarCaracteristicasAsociacion(preferenciasPubli);
         asociacionAsignada.validarPreguntasAsociacion(preguntasPubli);
@@ -47,19 +47,19 @@ public class PublicacionIntencionDeAdopcion extends Publicacion {
     }
 
     //Getters y Setters
-    public List<CaracteristicaMascota> getPreferencias() {
+    public List<Respuesta> getPreferencias() {
         return preferencias;
     }
 
-    public void setPreferencias(List<CaracteristicaMascota> preferencias) {
+    public void setPreferencias(List<Respuesta> preferencias) {
         this.preferencias = preferencias;
     }
 
-    public List<CaracteristicaMascota> getPreguntas() {
+    public List<Respuesta> getPreguntas() {
         return preguntas;
     }
 
-    public void setPreguntas(List<CaracteristicaMascota> preguntas) {
+    public void setPreguntas(List<Respuesta> preguntas) {
         this.preguntas = preguntas;
     }
 

@@ -1,6 +1,5 @@
 package com.dds.rescate.util;
 
-import com.dds.rescate.model.CaracteristicaMascota;
 import com.dds.rescate.model.Enum.EstadoPubli;
 import com.dds.rescate.model.Enum.TipoMascota;
 import com.dds.rescate.model.PublicacionIntencionDeAdopcion;

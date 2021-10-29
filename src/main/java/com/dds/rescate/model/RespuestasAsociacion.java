@@ -1,6 +1,5 @@
 package com.dds.rescate.model;
 
-import com.dds.rescate.model.Enum.TipoPregunta;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
@@ -10,40 +9,40 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Pregunta {//Caracteristica
+public class RespuestasAsociacion {
     @Id
     @GeneratedValue
     public int ID;
 
-    @Embedded
-    public Caracteristica pregunta;
+    @OneToOne
+    public PreguntaCaracteristica pregunta;
 
     @ElementCollection
     @OnDelete(action= OnDeleteAction.CASCADE)
-    @JoinColumn(name = "Pregunta_ID")
+    @JoinColumn(name = "RespuestasAsociacion_ID")
     @LazyCollection(LazyCollectionOption.FALSE)
     public List<String> respuestasPosibles;
 
     @OneToMany
-    @JoinColumn(name = "FK_pregunta")
+    @JoinColumn(name = "FK_respuestasAsociacion")
     @LazyCollection(LazyCollectionOption.FALSE)
     public List<Comparacion> valoresRespuestas;
 
     //Constructor
-    public Pregunta(Caracteristica pregunta, List<String> respuestasPosibles, List<Comparacion> valoresRespuestas) {
+    public RespuestasAsociacion(PreguntaCaracteristica pregunta, List<String> respuestasPosibles, List<Comparacion> valoresRespuestas) {
         this.pregunta = pregunta;
         //this.esGeneral = esGeneral;
         this.respuestasPosibles = respuestasPosibles;
         this.valoresRespuestas = valoresRespuestas;
     }
-    private Pregunta(){}
+    private RespuestasAsociacion(){}
 
     //Getters y Setters
-    public Caracteristica getPregunta() {
+    public PreguntaCaracteristica getPregunta() {
         return pregunta;
     }
 
-    public void setPregunta(Caracteristica pregunta) {
+    public void setPregunta(PreguntaCaracteristica pregunta) {
         this.pregunta = pregunta;
     }
 

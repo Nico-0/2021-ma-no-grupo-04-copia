@@ -1,12 +1,10 @@
 package com.dds.rescate.model;
 
 import com.dds.rescate.model.Enum.EstadoPubli;
-import com.dds.rescate.util.Global;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +17,7 @@ public class PublicacionAdopcion extends Publicacion {
     @OneToMany
     @JoinColumn(name = "FK_adopcion")
     @LazyCollection(LazyCollectionOption.FALSE)
-    public List<CaracteristicaMascota> preguntas;
+    public List<Respuesta> preguntas;
 
     @OneToOne
     private UsuarioDuenio nuevo_duenio;
@@ -27,7 +25,7 @@ public class PublicacionAdopcion extends Publicacion {
 
     //Constructor
     public PublicacionAdopcion(UsuarioDuenio autor, Asociacion asociacionAsignada,
-                               Mascota mascotaPublicacion, List<CaracteristicaMascota> preguntas) {
+                               Mascota mascotaPublicacion, List<Respuesta> preguntas) {
         super(autor, asociacionAsignada, mascotaPublicacion.getTipoMascota());
         asociacionAsignada.validarPreguntasAsociacion(preguntas);
         //TODO validar respuestas a las preguntas
@@ -35,11 +33,9 @@ public class PublicacionAdopcion extends Publicacion {
         this.preguntas = preguntas;
     }
     private PublicacionAdopcion(){
-
     }
 
     //Getters y Setters
-
 
     public Mascota getMascota() {
         return mascota;
@@ -57,7 +53,7 @@ public class PublicacionAdopcion extends Publicacion {
         this.estadoPublicacion = estadoPublicacion;
     }
 
-    public List<CaracteristicaMascota> getPreguntas(){
+    public List<Respuesta> getPreguntas(){
         return preguntas;
     }
 

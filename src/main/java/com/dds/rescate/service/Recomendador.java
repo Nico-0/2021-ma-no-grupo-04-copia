@@ -43,14 +43,14 @@ public class Recomendador {
     }
 
 
-    public HashMap<String, Object> calcularValor(List<CaracteristicaMascota> preguntasIntencion, List<CaracteristicaMascota> preguntasAdopcion, Asociacion asociacion, String tipo){
+    public HashMap<String, Object> calcularValor(List<Respuesta> preguntasIntencion, List<Respuesta> preguntasAdopcion, Asociacion asociacion, String tipo){
         int valor = 0;
-        CaracteristicaMascota pregunta;
+        Respuesta pregunta;
         String nombre;
         String respuestaIntencion;
         String respuestaAdopcion;
-        CaracteristicaMascota respuestaAdopcionCaracteristica;
-        Pregunta preguntaAsociacion;
+        Respuesta respuestaAdopcionCaracteristica;
+        RespuestasAsociacion preguntaAsociacion;
         int temp;
         StringBuilder log = new StringBuilder();
         String n = System.lineSeparator();
@@ -118,9 +118,9 @@ public class Recomendador {
         return instance;
     }
 
-    public int caracteristicasCoincidentes(List<CaracteristicaMascota> preferencias, List<CaracteristicaMascota> caracteristicas){
+    public int caracteristicasCoincidentes(List<Respuesta> preferencias, List<Respuesta> caracteristicas){
         List<String> caracteristicasString = getCaracteristicasString(caracteristicas);
-        CaracteristicaMascota preferencia;
+        Respuesta preferencia;
         String nombre;
         String valor;
         String valor2;
@@ -153,8 +153,8 @@ public class Recomendador {
     }
 
 
-    public List<String> getCaracteristicasString(List<CaracteristicaMascota> caracteristicas) {
-        return caracteristicas.stream().map(CaracteristicaMascota::getNombre).collect(Collectors.toList());
+    public List<String> getCaracteristicasString(List<Respuesta> caracteristicas) {
+        return caracteristicas.stream().map(Respuesta::getNombre).collect(Collectors.toList());
     }
 
 /*

@@ -30,7 +30,7 @@ public class Mascota {
     @OneToMany//(fetch = FetchType.EAGER)
     @JoinColumn(name = "FK_mascota")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<CaracteristicaMascota> caracteristicas = new ArrayList<>();
+    private List<Respuesta> caracteristicas = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "asoc_id")
@@ -49,7 +49,7 @@ public class Mascota {
     private List<String> fotos = new ArrayList<>();
 
     public Mascota(TipoMascota tipoMascota, String nombre, String apodo, String descripcion, Asociacion asociacionRegistrada,
-                   List<CaracteristicaMascota> caracteristicas, Sexo sexo, String fotoMinima) throws ValidadorException {
+                   List<Respuesta> caracteristicas, Sexo sexo, String fotoMinima) throws ValidadorException {
         asociacionRegistrada.validarCaracteristicasAsociacion(caracteristicas);
         //TODO validar respuestas a las caracteristicas
         this.asociacionRegistrada = asociacionRegistrada;
@@ -67,7 +67,7 @@ public class Mascota {
 
     public Mascota() {}
     
-    public List<CaracteristicaMascota> validarCaracteristicas(List<CaracteristicaMascota> caracteristicas) throws ValidadorException  {
+    public List<Respuesta> validarCaracteristicas(List<Respuesta> caracteristicas) throws ValidadorException  {
     	
     	for (int i=0; i<caracteristicas.size(); i++)
         {
@@ -79,7 +79,7 @@ public class Mascota {
     	return caracteristicas;
     }
     
-    public boolean existeCaracteristicaEnCatalogo(Caracteristica caracteristica) {
+    public boolean existeCaracteristicaEnCatalogo(PreguntaCaracteristica caracteristica) {
     	
     	return CatalogoCaracteristicas.getInstance().getCaracteristicas().contains(caracteristica);
     	
@@ -142,11 +142,11 @@ public class Mascota {
         this.descripcion = descripcion;
     }
 
-    public List<CaracteristicaMascota> getCaracteristicas() {
+    public List<Respuesta> getCaracteristicas() {
         return caracteristicas;
     }
 
-    public void setCaracteristicas(List<CaracteristicaMascota> caracteristica) {
+    public void setCaracteristicas(List<Respuesta> caracteristica) {
         this.caracteristicas = caracteristica;
     }
 

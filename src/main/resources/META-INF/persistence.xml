@@ -19,11 +19,11 @@
 		<class>com.dds.rescate.model.Usuario</class>
 		<class>com.dds.rescate.model.UsuarioDuenio</class>
 		<class>com.dds.rescate.model.Asociacion</class>
-		<class>com.dds.rescate.model.Pregunta</class>
-		<class>com.dds.rescate.model.Caracteristica</class>
+		<class>com.dds.rescate.model.RespuestasAsociacion</class>
+		<class>com.dds.rescate.model.PreguntaCaracteristica</class>
 		<class>com.dds.rescate.model.Comparacion</class>
 		<class>com.dds.rescate.model.Recomendacion</class>
-		<class>com.dds.rescate.model.CaracteristicaMascota</class>
+		<class>com.dds.rescate.model.Respuesta</class>
 
 
 

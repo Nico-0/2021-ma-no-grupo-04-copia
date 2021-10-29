@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CatalogoCaracteristicas {  //TODO para que sirve?
 
-	private List<Caracteristica> caracteristicas= new ArrayList<>();
+	private List<PreguntaCaracteristica> caracteristicas= new ArrayList<>();
 	private static CatalogoCaracteristicas instance;
 	
 	public static CatalogoCaracteristicas getInstance() {
@@ -19,15 +19,15 @@ public class CatalogoCaracteristicas {  //TODO para que sirve?
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Caracteristica> getCaracteristicas() {
+	public List<PreguntaCaracteristica> getCaracteristicas() {
 		return caracteristicas;
 	}
 
-	public void setCaracteristicas(List<Caracteristica> caracteristicas) {
+	public void setCaracteristicas(List<PreguntaCaracteristica> caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
 	
-	public void agregarCaracteristica(Caracteristica caracteristica){
+	public void agregarCaracteristica(PreguntaCaracteristica caracteristica){
 		caracteristicas.add(caracteristica);
 	}
 

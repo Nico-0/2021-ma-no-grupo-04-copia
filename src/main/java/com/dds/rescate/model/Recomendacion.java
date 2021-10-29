@@ -14,21 +14,25 @@ public class Recomendacion {
     @OneToOne
     private PublicacionAdopcion adopcion;
     private int puntajeCaracteristicas;
-    private int puntajeRequerimientos;
+    private int puntajePreguntas;
     private int total;
 
+    @Column(length = 1000)
     private StringBuilder log_caracteristicas;
+    @Column(length = 1000)
     private StringBuilder log_preguntas;
+
+    private Recomendacion(){}
 
     public PublicacionAdopcion getAdopcion(){
         return adopcion;
     }
 
-    public List<CaracteristicaMascota> getCaracteristicas(){
+    public List<Respuesta> getCaracteristicas(){
         return getAdopcion().getMascota().getCaracteristicas();
     }
 
-    public List<CaracteristicaMascota> getPreguntas(){
+    public List<Respuesta> getPreguntas(){
         return getAdopcion().getPreguntas();
     }
 
@@ -37,7 +41,7 @@ public class Recomendacion {
     }
 
     public String getPuntajePreguntas(){
-        return Integer.toString(puntajeRequerimientos);
+        return Integer.toString(puntajePreguntas);
     }
 
     public String getTotal(){
@@ -59,7 +63,7 @@ public class Recomendacion {
     public Recomendacion(PublicacionAdopcion adopcion, HashMap<String, Object> valorCaracteristicas, HashMap<String, Object> valorPreguntas){
         this.adopcion = adopcion;
         this.puntajeCaracteristicas = (int) valorCaracteristicas.get("valor");
-        this.puntajeRequerimientos = (int) valorPreguntas.get("valor");
+        this.puntajePreguntas = (int) valorPreguntas.get("valor");
         this.total = (int) valorCaracteristicas.get("valor") + (int) valorPreguntas.get("valor");
         this.log_caracteristicas = (StringBuilder) valorCaracteristicas.get("log");
         this.log_preguntas = (StringBuilder) valorPreguntas.get("log");

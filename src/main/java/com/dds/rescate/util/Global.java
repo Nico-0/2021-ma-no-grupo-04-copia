@@ -1,7 +1,6 @@
 package com.dds.rescate.util;
 
-import com.dds.rescate.model.CaracteristicaMascota;
-import com.dds.rescate.service.Recomendador;
+import com.dds.rescate.model.Respuesta;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +24,7 @@ public class Global {
         return preguntasGenerales;
     }
 
-    public void validarRequerimientosGenerales(List<CaracteristicaMascota> requerimientosDados){
+    public void validarRequerimientosGenerales(List<Respuesta> requerimientosDados){
         if(preguntasGenerales != null) {
             List<String> preferenciasPublicaciones = getPreferenciasString(requerimientosDados);
             Boolean contieneTodas = preferenciasPublicaciones.containsAll(preguntasGenerales);
@@ -34,7 +33,7 @@ public class Global {
         }
     }
 
-    public List<String> getPreferenciasString(List<CaracteristicaMascota> requerimientosDados){
+    public List<String> getPreferenciasString(List<Respuesta> requerimientosDados){
         return requerimientosDados.stream().map(caracteristica -> caracteristica.getCaracteristica().getNombre()).collect(Collectors.toList());
     }
 

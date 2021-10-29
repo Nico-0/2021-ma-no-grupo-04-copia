@@ -19,9 +19,9 @@ public class EncontrarMascotaTest {
     Contacto unPrimo;
     DatosPersonales perfilPepito;
     Notificador notificador;
-    Caracteristica color;
-    CaracteristicaMascota colorM;
-    List<CaracteristicaMascota> caracteristicas = new ArrayList<>();
+    PreguntaCaracteristica color;
+    Respuesta colorM;
+    List<Respuesta> caracteristicas = new ArrayList<>();
     Asociacion asociacion;
 
     @Before
@@ -30,8 +30,8 @@ public class EncontrarMascotaTest {
         unPrimo = new Contacto("Ceci", "lio", "a@a.com", notificador, 12345678);
         perfilPepito = new DatosPersonales("Pedro", "Lopez", new Date(), 12345678, unPrimo);
         pepito = new UsuarioDuenio("Pedro777", "contradificil", perfilPepito);
-        color = new Caracteristica(TipoPregunta.CARACTERISTICA,"Color");
-        colorM = new CaracteristicaMascota(color, "naranja");
+        color = new PreguntaCaracteristica(TipoPregunta.CARACTERISTICA,"Color");
+        colorM = new Respuesta(color, "naranja");
         CatalogoCaracteristicas.getInstance().agregarCaracteristica(color);
         caracteristicas.add(colorM);
         asociacion = new Asociacion(null, null, null);

@@ -20,9 +20,9 @@ public class RegistrarMascotaTest {
     Mascota perro;
     Contacto hermano;
     Notificador notificador;
-    Caracteristica color;
-    CaracteristicaMascota colorM;
-    List<CaracteristicaMascota> caracteristicas = new ArrayList<>();
+    PreguntaCaracteristica color;
+    Respuesta colorM;
+    List<Respuesta> caracteristicas = new ArrayList<>();
     Asociacion asociacion;
 
     @Before
@@ -32,8 +32,8 @@ public class RegistrarMascotaTest {
     	perfilChristian = new DatosPersonales("Christian", "Z",  new Date(), 123456789, hermano);
     	christian = new UsuarioDuenio("UsuarioChris", "Chris1234", perfilChristian);
 
-        color = new Caracteristica(TipoPregunta.CARACTERISTICA,"Color");
-        colorM = new CaracteristicaMascota(color, "marron");
+        color = new PreguntaCaracteristica(TipoPregunta.CARACTERISTICA,"Color");
+        colorM = new Respuesta(color, "marron");
         CatalogoCaracteristicas.getInstance().agregarCaracteristica(color);
         caracteristicas.add(colorM);
         asociacion = new Asociacion(null, null, null);

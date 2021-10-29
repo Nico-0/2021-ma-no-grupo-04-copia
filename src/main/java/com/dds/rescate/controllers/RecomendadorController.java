@@ -15,6 +15,7 @@ import spark.Request;
 import spark.Response;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -66,11 +67,11 @@ public class RecomendadorController {
         response.header("FOO", "bar");
 
         GeneradorUsuario repo = new GeneradorUsuario(em);
-        UsuarioDuenio user = (UsuarioDuenio) repo.getUserByID(Integer.parseInt(id_user));
 
-        if(user != null) {
+        try {
+            UsuarioDuenio user = (UsuarioDuenio) repo.getUserByID(Integer.parseInt(id_user));
 
-            Recomendacion_API reco = new Recomendacion_API(user);
+            Recomendacion_API reco = new Recomendacion_API(user, em);
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String json = gson.toJson(reco);
@@ -82,7 +83,7 @@ public class RecomendadorController {
             //System.out.println(response.body());
 
         }
-        else {
+        catch (NoResultException nre) {
             response.type("application/json");
             response.status(404);
             response.body("{\n" +
