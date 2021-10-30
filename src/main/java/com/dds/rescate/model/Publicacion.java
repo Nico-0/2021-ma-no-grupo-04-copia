@@ -164,6 +164,8 @@ public class Publicacion {
         return contactos.get(0).getContactoString();
     }
 
+    public void ordenarRecomendaciones() {
+    }
 }
 
 

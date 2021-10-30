@@ -14,11 +14,28 @@ import javax.persistence.Persistence;
 import java.util.*;
 
 public class Data {
-    public static void init(){
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("db");
-        EntityManager em = entityManagerFactory.createEntityManager();
 
-        PublicacionService instancia = PublicacionService.getInstance();
+    public void limpiar(EntityManager em){
+
+        em.createQuery("DELETE FROM Respuesta").executeUpdate();
+        em.createQuery("DELETE FROM Recomendacion").executeUpdate();
+        em.createQuery("DELETE FROM PublicacionIntencionDeAdopcion").executeUpdate();
+        em.createQuery("DELETE FROM PublicacionAdopcion").executeUpdate();
+        em.createQuery("DELETE FROM PublicacionPerdida").executeUpdate();
+        em.createQuery("DELETE FROM Mascota").executeUpdate();
+        em.createQuery("DELETE FROM UsuarioDuenio").executeUpdate();
+        em.createQuery("DELETE FROM DatosPersonales").executeUpdate();
+        em.createQuery("DELETE FROM Contacto").executeUpdate();
+        em.createQuery("DELETE FROM Usuario").executeUpdate();
+        em.createQuery("DELETE FROM Comparacion").executeUpdate();
+        em.createQuery("DELETE FROM Asociacion").executeUpdate();
+        em.createQuery("DELETE FROM RespuestasAsociacion").executeUpdate();
+        em.createQuery("DELETE FROM PreguntaCaracteristica").executeUpdate();
+
+    }
+
+    public void init(EntityManager em){
+
 
         NotificadorEmail notiEmail = new NotificadorEmail();
         NotificadorEmail notiEmail2 = new NotificadorEmail();
@@ -42,27 +59,12 @@ public class Data {
         UsuarioDuenio user_4 = new UsuarioDuenio("Usuario1","Usuario1",datos_4);
         UsuarioDuenio user_5 = new UsuarioDuenio("LunesTrece","Contrasenia",datos_5);
         //Test usuario guardado
-        GeneradorUsuario repositorio = GeneradorUsuario.getInstance();
+
         //repositorio.agregarUsuario(user_4);
         //repositorio.agregarUsuario(user_5);
 
-        em.getTransaction().begin();
-        em.createQuery("DELETE FROM Respuesta").executeUpdate();
-        em.createQuery("DELETE FROM Recomendacion").executeUpdate();
-        em.createQuery("DELETE FROM PublicacionIntencionDeAdopcion").executeUpdate();
-        em.createQuery("DELETE FROM PublicacionAdopcion").executeUpdate();
-        em.createQuery("DELETE FROM PublicacionPerdida").executeUpdate();
-        em.createQuery("DELETE FROM Mascota").executeUpdate();
-        em.createQuery("DELETE FROM UsuarioDuenio").executeUpdate();
-        em.createQuery("DELETE FROM DatosPersonales").executeUpdate();
-        em.createQuery("DELETE FROM Contacto").executeUpdate();
-        em.createQuery("DELETE FROM Usuario").executeUpdate();
-        em.createQuery("DELETE FROM Comparacion").executeUpdate();
-        em.createQuery("DELETE FROM Asociacion").executeUpdate();
-        em.createQuery("DELETE FROM RespuestasAsociacion").executeUpdate();
-        em.getTransaction().commit();
 
-        em.getTransaction().begin();
+
         em.persist(contacto);
         em.persist(contacto2);
         em.persist(contacto3);
@@ -76,7 +78,6 @@ public class Data {
         em.persist(user_3);
         em.persist(user_4);
         em.persist(user_5);
-        em.getTransaction().commit();
 
 
 
@@ -131,9 +132,9 @@ public class Data {
 
 
         //generar preguntas generales
-        PreguntaCaracteristica con_patio = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"Con patio", "⸮Cuenta con un patio enorme?");
-        PreguntaCaracteristica otros_animales = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"Otros animales", "cuenta o no con otros animales");
-        PreguntaCaracteristica casa_grande = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"Casa grande");
+        PreguntaCaracteristica con_patio = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"con_patio", "⸮Cuenta con un patio enorme?");
+        PreguntaCaracteristica otros_animales = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"otros_animales", "cuenta o no con otros animales");
+        PreguntaCaracteristica casa_grande = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"casa_grande");
 
         Comparacion patio_grande_chico_1 = new Comparacion("grande","chico",5);
         Comparacion patio_chico_no_1 = new Comparacion("chico","no",5);
@@ -148,10 +149,10 @@ public class Data {
 
 
         //generar preguntas
-        PreguntaCaracteristica alto_presupuesto = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"Alto presupuesto");
-        PreguntaCaracteristica atencion_8hs = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"Atencion 8hs");
-        PreguntaCaracteristica duenio_buena_persona = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"Duenio buena persona", "Usted dueño fue buena persona?");
-        PreguntaCaracteristica vacunada = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"Vacunada");
+        PreguntaCaracteristica alto_presupuesto = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"alto_presupuesto");
+        PreguntaCaracteristica atencion_8hs = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"atencion_8hs");
+        PreguntaCaracteristica duenio_buena_persona = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"duenio_buena_persona", "Usted dueño fue buena persona?");
+        PreguntaCaracteristica vacunada = new PreguntaCaracteristica(TipoPregunta.PREGUNTA,"vacunada");
 
         Comparacion atencion_10min_1h_1 = new Comparacion("10min","1h",5);
         Comparacion atencion_1h_8hs_1 = new Comparacion("1h","8hs",5);
@@ -174,7 +175,7 @@ public class Data {
         Asociacion asociacion_1 = new Asociacion("patitas al rescate",caracteristicas_1,preguntas_1);
         Asociacion asociacion_2 = new Asociacion("orejas rescatadas",caracteristicas_2,preguntas_2);
 
-        em.getTransaction().begin();
+
 
         em.persist(color);
         em.persist(tamanio);
@@ -226,7 +227,7 @@ public class Data {
 
         em.persist(asociacion_1);
         em.persist(asociacion_2);
-        em.getTransaction().commit();
+
 
 
 //Generar mascotas
@@ -263,7 +264,7 @@ public class Data {
         Mascota perro2 = new Mascota(TipoMascota.PERRO, "Pedro mini", "Caniche", "demasiado chico", asociacion_1, carac_perro_chico, Sexo.MACHO,"perroCaniche.jpg");
         Mascota cerdo = new Mascota(TipoMascota.MINIPIG, "George", "dinosaurio", "salta en charcos de lodo", asociacion_2, carac_cerdo, Sexo.MACHO, "minipig.jpg");
 
-        em.getTransaction().begin();
+
         em.persist(perro);
         em.persist(gato);
         em.persist(minipig);
@@ -282,7 +283,7 @@ public class Data {
         user_4.agregarMascota(minipig);
         user_4.agregarMascota(perro2);
         user_4.agregarMascota(cerdo);
-        em.getTransaction().commit();
+
 
 
 //Generar publicaciones
@@ -366,7 +367,7 @@ public class Data {
         instancia.agregarPublicacion(intencion_2);
         instancia.agregarPublicacion(intencion_3);*/
 
-        em.getTransaction().begin();
+
 
         em.persist(perdida_1);
         em.persist(perdida_2);
@@ -393,14 +394,305 @@ public class Data {
         em.persist(intencion_2);
         em.persist(intencion_3);
 
-        em.getTransaction().commit();
 
 
-        em.getTransaction().begin();
+
+
         //voluntario automatico
         PublicacionService repo = new PublicacionService(em);
         repo.aceptarPendientes();
 
-        em.getTransaction().commit();
+
     }
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public PreguntaCaracteristica obtenerPregunta(String nombre, EntityManager em){
+        return em.createQuery("from PreguntaCaracteristica p where p.nombre = ?1", PreguntaCaracteristica.class)
+                .setParameter(1, nombre)
+                .getSingleResult();
+    }
+
+    public Asociacion obtenerAsociacion(String nombre, EntityManager em){
+        return em.createQuery("from Asociacion a where a.nombre = ?1", Asociacion.class)
+                .setParameter(1, nombre)
+                .getSingleResult();
+    }
+
+    public UsuarioDuenio obtenerUsuario(String username, EntityManager em){
+        return em.createQuery("from UsuarioDuenio u where u.username = ?1", UsuarioDuenio.class)
+                .setParameter(1, username)
+                .getSingleResult();
+    }
+
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public void init_extra(EntityManager em){
+
+        //caracteristicas
+        PreguntaCaracteristica color = obtenerPregunta("color", em);
+        PreguntaCaracteristica tamanio = obtenerPregunta("tamanio", em);
+        PreguntaCaracteristica pelo = obtenerPregunta("pelo", em);
+        PreguntaCaracteristica cola = obtenerPregunta("cola", em);
+        PreguntaCaracteristica castrada = obtenerPregunta("castrada", em);
+        PreguntaCaracteristica cantidadPatas = obtenerPregunta("cantidadPatas", em);
+
+        //preguntas
+        PreguntaCaracteristica con_patio = obtenerPregunta("con_patio", em);
+        PreguntaCaracteristica otros_animales = obtenerPregunta("otros_animales", em);
+        PreguntaCaracteristica casa_grande = obtenerPregunta("casa_grande", em);
+        PreguntaCaracteristica alto_presupuesto = obtenerPregunta("alto_presupuesto", em);
+        PreguntaCaracteristica atencion_8hs = obtenerPregunta("atencion_8hs", em);
+        PreguntaCaracteristica duenio_buena_persona = obtenerPregunta("duenio_buena_persona", em);
+        PreguntaCaracteristica vacunada = obtenerPregunta("vacunada", em);
+
+        Asociacion asociacion_1 =  obtenerAsociacion("patitas al rescate", em);
+        Asociacion asociacion_2 =  obtenerAsociacion("orejas rescatadas", em);
+
+        UsuarioDuenio user_4 = obtenerUsuario("Usuario1", em);
+
+
+        NotificadorEmail notiEmail = new NotificadorEmail();
+
+        Contacto contacto4 = user_4.getPerfil().getContactos().get(0);
+        Contacto contacto5 = new Contacto("Peter", "Sobrino", "email@utn.com", notiEmail, 1199998888);
+        em.persist(contacto5);
+
+        DatosPersonales datos_5 = new DatosPersonales("Peter", "Sobrino" , new Date( 06, 4, 11),87631321,contacto5);
+        em.persist(datos_5);
+        UsuarioDuenio user_5 = new UsuarioDuenio("Usuario2","Usuario2",datos_5);
+        em.persist(user_5);
+
+//Mascotas
+        List<Respuesta> carac_perro = Arrays.asList(new Respuesta(color, "blanco"),
+                new Respuesta(tamanio, "grande"), new Respuesta(pelo, "largo"), new Respuesta(cola, "larga"));
+        carac_perro.forEach(em::persist);
+        List<Respuesta> carac_perro_grande = Arrays.asList(new Respuesta(color, "blanco"),
+                new Respuesta(tamanio, "mediano"), new Respuesta(pelo, "sin"), new Respuesta(cola, "corta"));
+        carac_perro_grande.forEach(em::persist);
+        List<Respuesta> carac_cat = Arrays.asList(new Respuesta(color, "marron"),
+                new Respuesta(tamanio, "peque"), new Respuesta(pelo, "corto"), new Respuesta(cola, "corta"));
+        carac_cat.forEach(em::persist);
+        List<Respuesta> carac_gato = Arrays.asList(new Respuesta(color, "rosa"),
+                new Respuesta(castrada, "si"), new Respuesta(cantidadPatas, "dos"));
+        carac_gato.forEach(em::persist);
+        List<Respuesta> carac_cerdo = Arrays.asList(new Respuesta(color, "negro"),
+                new Respuesta(castrada, "no"), new Respuesta(cantidadPatas, "tres"));
+        carac_cerdo.forEach(em::persist);
+
+
+        List<Respuesta> carac_perro2 = Arrays.asList(new Respuesta(color, "rosa"),
+                new Respuesta(tamanio, "peque"), new Respuesta(pelo, "largo"), new Respuesta(cola, "larga"));
+        carac_perro2.forEach(em::persist);
+        List<Respuesta> carac_perro_chico = Arrays.asList(new Respuesta(color, "rosa"),
+                new Respuesta(tamanio, "peque"), new Respuesta(pelo, "sin"), new Respuesta(cola, "larga"));
+        carac_perro_chico.forEach(em::persist);
+        List<Respuesta> carac_pig2 = Arrays.asList(new Respuesta(color, "negro"),
+                new Respuesta(tamanio, "mediano"), new Respuesta(pelo, "sin"), new Respuesta(cola, "larga"));
+        carac_pig2.forEach(em::persist);
+        List<Respuesta> carac_gato2 = Arrays.asList(new Respuesta(color, "negro"),
+                new Respuesta(castrada, "indistinto"), new Respuesta(cantidadPatas, "cuatro"));
+        carac_gato2.forEach(em::persist);
+        List<Respuesta> carac_cerdo2 = Arrays.asList(new Respuesta(color, "marron"),
+                new Respuesta(castrada, "si"), new Respuesta(cantidadPatas, "cuatro"));
+        carac_cerdo2.forEach(em::persist);
+
+        Mascota perro = new Mascota(TipoMascota.PERRO, "Beethoven", "Brownie", "pianista", asociacion_1, carac_perro, Sexo.HEMBRA,"perro.jpg");
+        Mascota perro2 = new Mascota(TipoMascota.PERRO, "Pongo", "Martini", "un caniche sin mas", asociacion_1, carac_perro_grande, Sexo.MACHO,"perroCaniche.jpg");
+        Mascota cat = new Mascota(TipoMascota.GATO, "Laika", "Cookie", "NO SE", asociacion_1, carac_cat, Sexo.HEMBRA, "gato.jpg");
+        Mascota gato = new Mascota(TipoMascota.GATO, "Hachiko", "Comino", "nose", asociacion_2, carac_gato, Sexo.HEMBRA, "gato.jpg");
+        Mascota cerdo = new Mascota(TipoMascota.MINIPIG, "Dama", "Golfo", "tiene mirada fea", asociacion_2, carac_cerdo, Sexo.HEMBRA, "minipig.jpg");
+
+        Mascota perro4 = new Mascota(TipoMascota.PERRO, "Scooby", "Doo", "scubi galleta?", asociacion_1, carac_perro2, Sexo.MACHO,"perro.jpg");
+        Mascota perro5 = new Mascota(TipoMascota.PERRO, "Odie", "Gazpacho", "hora de comer", asociacion_1, carac_perro_chico, Sexo.HEMBRA,"perroCaniche.jpg");
+        Mascota minipig4 = new Mascota(TipoMascota.MINIPIG, "Goofy", "Miel", "chau", asociacion_1, carac_pig2, Sexo.HEMBRA, "minipig.jpg");
+        Mascota gato4 = new Mascota(TipoMascota.GATO, "Rex", "Pizza", "hola", asociacion_2, carac_gato2, Sexo.MACHO, "gato.jpg");
+        Mascota cerdo4 = new Mascota(TipoMascota.MINIPIG, "Ayudante", "Chocolate", "no tengo dinero", asociacion_2, carac_cerdo2, Sexo.MACHO, "minipig.jpg");
+
+        em.persist(perro);
+        em.persist(perro2);
+        em.persist(cat);
+        em.persist(gato);
+        em.persist(cerdo);
+
+        em.persist(perro4);
+        em.persist(perro5);
+        em.persist(minipig4);
+        em.persist(gato4);
+        em.persist(cerdo4);
+
+        user_4.agregarMascota(perro);
+        user_4.agregarMascota(perro2);
+        user_4.agregarMascota(cat);
+        user_4.agregarMascota(gato);
+        user_4.agregarMascota(cerdo);
+
+        user_5.agregarMascota(perro4);
+        user_5.agregarMascota(perro5);
+        user_5.agregarMascota(minipig4);
+        user_5.agregarMascota(gato4);
+        user_5.agregarMascota(cerdo4);
+
+
+//publis perdidas
+
+        PublicacionPerdida perdida_1 = new PublicacionPerdida(user_4, asociacion_1, TipoMascota.GATO, "gato.jpg", EstadoEncontrada.EXCELENTE,"",contacto4);
+        PublicacionPerdida perdida_2 = new PublicacionPerdida(user_5, asociacion_1, TipoMascota.MINIPIG,"minipig.jpg", EstadoEncontrada.MASO,"",contacto5);
+        PublicacionPerdida perdida_3 = new PublicacionPerdida(user_4, asociacion_2, TipoMascota.PERRO,"perro.jpg", EstadoEncontrada.BIEN,"",contacto4);
+        PublicacionPerdida perdida_4 = new PublicacionPerdida(user_5, asociacion_2, TipoMascota.GATO, "gato.jpg", EstadoEncontrada.MASO,"",contacto5);
+        PublicacionPerdida perdida_5 = new PublicacionPerdida(user_4, asociacion_2, TipoMascota.MINIPIG,"minipig.jpg", EstadoEncontrada.BIEN,"",contacto4);
+        PublicacionPerdida perdida_6 = new PublicacionPerdida(user_5, asociacion_1, TipoMascota.PERRO,"perro.jpg", EstadoEncontrada.EXCELENTE,"",contacto5);
+        em.persist(perdida_1);
+        em.persist(perdida_2);
+        em.persist(perdida_3);
+        em.persist(perdida_4);
+        em.persist(perdida_5);
+        em.persist(perdida_6);
+
+
+//publis adopcion
+
+
+        List<Respuesta> preg_1 = Arrays.asList(new Respuesta(con_patio, "no"),
+                new Respuesta(otros_animales, "si"), new Respuesta(casa_grande, "no"),
+                new Respuesta(duenio_buena_persona, "no"), new Respuesta(vacunada, "no"));
+        preg_1.forEach(em::persist);
+        List<Respuesta> preg_2 = Arrays.asList(new Respuesta(con_patio, "no"),
+                new Respuesta(otros_animales, "no"), new Respuesta(casa_grande, "no"),
+                new Respuesta(alto_presupuesto, "no"), new Respuesta(atencion_8hs, "1h"));
+        preg_1.forEach(em::persist);
+        List<Respuesta> preg_3 = Arrays.asList(new Respuesta(con_patio, "chico"),
+                new Respuesta(otros_animales, "no"), new Respuesta(casa_grande, "si"),
+                new Respuesta(duenio_buena_persona, "no"), new Respuesta(vacunada, "no"));
+        preg_1.forEach(em::persist);
+        List<Respuesta> preg_4 = Arrays.asList(new Respuesta(con_patio, "grande"),
+                new Respuesta(otros_animales, "si"), new Respuesta(casa_grande, "no"),
+                new Respuesta(duenio_buena_persona, "si"), new Respuesta(vacunada, "si"));
+        preg_1.forEach(em::persist);
+        List<Respuesta> preg_5 = Arrays.asList(new Respuesta(con_patio, "grande"),
+                new Respuesta(otros_animales, "si"), new Respuesta(casa_grande, "no"),
+                new Respuesta(alto_presupuesto, "no"), new Respuesta(atencion_8hs, "10min"));
+        preg_1.forEach(em::persist);
+
+        List<Respuesta> preg_6 = Arrays.asList(new Respuesta(con_patio, "grande"),
+                new Respuesta(otros_animales, "si"), new Respuesta(casa_grande, "si"),
+                new Respuesta(alto_presupuesto, "si"), new Respuesta(atencion_8hs, "8hs"));
+        preg_6.forEach(em::persist);
+        List<Respuesta> preg_7 = Arrays.asList(new Respuesta(con_patio, "no"),
+                new Respuesta(otros_animales, "no"), new Respuesta(casa_grande, "si"),
+                new Respuesta(alto_presupuesto, "si"), new Respuesta(atencion_8hs, "8hs"));
+        preg_7.forEach(em::persist);
+        List<Respuesta> preg_8 = Arrays.asList(new Respuesta(con_patio, "no"),
+                new Respuesta(otros_animales, "no"), new Respuesta(casa_grande, "si"),
+                new Respuesta(duenio_buena_persona, "si"), new Respuesta(vacunada, "si"));
+        preg_8.forEach(em::persist);
+        List<Respuesta> preg_9 = Arrays.asList(new Respuesta(con_patio, "chico"),
+                new Respuesta(otros_animales, "si"), new Respuesta(casa_grande, "no"),
+                new Respuesta(duenio_buena_persona, "no"), new Respuesta(vacunada, "si"));
+        preg_9.forEach(em::persist);
+        List<Respuesta> preg_10 = Arrays.asList(new Respuesta(con_patio, "chico"),
+                new Respuesta(otros_animales, "si"), new Respuesta(casa_grande, "no"),
+                new Respuesta(alto_presupuesto, "si"), new Respuesta(atencion_8hs, "8hs"));
+        preg_10.forEach(em::persist);
+
+        PublicacionAdopcion adopcion_1 = new PublicacionAdopcion(user_4, asociacion_2, perro, preg_1);
+        PublicacionAdopcion adopcion_2 = new PublicacionAdopcion(user_4, asociacion_1, perro2, preg_2);
+        PublicacionAdopcion adopcion_3 = new PublicacionAdopcion(user_4, asociacion_2, cat, preg_3);
+        PublicacionAdopcion adopcion_4 = new PublicacionAdopcion(user_4, asociacion_2, gato, preg_4);
+        PublicacionAdopcion adopcion_5 = new PublicacionAdopcion(user_4, asociacion_1, cerdo, preg_5);
+
+        PublicacionAdopcion adopcion_6 = new PublicacionAdopcion(user_5, asociacion_1, perro4, preg_6);
+        PublicacionAdopcion adopcion_7 = new PublicacionAdopcion(user_5, asociacion_1, perro5, preg_7);
+        PublicacionAdopcion adopcion_8 = new PublicacionAdopcion(user_5, asociacion_2, minipig4, preg_8);
+        PublicacionAdopcion adopcion_9 = new PublicacionAdopcion(user_5, asociacion_2, gato4, preg_9);
+        PublicacionAdopcion adopcion_10 = new PublicacionAdopcion(user_5, asociacion_1, cerdo4, preg_10);
+
+        em.persist(adopcion_1);
+        em.persist(adopcion_2);
+        em.persist(adopcion_3);
+        em.persist(adopcion_4);
+        em.persist(adopcion_5);
+        em.persist(adopcion_6);
+        em.persist(adopcion_7);
+        em.persist(adopcion_8);
+        em.persist(adopcion_9);
+        em.persist(adopcion_10);
+
+//publis intencion
+
+
+        List<Respuesta> pref_1_asoc_1 = Arrays.asList(new Respuesta(color, "negro"),
+                new Respuesta(tamanio, "grande"), new Respuesta(pelo, "sin"), new Respuesta(cola, "corta"));
+        pref_1_asoc_1.forEach(em::persist);
+        List<Respuesta> pref_2_asoc_2 = Arrays.asList(new Respuesta(color, "blanco"),
+                new Respuesta(castrada, "no"), new Respuesta(cantidadPatas, "cuatro"));
+        pref_2_asoc_2.forEach(em::persist);
+        List<Respuesta> pref_3_asoc_2 = Arrays.asList(new Respuesta(color, "negro"),
+                new Respuesta(castrada, "si"), new Respuesta(cantidadPatas, "dos"));
+        pref_3_asoc_2.forEach(em::persist);
+
+        List<Respuesta> pregs_1_asoc_1 = Arrays.asList(new Respuesta(con_patio, "no"),
+                new Respuesta(otros_animales, "no"), new Respuesta(casa_grande, "si"),
+                new Respuesta(alto_presupuesto, "si"), new Respuesta(atencion_8hs, "8hs"));
+        pregs_1_asoc_1.forEach(em::persist);
+        List<Respuesta> pregs_2_asoc_2 = Arrays.asList(new Respuesta(con_patio, "grande"),
+                new Respuesta(otros_animales, "no"), new Respuesta(casa_grande, "si"),
+                new Respuesta(duenio_buena_persona, "no"), new Respuesta(vacunada, "si"));
+        pregs_2_asoc_2.forEach(em::persist);
+        List<Respuesta> pregs_3_asoc_2 = Arrays.asList(new Respuesta(con_patio, "grande"),
+                new Respuesta(otros_animales, "si"), new Respuesta(casa_grande, "no"),
+                new Respuesta(duenio_buena_persona, "no"), new Respuesta(vacunada, "no"));
+        pregs_3_asoc_2.forEach(em::persist);
+
+        PublicacionIntencionDeAdopcion intencion_1 = new PublicacionIntencionDeAdopcion(user_4, asociacion_1, TipoMascota.GATO, pref_1_asoc_1, pregs_1_asoc_1);
+        PublicacionIntencionDeAdopcion intencion_2 = new PublicacionIntencionDeAdopcion(user_4, asociacion_2, TipoMascota.PERRO, pref_2_asoc_2, pregs_2_asoc_2);
+        PublicacionIntencionDeAdopcion intencion_3 = new PublicacionIntencionDeAdopcion(user_4, asociacion_2, TipoMascota.MINIPIG, pref_3_asoc_2, pregs_3_asoc_2);
+        em.persist(intencion_1);
+        em.persist(intencion_2);
+        em.persist(intencion_3);
+
+        List<Respuesta> pref_4_asoc_1 = Arrays.asList(new Respuesta(color, "marron"),
+                new Respuesta(tamanio, "grande"), new Respuesta(pelo, "largo"), new Respuesta(cola, "larga"));
+        pref_4_asoc_1.forEach(em::persist);
+        List<Respuesta> pref_5_asoc_2 = Arrays.asList(new Respuesta(color, "marron"),
+                new Respuesta(castrada, "si"), new Respuesta(cantidadPatas, "tres"));
+        pref_5_asoc_2.forEach(em::persist);
+        List<Respuesta> pref_6_asoc_1 = Arrays.asList(new Respuesta(color, "marron"),
+                new Respuesta(tamanio, "mediano"), new Respuesta(pelo, "corto"), new Respuesta(cola, "corta"));
+        pref_6_asoc_1.forEach(em::persist);
+
+        List<Respuesta> pregs_4_asoc_1 = Arrays.asList(new Respuesta(con_patio, "chico"),
+                new Respuesta(otros_animales, "no"), new Respuesta(casa_grande, "si"),
+                new Respuesta(alto_presupuesto, "si"), new Respuesta(atencion_8hs, "8hs"));
+        pregs_4_asoc_1.forEach(em::persist);
+        List<Respuesta> pregs_5_asoc_2 = Arrays.asList(new Respuesta(con_patio, "no"),
+                new Respuesta(otros_animales, "si"), new Respuesta(casa_grande, "no"),
+                new Respuesta(duenio_buena_persona, "si"), new Respuesta(vacunada, "si"));
+        pregs_5_asoc_2.forEach(em::persist);
+        List<Respuesta> pregs_6_asoc_1 = Arrays.asList(new Respuesta(con_patio, "chico"),
+                new Respuesta(otros_animales, "si"), new Respuesta(casa_grande, "si"),
+                new Respuesta(alto_presupuesto, "si"), new Respuesta(atencion_8hs, "8hs"));
+        pregs_6_asoc_1.forEach(em::persist);
+
+        PublicacionIntencionDeAdopcion intencion_4 = new PublicacionIntencionDeAdopcion(user_5, asociacion_1, TipoMascota.GATO, pref_4_asoc_1, pregs_4_asoc_1);
+        PublicacionIntencionDeAdopcion intencion_5 = new PublicacionIntencionDeAdopcion(user_5, asociacion_2, TipoMascota.PERRO, pref_5_asoc_2, pregs_5_asoc_2);
+        PublicacionIntencionDeAdopcion intencion_6 = new PublicacionIntencionDeAdopcion(user_5, asociacion_1, TipoMascota.MINIPIG, pref_6_asoc_1, pregs_6_asoc_1);
+        em.persist(intencion_4);
+        em.persist(intencion_5);
+        em.persist(intencion_6);
+
+
+
+
+
+//voluntario automatico
+        PublicacionService repo = new PublicacionService(em);
+        repo.aceptarPendientes();
+
+    }
+
+
 }

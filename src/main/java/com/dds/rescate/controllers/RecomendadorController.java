@@ -31,6 +31,7 @@ public class RecomendadorController {
         PublicacionService repo = new PublicacionService(em);
         List<Publicacion> publicaciones = repo.getDeTipo("intencion");
         publicaciones = publicaciones.stream().filter(Publicacion::isPublicada).collect(Collectors.toList());
+        //publicaciones.forEach(Publicacion::ordenarRecomendaciones);
 
         viewModel.put("Intenciones", publicaciones);
 

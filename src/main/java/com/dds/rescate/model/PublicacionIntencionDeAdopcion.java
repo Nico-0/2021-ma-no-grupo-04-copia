@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 @Entity
 public class PublicacionIntencionDeAdopcion extends Publicacion {
 
-    @OneToMany//(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(cascade = {CascadeType.ALL})//(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_intencion")
     @LazyCollection(LazyCollectionOption.FALSE)
     List<Respuesta> preferencias;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "FK_intencion")
     @LazyCollection(LazyCollectionOption.FALSE)
     List<Respuesta> preguntas;
@@ -27,6 +27,7 @@ public class PublicacionIntencionDeAdopcion extends Publicacion {
     @OneToMany
     @JoinColumn(name = "FK_intencion")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @OrderColumn(name = "orden") //TODO no anda??????????????????
     List<Recomendacion> recomendaciones = new ArrayList<>();
 
     public String ultimaRecomendacion;
@@ -106,6 +107,7 @@ public class PublicacionIntencionDeAdopcion extends Publicacion {
         return "intencion";
     }
 
+    @Override
     public void ordenarRecomendaciones() {
         recomendaciones = recomendaciones.stream().sorted(Comparator.comparing(Recomendacion::getTotal).reversed()).collect(Collectors.toList());
     }

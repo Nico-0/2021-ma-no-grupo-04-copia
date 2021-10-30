@@ -1,6 +1,7 @@
 package com.dds.rescate.service;
 
 import com.dds.rescate.model.*;
+import com.dds.rescate.model.Enum.TipoMascota;
 
 import javax.persistence.EntityManager;
 import java.util.HashMap;
@@ -25,11 +26,18 @@ public class Recomendador {
         PublicacionService repo = new PublicacionService(entityManager);
         List<Publicacion> publisAdopcion = repo.getDeTipo("adopcion");
 
+        publisAdopcion = filtrarTipoMascota(publisAdopcion, intencion);
+
         publisAdopcion.stream().forEach(adopcion -> generarRecomendacion(intencion, (PublicacionAdopcion) adopcion));
         //TODO verificar que solo se recomiende el mismo tipo de mascota?
 
 
         intencion.ordenarRecomendaciones();
+    }
+
+    private List<Publicacion> filtrarTipoMascota(List<Publicacion> publisAdopcion, PublicacionIntencionDeAdopcion intencion){
+        TipoMascota tipo = intencion.getTipoMascota();
+        return publisAdopcion.stream().filter(p -> p.getTipoMascota() == tipo).collect(Collectors.toList());
     }
 
     //obtener valor de matcheo de una publicacion con otra

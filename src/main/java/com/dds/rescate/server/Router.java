@@ -75,6 +75,10 @@ public class Router {
 
         Spark.get("/usuarios/:id_user/recomendaciones", RouteWithTransaction(RecomendadorController::get_json));
 
+        Spark.post("/datos1", RouteWithTransaction(HomeController::datos_base));
+        Spark.post("/datos2", RouteWithTransaction(HomeController::datos_extra));
+        Spark.post("/borrar", RouteWithTransaction(HomeController::borrar_datos));
+
 
     }
 

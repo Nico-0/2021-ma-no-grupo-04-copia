@@ -14,7 +14,7 @@ public class PublicacionAdopcion extends Publicacion {
     @OneToOne
     public Mascota mascota;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "FK_adopcion")
     @LazyCollection(LazyCollectionOption.FALSE)
     public List<Respuesta> preguntas;

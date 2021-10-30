@@ -1,9 +1,11 @@
 package com.dds.rescate.controllers;
+import com.dds.rescate.server.Data;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.HashMap;
 
 import static com.dds.rescate.controllers.LoginController.verificarLogin;
@@ -27,8 +29,36 @@ public class HomeController {
 
     }
 
+    public static Void datos_base(Request request, Response response, EntityManager em) {
+
+        Data data = new Data();
+        data.init(em);
+
+        response.redirect("/muro");
+        return null;
+    }
+
+    public static Void datos_extra(Request request, Response response, EntityManager em) {
 
 
+        Data data = new Data();
+        data.init_extra(em);
+
+
+        response.redirect("/muro");
+        return null;
+    }
+
+    public static Void borrar_datos(Request request, Response response, EntityManager em) {
+
+
+        Data data = new Data();
+        data.limpiar(em);
+
+
+        response.redirect("/muro");
+        return null;
+    }
 
 
 
