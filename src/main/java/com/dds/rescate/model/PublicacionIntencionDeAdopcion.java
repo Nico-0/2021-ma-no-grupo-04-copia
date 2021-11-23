@@ -1,5 +1,6 @@
 package com.dds.rescate.model;
 
+import com.dds.rescate.model.Enum.EstadoPubli;
 import com.dds.rescate.model.Enum.TipoMascota;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -42,6 +43,7 @@ public class PublicacionIntencionDeAdopcion extends Publicacion {
         this.preferencias = preferenciasPubli;
         this.preguntas = preguntasPubli;
         this.ultimaRecomendacion = "nunca";
+        this.estadoPublicacion = EstadoPubli.PUBLICADA; //no necesitan aprobarse las intenciones ya que no aparecen en el muro
     }
     private PublicacionIntencionDeAdopcion(){
 

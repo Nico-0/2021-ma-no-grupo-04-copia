@@ -18,7 +18,7 @@ import static com.dds.rescate.service.ImageLoader.resizeImage;
 public class Mascota {
     @Id
     @GeneratedValue
-    private Long id;
+    private int ID;
 
     @Enumerated(EnumType.STRING)
     private TipoMascota tipoMascota;
@@ -48,6 +48,8 @@ public class Mascota {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<String> fotos = new ArrayList<>();
 
+    public boolean publicada;
+
     public Mascota(TipoMascota tipoMascota, String nombre, String apodo, String descripcion, Asociacion asociacionRegistrada,
                    List<Respuesta> caracteristicas, Sexo sexo, String fotoMinima) throws ValidadorException {
         asociacionRegistrada.validarCaracteristicasAsociacion(caracteristicas);
@@ -62,6 +64,7 @@ public class Mascota {
         this.sexo = sexo;
         this.perdida = false;
         this.fotos.add(fotoMinima);
+        this.publicada = false;
     }
 
 
@@ -162,6 +165,10 @@ public class Mascota {
         return this.asociacionRegistrada.getNombre();
     }
     public String getSexoString(){return this.sexo.toString();}
+
+    public String getIdMascotaString(){
+        return Integer.toString(ID);
+    }
 
     //Carga una imagen "imagen.jpg" de resources/ImgTemp
     //Se guarda estandarizada en resources/Imagenes

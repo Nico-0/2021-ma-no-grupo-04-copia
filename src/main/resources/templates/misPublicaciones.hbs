@@ -8,10 +8,10 @@
         <input type="text" id="ID_chapita" name="ID_chapita" placeholder="ID chapita..." required>
         <input type="submit" value="Notificar mascota perdida">
     </form>
-    <form action="/aaaaaaaaaa" method="post">
+    <form action="/publicaciones/perdidaGenerica" method="post">
         <input type="submit" value="Publicar mascota perdida">
     </form>
-    <form action="/aaaaaaaaaa" method="post">
+    <form action="/publicaciones/intencionGenerica" method="post">
         <input type="submit" value="Publicar intención adopción">
     </form>
 
@@ -22,6 +22,26 @@
             {{>(lookup . 'this.tipoPublihbs') }}
         <br>
     {{/each}}
+    <br>
+
+    {{#if Pendientes}}
+        <h2 class = "content">Pendientes</h2>
+        <br>
+        {{#each Pendientes}}
+            {{>(lookup . 'this.tipoPublihbs') }}
+            <br>
+        {{/each}}
+        <br>
+    {{/if}}
+
+    {{#if Finalizadas}}
+        <h2 class = "content">Finalizadas</h2>
+        <br>
+        {{#each Finalizadas}}
+            {{>(lookup . 'this.tipoPublihbs') }}
+            <br>
+        {{/each}}
+    {{/if}}
 
 
 {{/partial}}

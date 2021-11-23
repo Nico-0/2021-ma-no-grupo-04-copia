@@ -99,7 +99,7 @@ public class Publicaciones {
             duenio_original = publicacion.getAutor();
             verificarCreador(duenio_original, nuevo_duenio);
 
-            publicacion.recuperarMascota();
+            publicacion.recuperarMascota(nuevo_duenio);
         }
         else {
             throw new RuntimeException("Solo un usuario de tipo comun puede recuperar");

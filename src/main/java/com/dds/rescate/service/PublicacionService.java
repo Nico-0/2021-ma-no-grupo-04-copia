@@ -67,6 +67,16 @@ public class PublicacionService {
         return getPublicadas().stream().filter(publicacion -> publicacion.getTipoPubli().equals(tipoPubli)).collect(Collectors.toList());
     }
 
+    public List<Publicacion> getPublicacionesBy(UsuarioDuenio usuario, EstadoPubli estado){
+        List<Publicacion> publicaciones = getPublicacionesByUser(usuario);
+        publicaciones = publicaciones.stream().filter(p -> !p.getTipoPubli().equals("intencion")).collect(Collectors.toList());
+        return publicaciones.stream().filter(publicacion -> publicacion.getEstadoPublicacion().equals(estado)).collect(Collectors.toList());
+    }
+
+    public List<Publicacion> getPublicacionesByUser(UsuarioDuenio usuario){
+        return getTodas().stream().filter(publicacion -> publicacion.getAutor().equals(usuario)).collect(Collectors.toList());
+    }
+
     public Publicacion getDeID(String ID_publi){
         return entityManager.createQuery("from Publicacion p where p.id = ?1", Publicacion.class).setParameter(1, Integer.valueOf(ID_publi)).getSingleResult();
     }
@@ -79,7 +89,11 @@ public class PublicacionService {
         getPendientes().stream().forEach(Publicacion::aceptarPublicacion);
     }
 
-
+    public List<Publicacion> getIntencionesPublicadas(String username){
+        List<Publicacion> intenciones = getDeTipo("intencion");
+        return intenciones.stream().filter(Publicacion::isPublicada).
+                filter(p -> p.getAutor().getUsername().equals(username)).collect(Collectors.toList());
+    }
 
 
 

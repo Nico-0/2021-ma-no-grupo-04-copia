@@ -4,5 +4,6 @@ public enum EstadoEncontrada {
     EXCELENTE,
     BIEN,
     MASO,
-    VIVA
+    VIVA,
+    PERDIDA
 }

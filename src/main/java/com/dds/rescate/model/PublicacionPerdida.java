@@ -14,7 +14,6 @@ import java.util.List;
 @Entity
 public class PublicacionPerdida extends Publicacion {
 
-    public String foto;
     public String descripcion;
 
     @ManyToMany
@@ -27,32 +26,33 @@ public class PublicacionPerdida extends Publicacion {
     @Transient
     public String hogarTransito;
 
+    @OneToOne //TODO es oneToOne??
+    Mascota mascota_rescatada;
+
     @Enumerated(EnumType.STRING)
     public EstadoEncontrada estadoEncontrada;
 
     private Date fecha_recuperacion;
 
     //Constructor
-    public PublicacionPerdida(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota,
-                              String fotoPubli, EstadoEncontrada estadoEncontrada, String descripcion, Contacto contactoMinimo) {
-        super(autor, asociacionAsignada, tipoMascota);
+    public PublicacionPerdida(UsuarioDuenio autor, Asociacion asociacionAsignada, Mascota mascota_rescatada,
+                              EstadoEncontrada estadoEncontrada, String descripcion, Contacto contactoMinimo) {
+        super(autor, asociacionAsignada, mascota_rescatada.getTipoMascota());
+        this.mascota_rescatada = mascota_rescatada;
         //TODO asociacionAsignada debe ser la mas cercana a la ubicacionEncontrada
-        this.foto = fotoPubli;
         this.descripcion = descripcion;
         this.contactos.add(contactoMinimo);
         this.estadoEncontrada = estadoEncontrada;
-        //TODO se crea la nueva mascota en el sistema al adoptarse o aca?
         //TODO se elige el contacto o se saca del usuario rescatista?
+        verificarMascotaPublicada(mascota_rescatada);
+        mascota_rescatada.publicada = true;
+        autor.agregarMascota(mascota_rescatada);
     }
     private PublicacionPerdida(){}
 
     //Getters y Setters
     public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
+        return mascota_rescatada.getFotos().get(0);
     }
 
     public String getDescripcion() {
@@ -90,18 +90,22 @@ public class PublicacionPerdida extends Publicacion {
     }
 
     public String getFotoString(){
-        return foto;
+        return mascota_rescatada.getFotoString();
     }
 
     public String getFechaRecuperacion(){
         return fecha_recuperacion.toString();
     }
 
-    public void recuperarMascota() {
+    public Mascota getMascota(){
+        return mascota_rescatada;
+    }
+
+    public void recuperarMascota(UsuarioDuenio nuevo_duenio) {
         setEstadoPublicacion(EstadoPubli.FINALIZADA);
-
         this.fecha_recuperacion = new Date();
-
-        //TODO pedirle al usuario que de de alta la nueva mascota
+        nuevo_duenio.getMascotas().add(getMascota());
+        autor.getMascotas().remove(getMascota());
+        getMascota().publicada = false;
     }
 }

@@ -18,6 +18,8 @@
 		<class>com.dds.rescate.model.DatosPersonales</class>
 		<class>com.dds.rescate.model.Usuario</class>
 		<class>com.dds.rescate.model.UsuarioDuenio</class>
+		<class>com.dds.rescate.model.UsuarioAdministrador</class>
+		<class>com.dds.rescate.model.UsuarioVoluntario</class>
 		<class>com.dds.rescate.model.Asociacion</class>
 		<class>com.dds.rescate.model.RespuestasAsociacion</class>
 		<class>com.dds.rescate.model.PreguntaCaracteristica</class>

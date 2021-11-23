@@ -166,6 +166,12 @@ public class Publicacion {
 
     public void ordenarRecomendaciones() {
     }
+
+    public void verificarMascotaPublicada(Mascota mascota){
+        if(mascota.publicada){
+            throw new RuntimeException("La mascota "+mascota.getNombre()+" ya se encuentra en otra publicacion");
+        }
+    }
 }
 
 

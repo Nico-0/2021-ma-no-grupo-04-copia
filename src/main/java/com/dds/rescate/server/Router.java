@@ -47,7 +47,7 @@ public class Router {
         Spark.get("/muro", TemplWithTransaction(MuroPublicaciones::muro), engine);
         Spark.get("/recomendador", TemplWithTransaction(RecomendadorController::recomendador), engine);
         Spark.get("/aprobar", Aprobar::aprobar, engine);
-        Spark.get("/gestion", Gestion::gestion, engine);
+        Spark.get("/gestion", TemplWithTransaction(Gestion::gestion), engine);
         Spark.get("/perfil", TemplWithTransaction(Perfil::perfil), engine);
         Spark.get("/mis_mascotas", TemplWithTransaction(MisMascotas::show), engine);
         Spark.get("/mis_publicaciones", TemplWithTransaction(MisPublicaciones::show), engine);
@@ -79,6 +79,12 @@ public class Router {
         Spark.post("/datos2", RouteWithTransaction(HomeController::datos_extra));
         Spark.post("/borrar", RouteWithTransaction(HomeController::borrar_datos));
 
+
+        Spark.post("/mis_mascotas", RouteWithTransaction(MisMascotas::registrarGenerica));
+        Spark.post("/mascotas/:id/publicarAdopcion", RouteWithTransaction(MisMascotas::darAdopcion));
+        //Spark.post("/mascotas/:id/perdida", RouteWithTransaction(MisMascotas::perdida));
+        Spark.post("/publicaciones/perdidaGenerica", RouteWithTransaction(MisPublicaciones::publicarPerdidaGenerica));
+        Spark.post("/publicaciones/intencionGenerica", RouteWithTransaction(MisPublicaciones::publicarIntencionGenerica));
 
     }
 

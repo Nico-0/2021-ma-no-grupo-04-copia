@@ -1,12 +1,15 @@
 package com.dds.rescate.model;
 
-public class UsuarioVoluntario extends Usuario{
+import javax.persistence.Entity;
 
+@Entity
+public class UsuarioVoluntario extends Usuario{
     //Constructor
     public UsuarioVoluntario(String username, String password, Asociacion asociacion){
         super(username, password);
         this.asociacion = asociacion;
     }
+    private UsuarioVoluntario(){}
 
     //Getters y Setters
     public Asociacion getAsociacion() {

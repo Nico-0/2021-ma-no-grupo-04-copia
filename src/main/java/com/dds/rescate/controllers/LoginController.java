@@ -1,11 +1,9 @@
 package com.dds.rescate.controllers;
 
 import com.dds.rescate.exception.PasswordException;
-import com.dds.rescate.model.Usuario;
-import com.dds.rescate.model.UsuarioAdministrador;
-import com.dds.rescate.model.UsuarioDuenio;
-import com.dds.rescate.model.UsuarioVoluntario;
+import com.dds.rescate.model.*;
 import com.dds.rescate.service.GeneradorUsuario;
+import com.dds.rescate.service.RepoAsociacion;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -99,9 +97,12 @@ public class LoginController {
             String password = request.queryParams("password");
             String asociacion = request.queryParams("asociacion");
 
+            RepoAsociacion repoAsociacion = new RepoAsociacion(em);
+            Asociacion asociacion_objeto = repoAsociacion.getAsociacionByNombre(asociacion);
+
             //TODO no dar asociacion null
             //TODO verificar que la asociacion ya exista
-            UsuarioVoluntario nuevoUsuario = new UsuarioVoluntario(username, password, null);
+            UsuarioVoluntario nuevoUsuario = new UsuarioVoluntario(username, password, asociacion_objeto);
             GeneradorUsuario repo = new GeneradorUsuario(em);
             repo.registrarUsuario(nuevoUsuario);
 
@@ -123,9 +124,12 @@ public class LoginController {
             String password = request.queryParams("password");
             String asociacion = request.queryParams("asociacion");
 
+            RepoAsociacion repoAsociacion = new RepoAsociacion(em);
+            Asociacion asociacion_objeto = repoAsociacion.getAsociacionByNombre(asociacion);
+
             //TODO asociar organizacion al administrador
             //TODO crear organizacion si no existe
-            UsuarioAdministrador nuevoUsuario = new UsuarioAdministrador(username, password);
+            UsuarioAdministrador nuevoUsuario = new UsuarioAdministrador(username, password, asociacion_objeto);
             GeneradorUsuario repo = new GeneradorUsuario(em);
             repo.registrarUsuario(nuevoUsuario);
 

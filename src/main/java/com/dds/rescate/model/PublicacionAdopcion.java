@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 public class PublicacionAdopcion extends Publicacion {
 
-    @OneToOne
+    @OneToOne //TODO es oneToOne??
     public Mascota mascota;
 
     @OneToMany(cascade = {CascadeType.ALL})
@@ -31,6 +31,9 @@ public class PublicacionAdopcion extends Publicacion {
         //TODO validar respuestas a las preguntas
         this.mascota = mascotaPublicacion;
         this.preguntas = preguntas;
+        verificarDuenioMascota(autor, mascotaPublicacion);
+        verificarMascotaPublicada(mascotaPublicacion);
+        mascotaPublicacion.publicada = true;
     }
     private PublicacionAdopcion(){
     }
@@ -95,6 +98,7 @@ public class PublicacionAdopcion extends Publicacion {
         this.fecha_adopcion = new Date();
         nuevo_duenio.getMascotas().add(mascota);
         autor.getMascotas().remove(mascota);
+        getMascota().publicada = false;
     }
 
     public String getAdoptanteString(){
@@ -102,6 +106,12 @@ public class PublicacionAdopcion extends Publicacion {
     }
     public String getFechaAdopcion(){
         return fecha_adopcion.toString();
+    }
+
+    private void verificarDuenioMascota(UsuarioDuenio autor, Mascota mascota){
+        if(!autor.getMascotas().contains(mascota)){
+            new RuntimeException("Solo el duenio de la mascota "+mascota.getNombre()+" puede publicarla en adopcion");
+        }
     }
 
 }

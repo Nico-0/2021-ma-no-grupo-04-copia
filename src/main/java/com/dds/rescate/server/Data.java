@@ -7,6 +7,7 @@ import com.dds.rescate.model.Enum.TipoMascota;
 import com.dds.rescate.model.Enum.TipoPregunta;
 import com.dds.rescate.service.GeneradorUsuario;
 import com.dds.rescate.service.PublicacionService;
+import com.dds.rescate.service.RepoAsociacion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,6 +25,8 @@ public class Data {
         em.createQuery("DELETE FROM PublicacionPerdida").executeUpdate();
         em.createQuery("DELETE FROM Mascota").executeUpdate();
         em.createQuery("DELETE FROM UsuarioDuenio").executeUpdate();
+        em.createQuery("DELETE FROM UsuarioAdministrador").executeUpdate();
+        em.createQuery("DELETE FROM UsuarioVoluntario").executeUpdate();
         em.createQuery("DELETE FROM DatosPersonales").executeUpdate();
         em.createQuery("DELETE FROM Contacto").executeUpdate();
         em.createQuery("DELETE FROM Usuario").executeUpdate();
@@ -32,32 +35,39 @@ public class Data {
         em.createQuery("DELETE FROM RespuestasAsociacion").executeUpdate();
         em.createQuery("DELETE FROM PreguntaCaracteristica").executeUpdate();
 
+       /* RepoAsociacion repoAsociacion = new RepoAsociacion(em);
+        Asociacion asociacion = repoAsociacion.getAsociacionByNombre("patitas al rescate");
+
+        UsuarioAdministrador admin_1 = new UsuarioAdministrador("adminPatitas", "adminPatitas", asociacion);
+        em.persist(admin_1);*/
+
     }
 
     public void init(EntityManager em){
 
 
         NotificadorEmail notiEmail = new NotificadorEmail();
-        NotificadorEmail notiEmail2 = new NotificadorEmail();
 
 //Generar usuarios
 
-        Contacto contacto = new Contacto("Lucas", "sin apellido", "🙌@✌.com", notiEmail, 118003330);
-        Contacto contacto2 = new Contacto("Primero", "Lunes", "cualquiera@gmail.com", notiEmail , 1185855858);
-        Contacto contacto3 = new Contacto("Segundo", "Martes", "cualquiera2@gmail.com", notiEmail2 , 1165565654);
+        Contacto contacto = new Contacto("Papo", "Pepe", "🙌@✌.com", notiEmail, 118003330);
+        Contacto contacto2 = new Contacto("Pabloman", "so", "cualquiera2@gmail.com", notiEmail , 1165565654);
+        Contacto contacto3 = new Contacto("Cristi", "Naa", "cualquiera3@gmail.com", notiEmail , 1165565654);
+        Contacto contacto4 = new Contacto("Lunes", "Primero", "cualquiera4@gmail.com", notiEmail , 1185855858);
+        Contacto contacto5 = new Contacto("Jueves", "Segundo", "cualquiera5@gmail.com", notiEmail , 1165565654);
 
         DatosPersonales datos_1 = new DatosPersonales("pepe", null,null,null,contacto);
-        DatosPersonales datos_2 = new DatosPersonales("pablo", null,null,null,contacto);
-        DatosPersonales datos_3 = new DatosPersonales("cristina", null ,null,null,contacto);
-        DatosPersonales datos_4 = new DatosPersonales("Lunes", "Testing" , new Date( 96, 9, 19),12345678,contacto2);
-        DatosPersonales datos_5 = new DatosPersonales("Martes", "Testing" , new Date( 05, 2, 15),87654321,contacto3);
+        DatosPersonales datos_2 = new DatosPersonales("pablo", null,null,null,contacto2);
+        DatosPersonales datos_3 = new DatosPersonales("cristina", null ,null,null,contacto3);
+        DatosPersonales datos_4 = new DatosPersonales("Lunes", "Testing" , new Date( 96, 9, 19),12345678,contacto4);
+        DatosPersonales datos_5 = new DatosPersonales("Jueves", "Testing" , new Date( 05, 2, 15),87654321,contacto5);
 
         UsuarioDuenio user_1 = new UsuarioDuenio("pepedestroyer9000","@$&*#HFGG445d450",datos_1);
         UsuarioDuenio user_2 = new UsuarioDuenio("pablito15","1@3$5^7*9)h",datos_2);
         UsuarioDuenio user_3 = new UsuarioDuenio("lacris","753ASADo",datos_3);
         //Usuarios en repo
         UsuarioDuenio user_4 = new UsuarioDuenio("Usuario1","Usuario1",datos_4);
-        UsuarioDuenio user_5 = new UsuarioDuenio("LunesTrece","Contrasenia",datos_5);
+        UsuarioDuenio user_5 = new UsuarioDuenio("JuevesTrece","Contrasenia",datos_5);
         //Test usuario guardado
 
         //repositorio.agregarUsuario(user_4);
@@ -68,6 +78,8 @@ public class Data {
         em.persist(contacto);
         em.persist(contacto2);
         em.persist(contacto3);
+        em.persist(contacto4);
+        em.persist(contacto5);
         em.persist(datos_1);
         em.persist(datos_2);
         em.persist(datos_3);
@@ -229,6 +241,17 @@ public class Data {
         em.persist(asociacion_2);
 
 
+        //administradores y voluntarios
+
+        UsuarioAdministrador admin_1 = new UsuarioAdministrador("adminPatitas", "adminPatitas", asociacion_1);
+        UsuarioAdministrador admin_2 = new UsuarioAdministrador("adminOrejas", "adminOrejas", asociacion_2);
+        em.persist(admin_1);
+        em.persist(admin_2);
+        UsuarioVoluntario vol_1 = new UsuarioVoluntario("volPatitas", "volPatitas", asociacion_1);
+        UsuarioVoluntario vol_2 = new UsuarioVoluntario("volOrejas", "volOrejas", asociacion_2);
+        em.persist(vol_1);
+        em.persist(vol_2);
+
 
 //Generar mascotas
 
@@ -278,20 +301,27 @@ public class Data {
         carac_cerdo.forEach(em::persist);
 
         //Agrego mascota a un Usuario(el que esta en el repo)
-        user_4.agregarMascota(perro);
-        user_5.agregarMascota(gato);
-        user_4.agregarMascota(minipig);
+        user_1.agregarMascota(perro);
+        user_2.agregarMascota(gato);
+        user_3.agregarMascota(minipig);
         user_4.agregarMascota(perro2);
-        user_4.agregarMascota(cerdo);
+        user_5.agregarMascota(cerdo);
 
 
 
 //Generar publicaciones
 
+        Mascota mascota_p1 = new Mascota(TipoMascota.GATO, "Name5", "Como se llama??", "Es gato", asociacion_1, carac_perro, Sexo.MACHO, "gato.jpg");
+        Mascota mascota_p2 = new Mascota(TipoMascota.MINIPIG, "Name6", "Decime un nombre", "Es cerdo", asociacion_2, carac_gato, Sexo.MACHO, "minipig.jpg");
+        Mascota mascota_p3 = new Mascota(TipoMascota.PERRO, "Name7", "El que adopta elige", "Es perra", asociacion_1, carac_pig, Sexo.HEMBRA, "perro.jpg");
+        em.persist(mascota_p1);
+        em.persist(mascota_p2);
+        em.persist(mascota_p3);
+
         //de mascota perdida
-        PublicacionPerdida perdida_1 = new PublicacionPerdida(user_1, asociacion_1, TipoMascota.GATO, "gato.jpg", EstadoEncontrada.EXCELENTE,"",contacto);
-        PublicacionPerdida perdida_2 = new PublicacionPerdida(user_2, asociacion_2, TipoMascota.MINIPIG,"minipig.jpg", EstadoEncontrada.BIEN,"",contacto);
-        PublicacionPerdida perdida_3 = new PublicacionPerdida(user_3, asociacion_1, TipoMascota.PERRO,"perro.jpg", EstadoEncontrada.MASO,"",contacto);
+        PublicacionPerdida perdida_1 = new PublicacionPerdida(user_1, asociacion_1, mascota_p1, EstadoEncontrada.EXCELENTE,"",contacto);
+        PublicacionPerdida perdida_2 = new PublicacionPerdida(user_2, asociacion_2, mascota_p2, EstadoEncontrada.BIEN,"",contacto2);
+        PublicacionPerdida perdida_3 = new PublicacionPerdida(user_3, asociacion_1, mascota_p3, EstadoEncontrada.MASO,"",contacto3);
         //instancia.agregarPublicacion(perdida_1);
        // instancia.agregarPublicacion(perdida_2);
        // instancia.agregarPublicacion(perdida_3);
@@ -312,11 +342,11 @@ public class Data {
         List<Respuesta> preg_2 = Arrays.asList(new Respuesta(con_patio, "no"),
                 new Respuesta(otros_animales, "no"), new Respuesta(casa_grande, "no"),
                 new Respuesta(alto_presupuesto, "no"), new Respuesta(atencion_8hs, "1h"));
-        List<Respuesta> preg_3 = Arrays.asList(new Respuesta(con_patio, "chico"),
+        List<Respuesta> preg_4 = Arrays.asList(new Respuesta(con_patio, "chico"),
                 new Respuesta(otros_animales, "no"), new Respuesta(casa_grande, "si"),
                 new Respuesta(alto_presupuesto, "si"), new Respuesta(atencion_8hs, "8hs"));
 
-        List<Respuesta> preg_4 = Arrays.asList(new Respuesta(con_patio, "si"),
+        List<Respuesta> preg_3 = Arrays.asList(new Respuesta(con_patio, "si"),
                 new Respuesta(otros_animales, "si"), new Respuesta(casa_grande, "no"),
                 new Respuesta(duenio_buena_persona, "si"), new Respuesta(vacunada, "no"));
         List<Respuesta> preg_5 = Arrays.asList(new Respuesta(con_patio, "si"),
@@ -325,9 +355,9 @@ public class Data {
 
         PublicacionAdopcion adopcion_1 = new PublicacionAdopcion(user_1, asociacion_1, perro, preg_1);
         PublicacionAdopcion adopcion_2 = new PublicacionAdopcion(user_2, asociacion_1, gato, preg_2);
-        PublicacionAdopcion adopcion_3 = new PublicacionAdopcion(user_3, asociacion_1, minipig, preg_3);
-        PublicacionAdopcion adopcion_4 = new PublicacionAdopcion(user_1, asociacion_2, perro2, preg_4);
-        PublicacionAdopcion adopcion_5 = new PublicacionAdopcion(user_4, asociacion_2, cerdo, preg_5);
+        PublicacionAdopcion adopcion_3 = new PublicacionAdopcion(user_3, asociacion_2, minipig, preg_3);
+        PublicacionAdopcion adopcion_4 = new PublicacionAdopcion(user_4, asociacion_1, perro2, preg_4);
+        PublicacionAdopcion adopcion_5 = new PublicacionAdopcion(user_5, asociacion_2, cerdo, preg_5);
         /*instancia.agregarPublicacion(adopcion_1);
         instancia.agregarPublicacion(adopcion_2);
         instancia.agregarPublicacion(adopcion_3);
@@ -539,12 +569,26 @@ public class Data {
 
 //publis perdidas
 
-        PublicacionPerdida perdida_1 = new PublicacionPerdida(user_4, asociacion_1, TipoMascota.GATO, "gato.jpg", EstadoEncontrada.EXCELENTE,"",contacto4);
-        PublicacionPerdida perdida_2 = new PublicacionPerdida(user_5, asociacion_1, TipoMascota.MINIPIG,"minipig.jpg", EstadoEncontrada.MASO,"",contacto5);
-        PublicacionPerdida perdida_3 = new PublicacionPerdida(user_4, asociacion_2, TipoMascota.PERRO,"perro.jpg", EstadoEncontrada.BIEN,"",contacto4);
-        PublicacionPerdida perdida_4 = new PublicacionPerdida(user_5, asociacion_2, TipoMascota.GATO, "gato.jpg", EstadoEncontrada.MASO,"",contacto5);
-        PublicacionPerdida perdida_5 = new PublicacionPerdida(user_4, asociacion_2, TipoMascota.MINIPIG,"minipig.jpg", EstadoEncontrada.BIEN,"",contacto4);
-        PublicacionPerdida perdida_6 = new PublicacionPerdida(user_5, asociacion_1, TipoMascota.PERRO,"perro.jpg", EstadoEncontrada.EXCELENTE,"",contacto5);
+        Mascota mascota_p1 = new Mascota(TipoMascota.GATO, "No", "Tiene", "", asociacion_1, carac_perro, Sexo.HEMBRA, "gato.jpg");
+        Mascota mascota_p2 = new Mascota(TipoMascota.MINIPIG, "Le", "Encantaria", "", asociacion_1, carac_cat, Sexo.MACHO, "minipig.jpg");
+        Mascota mascota_p3 = new Mascota(TipoMascota.PERRO, "Tener", "Nombre", "", asociacion_2, carac_gato2, Sexo.HEMBRA, "perro.jpg");
+        Mascota mascota_p4 = new Mascota(TipoMascota.GATO, "Pero", "no", "", asociacion_2, carac_cerdo2, Sexo.MACHO, "gato.jpg");
+        Mascota mascota_p5 = new Mascota(TipoMascota.MINIPIG, "La", "Voy", "", asociacion_2, carac_gato, Sexo.MACHO, "minipig.jpg");
+        Mascota mascota_p6 = new Mascota(TipoMascota.PERRO, "Adoptar", "Yo", "", asociacion_1, carac_pig2, Sexo.HEMBRA, "perro.jpg");
+        em.persist(mascota_p1);
+        em.persist(mascota_p2);
+        em.persist(mascota_p3);
+        em.persist(mascota_p4);
+        em.persist(mascota_p5);
+        em.persist(mascota_p6);
+
+
+        PublicacionPerdida perdida_1 = new PublicacionPerdida(user_4, asociacion_1, mascota_p1, EstadoEncontrada.EXCELENTE,"",contacto4);
+        PublicacionPerdida perdida_2 = new PublicacionPerdida(user_5, asociacion_1, mascota_p2, EstadoEncontrada.MASO,"",contacto5);
+        PublicacionPerdida perdida_3 = new PublicacionPerdida(user_4, asociacion_2, mascota_p3, EstadoEncontrada.BIEN,"",contacto4);
+        PublicacionPerdida perdida_4 = new PublicacionPerdida(user_5, asociacion_2, mascota_p4, EstadoEncontrada.MASO,"",contacto5);
+        PublicacionPerdida perdida_5 = new PublicacionPerdida(user_4, asociacion_2, mascota_p5, EstadoEncontrada.BIEN,"",contacto4);
+        PublicacionPerdida perdida_6 = new PublicacionPerdida(user_5, asociacion_1, mascota_p6, EstadoEncontrada.EXCELENTE,"",contacto5);
         em.persist(perdida_1);
         em.persist(perdida_2);
         em.persist(perdida_3);

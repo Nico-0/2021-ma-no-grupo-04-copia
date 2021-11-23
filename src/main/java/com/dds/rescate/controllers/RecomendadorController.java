@@ -29,8 +29,7 @@ public class RecomendadorController {
         viewModel.put("tipoUsuario", tipoUsuario);
 
         PublicacionService repo = new PublicacionService(em);
-        List<Publicacion> publicaciones = repo.getDeTipo("intencion");
-        publicaciones = publicaciones.stream().filter(Publicacion::isPublicada).collect(Collectors.toList());
+        List<Publicacion> publicaciones = repo.getIntencionesPublicadas(username);
         //publicaciones.forEach(Publicacion::ordenarRecomendaciones);
 
         viewModel.put("Intenciones", publicaciones);
@@ -46,13 +45,10 @@ public class RecomendadorController {
 
     public static Void recomendar(Request request, Response response, EntityManager em) {
 
-        //recomienda a todos, para solo un usuario usar el de json
-
-        //List<Publicacion> intenciones = PublicacionService.getInstance().getDeTipo("intencion");
-        //intenciones = intenciones.stream().filter(Publicacion::isPublicada).collect(Collectors.toList());
+        String username = request.cookie("username");
 
         PublicacionService repo = new PublicacionService(em);
-        List<Publicacion> intenciones = repo.getDeTipo("intencion");
+        List<Publicacion> intenciones = repo.getIntencionesPublicadas(username);
 
         Recomendador reco = new Recomendador(em);
         intenciones.forEach(intencion -> reco.recomendar((PublicacionIntencionDeAdopcion) intencion));

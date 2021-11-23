@@ -109,4 +109,6 @@ public class Asociacion {
         return caracteristicasParaRegistrarMascota.stream().filter(p -> p.getPregunta().getNombre().equals(nombrePregunta)).findAny().orElse(null);
     }
 
+
+
 }

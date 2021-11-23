@@ -29,7 +29,6 @@ public class Recomendador {
         publisAdopcion = filtrarTipoMascota(publisAdopcion, intencion);
 
         publisAdopcion.stream().forEach(adopcion -> generarRecomendacion(intencion, (PublicacionAdopcion) adopcion));
-        //TODO verificar que solo se recomiende el mismo tipo de mascota?
 
 
         intencion.ordenarRecomendaciones();

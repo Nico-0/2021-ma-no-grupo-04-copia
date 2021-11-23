@@ -3,7 +3,7 @@
     <h1 class = "content">Mis mascotas</h1>
     <br>
 
-    <form action="/aaaaaaaaaa" method="post">
+    <form action="/mis_mascotas" method="post">
         <input type="submit" value="Registrar nueva mascota">
     </form>
 
@@ -25,8 +25,11 @@
                         <p><b>Sexo</b>: {{this.sexoString}}</p>
                         <p><b>Descripcion Mascota</b>: {{this.descripcion}}</p>
                         <p><b>Asociacion</b>: {{this.nombreAsociacionString}}</p>
-                        <form action="/mascotas/id/publicar" method="get" align="right">
+                        <form action="/mascotas/{{idMascotaString}}/publicarAdopcion" method="post" align="right">
                             <input type="submit" value="Dar en adopción">
+                        </form>
+                        <form action="/mascotas/{{idMascotaString}}/perdida" method="post" align="right">
+                            <input type="submit" value="Perdí mi mascota">
                         </form>
                     </div>
                     </div>
@@ -36,8 +39,36 @@
             <br>
     {{/each}}
 
-    <br><br>
-    (Dar en adopción requiere responder manualmente las preguntas)
+    <!-- Eliminar codigo duplicado -->
+    {{#if MascotasComprometidas}}
+        <br><br>
+        <h2>Comprometidas:</h2>
+        (Publicadas)
+        <br>
+        {{#each MascotasComprometidas}}
+            <div class="cuadroMascota">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <img src="/{{fotoString}}" alt="{{this.nombre}}" style="width:100%">
+                        </div>
+                        <div class="col">
+                            <h4><b>{{this.nombre}}</b> - {{this.apodo}}</h4>
+                            <p><b>Tipo Mascota</b>: {{this.tipoMascota}}</p>
+                            <p><b>Nombre Mascota</b>: {{this.nombre}}</p>
+                            <p><b>Apodo Mascota</b>: {{this.apodo}}</p>
+                            <p><b>Sexo</b>: {{this.sexoString}}</p>
+                            <p><b>Descripcion Mascota</b>: {{this.descripcion}}</p>
+                            <p><b>Asociacion</b>: {{this.nombreAsociacionString}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br>
+        {{/each}}
+    {{/if}}
+
 </div>
 {{/partial}}
 

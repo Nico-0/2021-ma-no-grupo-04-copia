@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 import javax.persistence.*;
@@ -32,12 +33,23 @@ public class UsuarioDuenio extends Usuario{
         return mascotas;
     }
 
+    public List<Mascota> getMascotasSinPublicar() {
+        return getMascotas().stream().filter(m -> !m.publicada).collect(Collectors.toList());
+    }
+    public List<Mascota> getMascotasComprometidas() {
+        return getMascotas().stream().filter(m -> m.publicada).collect(Collectors.toList());
+    }
+
     public void setMascotas(List<Mascota> mascotas) {
         this.mascotas = mascotas;
     }
 
     public DatosPersonales getPerfil() {
         return perfil;
+    }
+
+    public Contacto getContacto(){
+        return getPerfil().getContactos().get(0);
     }
 
     public void setPerfil(DatosPersonales perfil) {
