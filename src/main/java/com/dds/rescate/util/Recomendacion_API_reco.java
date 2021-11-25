@@ -3,8 +3,15 @@ package com.dds.rescate.util;
 import com.dds.rescate.model.Enum.TipoMascota;
 import com.dds.rescate.model.PublicacionAdopcion;
 import com.dds.rescate.model.Recomendacion;
+import com.dds.rescate.service.MongoDB;
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
 
+@Entity("reco")
 public class Recomendacion_API_reco {
+
+    @Id
+    public int id;
 
     public int puntajeRecomendacion;
 
@@ -15,6 +22,7 @@ public class Recomendacion_API_reco {
     public String asociacionPublicacion;
 
     public Recomendacion_API_reco(Recomendacion recomendacion){
+        this.id = MongoDB.getInstance().asignarID();
         this.puntajeRecomendacion = recomendacion.getTotalInt();
         PublicacionAdopcion adopcion = recomendacion.getAdopcion();
         this.duenioMascota = adopcion.getAutorString();
@@ -28,4 +36,5 @@ public class Recomendacion_API_reco {
         return puntajeRecomendacion;
     }
 
+    private Recomendacion_API_reco(){}
 }

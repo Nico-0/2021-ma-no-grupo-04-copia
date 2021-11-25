@@ -95,7 +95,10 @@ public class PublicacionService {
                 filter(p -> p.getAutor().getUsername().equals(username)).collect(Collectors.toList());
     }
 
-
+    public List<Publicacion> getIntencionesPublicadas(){
+        List<Publicacion> intenciones = getDeTipo("intencion");
+        return intenciones.stream().filter(Publicacion::isPublicada).collect(Collectors.toList());
+    }
 
 
 

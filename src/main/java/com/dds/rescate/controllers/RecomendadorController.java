@@ -5,11 +5,13 @@ import com.dds.rescate.model.Publicacion;
 import com.dds.rescate.model.PublicacionIntencionDeAdopcion;
 import com.dds.rescate.model.UsuarioDuenio;
 import com.dds.rescate.service.GeneradorUsuario;
+import com.dds.rescate.service.MongoDB;
 import com.dds.rescate.service.PublicacionService;
 import com.dds.rescate.service.Recomendador;
 import com.dds.rescate.util.Recomendacion_API;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dev.morphia.Datastore;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -42,20 +44,50 @@ public class RecomendadorController {
         return new ModelAndView(viewModel, "recomendacion.hbs");
     }
 
-
+    //recomendar para todos
     public static Void recomendar(Request request, Response response, EntityManager em) {
 
-        String username = request.cookie("username");
-
-        PublicacionService repo = new PublicacionService(em);
-        List<Publicacion> intenciones = repo.getIntencionesPublicadas(username);
+        PublicacionService repoPubli = new PublicacionService(em);
+        List<Publicacion> intenciones = repoPubli.getIntencionesPublicadas();
 
         Recomendador reco = new Recomendador(em);
         intenciones.forEach(intencion -> reco.recomendar((PublicacionIntencionDeAdopcion) intencion));
 
+        //guardar json en mongo
+        GeneradorUsuario repoUser = new GeneradorUsuario(em);
+        List<UsuarioDuenio> users = repoUser.getUsuariosDuenio();
+        users.forEach(u -> generarJson(u, em));
+
+
         response.redirect("/recomendador");
 
         return null;
+    }
+
+    public static Void recomendarSingle(Request request, Response response, EntityManager em) {
+
+        String username = request.cookie("username");
+
+        PublicacionService repoPubli = new PublicacionService(em);
+        List<Publicacion> intenciones = repoPubli.getIntencionesPublicadas(username);
+
+        Recomendador reco = new Recomendador(em);
+        intenciones.forEach(intencion -> reco.recomendar((PublicacionIntencionDeAdopcion) intencion));
+
+        //guardar json en mongo
+        GeneradorUsuario repoUser = new GeneradorUsuario(em);
+        UsuarioDuenio user = (UsuarioDuenio) repoUser.obtenerUsuario(username);
+        generarJson(user, em);
+
+
+        response.redirect("/recomendador");
+
+        return null;
+    }
+
+    private static void generarJson(UsuarioDuenio user, EntityManager em){
+        Recomendacion_API recomendacion = new Recomendacion_API(user, em);
+        MongoDB.getInstance().getDatastore().save(recomendacion);
     }
 
     public static Object get_json(Request request, Response response, EntityManager em){
@@ -63,15 +95,13 @@ public class RecomendadorController {
         String id_user = request.params(":id_user");
         response.header("FOO", "bar");
 
-        GeneradorUsuario repo = new GeneradorUsuario(em);
-
         try {
-            UsuarioDuenio user = (UsuarioDuenio) repo.getUserByID(Integer.parseInt(id_user));
-
-            Recomendacion_API reco = new Recomendacion_API(user, em);
+            GeneradorUsuario repoUser = new GeneradorUsuario(em);
+            UsuarioDuenio user = (UsuarioDuenio) repoUser.getUserByID(Integer.parseInt(id_user));
+            Recomendacion_API recomendacion = MongoDB.getInstance().getUltimaReco(user);
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String json = gson.toJson(reco);
+            String json = gson.toJson(recomendacion);
 
             response.type("application/json");
             response.status(202);
@@ -80,11 +110,11 @@ public class RecomendadorController {
             //System.out.println(response.body());
 
         }
-        catch (NoResultException nre) {
+        catch (IndexOutOfBoundsException nre) {
             response.type("application/json");
             response.status(404);
             response.body("{\n" +
-                    "  \"usuario pedido\": \"no existe\",\n" +
+                    "  \"usuario pedido\": \"no existe recomendacion\",\n" +
                     "  \"siguiente paso\": \"poner bien el ID\"\n" +
                     "}");
         }

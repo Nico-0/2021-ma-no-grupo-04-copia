@@ -4,11 +4,16 @@
 
     <br><br>
 
+    <div>
+        <form action="/recomendador/regenerar" method="post">
+            <input type="submit" value="Recomendar para todos">
+        </form>
+    </div>
     <table>
         <tr>
             <td>
-        <form action="/recomendador/regenerar" method="post">
-            <input type="submit" value="Regenerar recomendaciones">
+        <form action="/recomendador/{{id_user}}/regenerar" method="post">
+            <input type="submit" value="Recomendar user actual">
         </form>
             </td>
             <td>

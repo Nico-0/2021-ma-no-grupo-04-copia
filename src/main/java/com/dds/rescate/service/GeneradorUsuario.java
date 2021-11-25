@@ -5,6 +5,7 @@ import com.dds.rescate.exception.UsuarioException;
 import com.dds.rescate.model.Enum.EstadoPubli;
 import com.dds.rescate.model.Publicacion;
 import com.dds.rescate.model.Usuario;
+import com.dds.rescate.model.UsuarioDuenio;
 import com.dds.rescate.util.validaciones.ComprobarCaracteresRepetidos;
 import com.dds.rescate.util.validaciones.superarLongitudMinima;
 import com.dds.rescate.util.validaciones.ValidacionContrasenia;
@@ -34,6 +35,9 @@ public class GeneradorUsuario {
         return entityManager.createQuery("from Usuario", Usuario.class).getResultList();
     }
 
+    public List<UsuarioDuenio> getUsuariosDuenio() {
+        return entityManager.createQuery("from UsuarioDuenio", UsuarioDuenio.class).getResultList();
+    }
 
     public void registrarUsuario(Usuario usuario){
         validarContrasenia(usuario.getUsername(),usuario.getPassword());

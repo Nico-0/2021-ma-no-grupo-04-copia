@@ -63,6 +63,7 @@ public class Router {
         Spark.get("/registro/sucess", LoginController::sucess, engine);
 
         Spark.post("/recomendador/regenerar", RouteWithTransaction(RecomendadorController::recomendar));
+        Spark.post("/recomendador/:id_user/regenerar", RouteWithTransaction(RecomendadorController::recomendarSingle));
 
         Spark.get("/publicaciones", (req, res) -> "Lista de publicaciones aqui");
         Spark.get("/publicaciones/:id", TemplWithTransaction(Publicaciones::show), engine);
