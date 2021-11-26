@@ -5,18 +5,15 @@ import com.dds.rescate.model.Enum.EstadoEncontrada;
 import com.dds.rescate.model.Enum.Sexo;
 import com.dds.rescate.model.Enum.TipoMascota;
 import com.dds.rescate.model.Enum.TipoPregunta;
-import com.dds.rescate.service.GeneradorUsuario;
 import com.dds.rescate.service.PublicacionService;
-import com.dds.rescate.service.RepoAsociacion;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
 import java.util.*;
 
 public class Data {
 
-    public void limpiar(EntityManager em){
+    public static void limpiar(EntityManager em){
 
         em.createQuery("DELETE FROM Respuesta").executeUpdate();
         em.createQuery("DELETE FROM Recomendacion").executeUpdate();
@@ -43,7 +40,7 @@ public class Data {
 
     }
 
-    public void init(EntityManager em){
+    public static void init(EntityManager em){
 
 
         NotificadorEmail notiEmail = new NotificadorEmail();

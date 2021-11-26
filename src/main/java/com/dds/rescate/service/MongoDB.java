@@ -4,10 +4,8 @@ package com.dds.rescate.service;
 import com.dds.rescate.model.UsuarioDuenio;
 import com.dds.rescate.util.GeneradorID;
 import com.dds.rescate.util.Recomendacion_API;
-import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.client.MongoDatabase;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import dev.morphia.query.Query;
@@ -16,13 +14,11 @@ import dev.morphia.query.UpdateOperations;
 public class MongoDB {
 
     private static MongoClientURI connectionString;
-    private static MongoClientSettings settings;
     private static MongoClient mongoClient;
-    private static MongoDatabase database;
     private static Morphia morphia;
     private static Datastore datastore;
 
-    private static String password = "poner_password";
+    private static String password = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
     private static MongoDB instance = null;
 

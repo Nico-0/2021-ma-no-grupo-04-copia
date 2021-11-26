@@ -32,7 +32,7 @@ public class Recomendacion_API {
         this.nombreAutor = usuario.getNombre();
 
         PublicacionService repo = new PublicacionService(em);
-        List<Publicacion> intenciones = repo.getIntecionesByUserID(usuario.getID());
+        List<Publicacion> intenciones = repo.getIntencionesPublicadas(usuario.getUsername());
         this.cantidadIntencionesAdopcion = intenciones.size();
 
         this.interesesAdopcion = new ArrayList<>();

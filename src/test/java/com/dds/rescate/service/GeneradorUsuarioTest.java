@@ -15,22 +15,22 @@ public class GeneradorUsuarioTest {
     @Before
     public void init(){
         Usuario fulano = new Usuario("fulano","fulano7298756");
-        generadorUsuario.registrarUsuario(fulano);
+        generadorUsuario.registrarUsuarioTest(fulano);
     }
     @Test
     public void registrarUsuarioOk(){
         Usuario fulano = new Usuario("fulano","fulano7298765");
         GeneradorUsuario generadorUsuario = new GeneradorUsuario();
-        generadorUsuario.registrarUsuario(fulano);
-        assertEquals(1,generadorUsuario.getUsuarios().size());
+        generadorUsuario.registrarUsuarioTest(fulano);
+        assertEquals(1,generadorUsuario.getUsuariosTest().size());
     }
     
     @Test(expected = PasswordException.class)
     public void registrarUsuarioPasswordException(){
         Usuario fulano = new Usuario("fulano","fulano7298755");
         GeneradorUsuario generadorUsuario = new GeneradorUsuario();
-        generadorUsuario.registrarUsuario(fulano);
-        System.out.println(generadorUsuario.getUsuarios().size());
+        generadorUsuario.registrarUsuarioTest(fulano);
+        System.out.println(generadorUsuario.getUsuariosTest().size());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class GeneradorUsuarioTest {
         Usuario fulano = new Usuario("fulano","fulano7298755");
         GeneradorUsuario generadorUsuario = new GeneradorUsuario();
         try {
-            generadorUsuario.registrarUsuario(fulano);
+            generadorUsuario.registrarUsuarioTest(fulano);
         }catch(PasswordException e){
             mensajeError = e.getMessage();
         }
@@ -52,7 +52,7 @@ public class GeneradorUsuarioTest {
         Usuario fulano = new Usuario("fulano","fula");
         GeneradorUsuario generadorUsuario = new GeneradorUsuario();
         try {
-            generadorUsuario.registrarUsuario(fulano);
+            generadorUsuario.registrarUsuarioTest(fulano);
         }catch(PasswordException e){
             mensajeError = e.getMessage();
         }
@@ -65,7 +65,7 @@ public class GeneradorUsuarioTest {
         Usuario fulano = new Usuario("fulano","superman");
         GeneradorUsuario generadorUsuario = new GeneradorUsuario();
         try {
-            generadorUsuario.registrarUsuario(fulano);
+            generadorUsuario.registrarUsuarioTest(fulano);
         }catch(PasswordException e){
             mensajeError = e.getMessage();
         }

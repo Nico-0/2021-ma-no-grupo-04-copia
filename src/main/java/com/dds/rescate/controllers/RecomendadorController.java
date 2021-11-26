@@ -47,6 +47,14 @@ public class RecomendadorController {
     //recomendar para todos
     public static Void recomendar(Request request, Response response, EntityManager em) {
 
+        recomendarTodos(em);
+
+        response.redirect("/recomendador");
+        return null;
+    }
+
+    //metodo intermedio para reusar en el job
+    public static void recomendarTodos(EntityManager em){
         PublicacionService repoPubli = new PublicacionService(em);
         List<Publicacion> intenciones = repoPubli.getIntencionesPublicadas();
 
@@ -57,28 +65,28 @@ public class RecomendadorController {
         GeneradorUsuario repoUser = new GeneradorUsuario(em);
         List<UsuarioDuenio> users = repoUser.getUsuariosDuenio();
         users.forEach(u -> generarJson(u, em));
-
-
-        response.redirect("/recomendador");
-
-        return null;
     }
 
     public static Void recomendarSingle(Request request, Response response, EntityManager em) {
 
         String username = request.cookie("username");
+        String tipo = request.cookie("tipoUsuario");
 
-        PublicacionService repoPubli = new PublicacionService(em);
-        List<Publicacion> intenciones = repoPubli.getIntencionesPublicadas(username);
+        if(tipo.equals("comun")) {
+            PublicacionService repoPubli = new PublicacionService(em);
+            List<Publicacion> intenciones = repoPubli.getIntencionesPublicadas(username);
 
-        Recomendador reco = new Recomendador(em);
-        intenciones.forEach(intencion -> reco.recomendar((PublicacionIntencionDeAdopcion) intencion));
+            Recomendador reco = new Recomendador(em);
+            intenciones.forEach(intencion -> reco.recomendar((PublicacionIntencionDeAdopcion) intencion));
 
-        //guardar json en mongo
-        GeneradorUsuario repoUser = new GeneradorUsuario(em);
-        UsuarioDuenio user = (UsuarioDuenio) repoUser.obtenerUsuario(username);
-        generarJson(user, em);
-
+            //guardar json en mongo
+            GeneradorUsuario repoUser = new GeneradorUsuario(em);
+            UsuarioDuenio user = (UsuarioDuenio) repoUser.obtenerUsuario(username);
+            generarJson(user, em);
+        }
+        else{
+            throw new RuntimeException("Solo un usuario comun puede recibir recomendaciones");
+        }
 
         response.redirect("/recomendador");
 
@@ -93,7 +101,12 @@ public class RecomendadorController {
     public static Object get_json(Request request, Response response, EntityManager em){
 
         String id_user = request.params(":id_user");
+        String tipo = request.cookie("tipoUsuario");
         response.header("FOO", "bar");
+
+        if(!tipo.equals("comun")){
+            throw new RuntimeException("Solo un usuario comun puede recibir recomendaciones");
+        }
 
         try {
             GeneradorUsuario repoUser = new GeneradorUsuario(em);

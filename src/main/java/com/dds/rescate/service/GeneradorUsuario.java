@@ -1,9 +1,6 @@
 package com.dds.rescate.service;
 
-import com.dds.rescate.exception.PasswordException;
 import com.dds.rescate.exception.UsuarioException;
-import com.dds.rescate.model.Enum.EstadoPubli;
-import com.dds.rescate.model.Publicacion;
 import com.dds.rescate.model.Usuario;
 import com.dds.rescate.model.UsuarioDuenio;
 import com.dds.rescate.util.validaciones.ComprobarCaracteresRepetidos;
@@ -114,6 +111,14 @@ public class GeneradorUsuario {
         this.usuarioRepository.add(nuevo);
     }
 
+    public List<Usuario> getUsuariosTest(){
+        return usuarioRepository;
+    }
+    public void registrarUsuarioTest(Usuario usuario){
+        validarContrasenia(usuario.getUsername(),usuario.getPassword());
+        usuarioRepository.add(usuario);
+    }
+
 //----------------------------------------------------------------
 
     private int cont = 0;
@@ -139,7 +144,7 @@ public class GeneradorUsuario {
         List<Usuario> us= new ArrayList<>();
         int cont = 0;
         Usuario usuario = new Usuario(username,password);
-        us =this.getUsuarios().stream().filter(userRepo->validar(userRepo, usuario)).collect(Collectors.toList());
+        us =this.getUsuariosTest().stream().filter(userRepo->validar(userRepo, usuario)).collect(Collectors.toList());
         cont++;
 
         if(us.size()==0) {
