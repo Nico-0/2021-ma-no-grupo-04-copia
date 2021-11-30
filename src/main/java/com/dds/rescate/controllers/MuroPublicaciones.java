@@ -16,6 +16,8 @@ import javax.persistence.EntityManager;
 
 public class MuroPublicaciones {
 
+    private static int CANT_POR_PAG = 5;
+
     public static ModelAndView muro(Request request, Response response, EntityManager em) {
         HashMap<String, Object> viewModel = new HashMap<>();
         viewModel.put("Titulo", "Lista publicaciones");
@@ -60,13 +62,27 @@ public class MuroPublicaciones {
             }
         }
 
-        viewModel.put("Publicaciones", publicaciones);
+        //paginacion (seria mas optimo limitar la cantidad antes de haber procesado la tabla entera, quizas se puede hacer en un paso con una query SQL)
+        int cant_elementos = publicaciones.size();
+        int nro_pag = Integer.parseInt(request.params(":nro_pag"));
+        viewModel.put("nro_pag", nro_pag);
+        int offset = CANT_POR_PAG * nro_pag;
+        publicaciones = publicaciones.stream().skip(offset).limit(CANT_POR_PAG).collect(Collectors.toList());
 
+        Boolean ultima_pag = ((nro_pag + 1) * CANT_POR_PAG) < (cant_elementos);
+        viewModel.put("ultima_pag", ultima_pag);
+
+        viewModel.put("Publicaciones", publicaciones);
 
         String username = request.cookie("username");
         String tipoUsuario = request.cookie("tipoUsuario");
         viewModel.put("username", username);
         viewModel.put("tipoUsuario", tipoUsuario);
         return new ModelAndView(viewModel, "muro.hbs");
+    }
+
+    public static Void muroSinPag(Request request, Response response, EntityManager em){
+        response.redirect("/muro/0");
+        return null;
     }
 }

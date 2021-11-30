@@ -5,7 +5,7 @@
 
     <br>
 
-    <form action="/muro" method="GET">
+    <form action="/muro/{{nro_pag}}" method="GET">
         <label>Animal:</label>
         <select name="animal">
             <option value="all">Todos</option>
@@ -42,6 +42,17 @@
             {{>(lookup . 'this.tipoPublihbs')}}
         <br>
     {{/each}}
+
+    <br>
+    <tr>
+        {{#if nro_pag}}
+        <td><a onclick="window.location='/muro/{{dec nro_pag}}'+window.location.search;" class="button">&lt;---- Pagina anterior</a></td>
+        {{else}} Primera página {{/if}}
+        <td>__________ {{nro_pag}} __________</td>
+        {{#if ultima_pag}}
+        <td><a onclick="window.location='/muro/{{inc nro_pag}}'+window.location.search;" class="button">Pagina siguiente ----&gt;</a></td>
+        {{else}} Última página {{/if}}
+    </tr>
 
 
 </div>

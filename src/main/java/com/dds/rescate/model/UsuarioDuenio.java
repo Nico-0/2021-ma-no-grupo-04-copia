@@ -65,9 +65,9 @@ public class UsuarioDuenio extends Usuario{
         return this.mascotas.stream().filter(mascota -> mascota.estaPerdida()).count();
     }
 
-
+    @Override
     public String getNombre(){
-        return this.perfil.getNombre();
+        return this.perfil.getNombre() +"_"+ this.perfil.getApellido();
     }
     @Override
     public String getTipo(){

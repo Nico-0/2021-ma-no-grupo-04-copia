@@ -48,4 +48,8 @@ public class Usuario {
 	public void setID(int ID) {
 		this.ID = ID;
 	}
+
+    public String getNombre() {
+		return "Solo_para_usuario_comun";
+    }
 }

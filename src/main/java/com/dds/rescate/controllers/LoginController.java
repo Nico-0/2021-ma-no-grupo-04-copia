@@ -34,7 +34,7 @@ public class LoginController {
 
                 Usuario usuario = repositorio.obtenerUsuario(username);
                 response.cookie("tipoUsuario", usuario.getTipo());
-                //response.cookie("nombrePersona", password); //TODO buscar nombre en datos personales si es que es usuario comun
+                response.cookie("nombrePersona", usuario.getNombre());
                 //TODO guardar asociacion para voluntario y admin
                 response.cookie("username", username);
 

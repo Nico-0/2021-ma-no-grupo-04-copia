@@ -31,7 +31,7 @@ public class Router {
 
 
         Spark.before((request, response)-> {
-            if(request.requestMethod().equals("GET") && !request.pathInfo().equals("/") && !request.pathInfo().equals("/muro") && verificarLogin(request).equals("null")) {
+            if(request.requestMethod().equals("GET") && !request.pathInfo().equals("/") && !request.pathInfo().startsWith("/muro") && verificarLogin(request).equals("null")) {
                 response.redirect("/");
             }
             //TODO verificar que el usuario loginado exista en el repositorio de usuarios
@@ -44,7 +44,8 @@ public class Router {
 
         Spark.get("/", HomeController::home, engine);
 
-        Spark.get("/muro", TemplWithTransaction(MuroPublicaciones::muro), engine);
+        Spark.get("/muro", RouteWithTransaction(MuroPublicaciones::muroSinPag));
+        Spark.get("/muro/:nro_pag", TemplWithTransaction(MuroPublicaciones::muro), engine);
         Spark.get("/recomendador", TemplWithTransaction(RecomendadorController::recomendador), engine);
         Spark.get("/aprobar", Aprobar::aprobar, engine);
         Spark.get("/gestion", TemplWithTransaction(Gestion::gestion), engine);

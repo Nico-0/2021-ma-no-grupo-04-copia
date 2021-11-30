@@ -31,8 +31,8 @@ public class HomeController {
 
     public static Void datos_base(Request request, Response response, EntityManager em) {
 
-        Data data = new Data();
-        data.init(em);
+
+        Data.init(em);
 
         response.redirect("/muro");
         return null;
@@ -44,7 +44,6 @@ public class HomeController {
         Data data = new Data();
         data.init_extra(em);
 
-
         response.redirect("/muro");
         return null;
     }
@@ -52,14 +51,11 @@ public class HomeController {
     public static Void borrar_datos(Request request, Response response, EntityManager em) {
 
 
-        Data data = new Data();
-        data.limpiar(em);
-
+        Data.limpiar(em);
 
         response.redirect("/muro");
         return null;
     }
-
 
 
 }

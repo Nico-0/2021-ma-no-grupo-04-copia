@@ -28,9 +28,9 @@
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a href="/" class="nav-link px-2 link-dark">Home</a></li>
                         <li><a href="/muro" class="nav-link px-2 link-dark">Muro de Publicaciones</a></li>
-                        <li><a href="/recomendador" class="nav-link px-2 link-dark">Recomendaciones</a></li>
-                        <li><a href="/aprobar" class="nav-link px-2 link-dark">Aprobar Publicaciones</a></li>
-                        <li><a href="/gestion" class="nav-link px-2 link-dark">Gestión Organización</a></li>
+                        {{#equals tipoUsuario 'comun'}}<li><a href="/recomendador" class="nav-link px-2 link-dark">Recomendaciones</a></li>{{/equals}}
+                        {{#equals tipoUsuario 'voluntario'}}<li><a href="/aprobar" class="nav-link px-2 link-dark">Aprobar Publicaciones</a></li>{{/equals}}
+                        {{#equals tipoUsuario 'administrador'}}<li><a href="/gestion" class="nav-link px-2 link-dark">Gestión Organización</a></li>{{/equals}}
                     </ul>
                     {{!-- This comment may contain mustaches like }} --}}
                     <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"><font size="-1" style="color:#888888"> {{username}}, {{tipoUsuario}} </font></div>
@@ -40,9 +40,11 @@
                             <img src="/mascota.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
+                            {{#equals tipoUsuario 'comun'}}
                             <li><a class="dropdown-item" href="/perfil">Perfil</a></li>
                             <li><a class="dropdown-item" href="/mis_mascotas">Mis mascotas</a></li>
                             <li><a class="dropdown-item" href="/mis_publicaciones">Mis publicaciones</a></li>
+                            {{/equals}}
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form action="/logout" method="post">
@@ -57,10 +59,16 @@
     </main>
 
 
-        <div style="padding-left:10px">
+        <div style="padding-left:10px;min-height:800px">
          {{#block "contenido"}}
          {{/block}}
         </div>
+
+     <footer class="py-3 my-4">
+         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+         </ul>
+         <p class="text-center text-muted">© 2021 Patitas, Inc {{nro_pag}}</p>
+     </footer>
 
      <script src="/bootstrap.bundle.min.js"></script>
 
