@@ -1,5 +1,8 @@
 package com.dds.rescate.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,11 +17,13 @@ public class Asociacion {
     @ManyToMany//(cascade=CascadeType.REMOVE)
     //@OnDelete(action= OnDeleteAction.CASCADE)
     @JoinTable(name = "asociacion_respuestas_caracteristica", inverseJoinColumns = { @JoinColumn(name = "caracteristica_id") })
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<RespuestasAsociacion> caracteristicasParaRegistrarMascota;
 
     @ManyToMany//(cascade=CascadeType.REMOVE)
     //@OnDelete(action= OnDeleteAction.CASCADE)
     @JoinTable(name = "asociacion_respuestas_pregunta", inverseJoinColumns = { @JoinColumn(name = "pregunta_id") })
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<RespuestasAsociacion> preguntasParaPublicarEnAdopcion;
 
 
@@ -49,11 +54,11 @@ public class Asociacion {
         this.caracteristicasParaRegistrarMascota = caracteristicas;
     }
 
-    public List<RespuestasAsociacion> getPreguntasParaPublicarEnAdopcion() {
+    public List<RespuestasAsociacion> getPreguntas() {
         return preguntasParaPublicarEnAdopcion;
     }
 
-    public void setPreguntasParaPublicarEnAdopcion(List<RespuestasAsociacion> preguntasParaPublicarEnAdopcion) {
+    public void setPreguntas(List<RespuestasAsociacion> preguntasParaPublicarEnAdopcion) {
         this.preguntasParaPublicarEnAdopcion = preguntasParaPublicarEnAdopcion;
     }
 

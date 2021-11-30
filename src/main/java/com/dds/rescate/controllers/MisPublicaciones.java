@@ -8,7 +8,6 @@ import com.dds.rescate.model.Enum.TipoMascota;
 import com.dds.rescate.service.GeneradorUsuario;
 import com.dds.rescate.service.PublicacionService;
 import com.dds.rescate.service.RepoAsociacion;
-import com.dds.rescate.service.RepoMascota;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -17,7 +16,6 @@ import javax.persistence.EntityManager;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MisPublicaciones {
     public static ModelAndView show(Request request, Response response, EntityManager em){
@@ -30,7 +28,6 @@ public class MisPublicaciones {
         GeneradorUsuario repoUsuarios = new GeneradorUsuario(em);
         UsuarioDuenio user = (UsuarioDuenio) repoUsuarios.obtenerUsuario(username);
 
-        String nombrePerfil = user.getNombre();
 
         PublicacionService repoPublis = new PublicacionService(em);
         List<Publicacion> publicaciones = repoPublis.getPublicacionesBy(user, EstadoPubli.PUBLICADA);

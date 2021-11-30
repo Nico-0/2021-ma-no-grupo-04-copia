@@ -19,9 +19,15 @@ public class Gestion {
         viewModel.put("tipoUsuario", tipoUsuario);
 
         if (tipoUsuario.equals("administrador")) {
-            GeneradorUsuario repoUsuarios = new GeneradorUsuario(em);
-            UsuarioAdministrador user = (UsuarioAdministrador) repoUsuarios.obtenerUsuario(username);
-            viewModel.put("nombre", user.asociacion.getNombre());
+            try {
+                GeneradorUsuario repoUsuarios = new GeneradorUsuario(em);
+                UsuarioAdministrador user = (UsuarioAdministrador) repoUsuarios.obtenerUsuario(username);
+                viewModel.put("nombreAsoc", user.asociacion.getNombre());
+                viewModel.put("caracteristicas", user.asociacion.getCaracteristicas());
+                viewModel.put("preguntas", user.asociacion.getPreguntas());
+            }catch (RuntimeException no_existe_usuario){
+                viewModel.put("nombreAsoc", "Se acaba de eliminar el usuario, vuelva a cargar datos");
+            }
             return new ModelAndView(viewModel, "gestion.hbs");
         }
         else

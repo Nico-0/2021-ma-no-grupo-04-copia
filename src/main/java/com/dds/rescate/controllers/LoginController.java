@@ -30,17 +30,22 @@ public class LoginController {
             String password = request.queryParams("password");
 
             GeneradorUsuario repositorio = new GeneradorUsuario(em);
-            if(repositorio.checkUsuario(username,password)) {
+            try {
+                if (repositorio.checkUsuario(username, password)) {
 
-                Usuario usuario = repositorio.obtenerUsuario(username);
-                response.cookie("tipoUsuario", usuario.getTipo());
-                response.cookie("nombrePersona", usuario.getNombre());
-                //TODO guardar asociacion para voluntario y admin
-                response.cookie("username", username);
+                    Usuario usuario = repositorio.obtenerUsuario(username);
+                    response.cookie("tipoUsuario", usuario.getTipo());
+                    response.cookie("nombrePersona", usuario.getNombreCompleto());
+                    //TODO guardar asociacion para voluntario y admin
+                    response.cookie("username", username);
 
-                response.redirect("/");
+                    response.redirect("/");
+                }
+            }catch (RuntimeException no_existe_usuario){
+                response.redirect("/error/usuario");
             }
-            throw new RuntimeException("Contraseña incorrecta");
+            //throw new RuntimeException("Contraseña incorrecta");
+            response.redirect("/error/contrasenia");
         }
 
         return null;

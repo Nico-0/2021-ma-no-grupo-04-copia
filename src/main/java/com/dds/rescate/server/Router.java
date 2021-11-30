@@ -31,7 +31,7 @@ public class Router {
 
 
         Spark.before((request, response)-> {
-            if(request.requestMethod().equals("GET") && !request.pathInfo().equals("/") && !request.pathInfo().startsWith("/muro") && verificarLogin(request).equals("null")) {
+            if(request.requestMethod().equals("GET") && !request.pathInfo().equals("/") && !request.pathInfo().startsWith("/muro") && !request.pathInfo().startsWith("/error") && verificarLogin(request).equals("null")) {
                 response.redirect("/");
             }
             //TODO verificar que el usuario loginado exista en el repositorio de usuarios
@@ -87,6 +87,9 @@ public class Router {
         //Spark.post("/mascotas/:id/perdida", RouteWithTransaction(MisMascotas::perdida));
         Spark.post("/publicaciones/perdidaGenerica", RouteWithTransaction(MisPublicaciones::publicarPerdidaGenerica));
         Spark.post("/publicaciones/intencionGenerica", RouteWithTransaction(MisPublicaciones::publicarIntencionGenerica));
+
+        Spark.get("/error/usuario", (req, res) -> "<h1>No existe el usuario</h1> <a href=../../>Volver al inicio</a>");
+        Spark.get("/error/contrasenia", (req, res) -> "<h1>Contraseña incorrecta</h1> <a href=../../>Volver al inicio</a>");
 
     }
 

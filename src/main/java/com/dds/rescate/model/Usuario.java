@@ -1,8 +1,6 @@
 package com.dds.rescate.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -49,7 +47,7 @@ public class Usuario {
 		this.ID = ID;
 	}
 
-    public String getNombre() {
+    public String getNombreCompleto() {
 		return "Solo_para_usuario_comun";
     }
 }

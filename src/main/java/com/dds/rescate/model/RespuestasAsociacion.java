@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class RespuestasAsociacion {
@@ -74,6 +75,14 @@ public class RespuestasAsociacion {
 
     public String getNombre(){
         return pregunta.getNombre();
+    }
+
+    public List<String> getRespuestasPosibles(){
+        return respuestasPosibles;
+    }
+
+    public List<String> getComparaciones(){
+        return valoresRespuestas.stream().map(Comparacion::toString).collect(Collectors.toList());
     }
 
 }

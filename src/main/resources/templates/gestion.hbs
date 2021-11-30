@@ -1,17 +1,58 @@
 {{#partial "contenido"}}
 
-    <h1 class = "content">Gestionar Organización</h1>
-    Definir las caracteristicas que se deben dar para registrar una mascota en su asociacion.<br>
-    Definir preguntas que se deben responder para publicar en adopcion mascotas en su asociacion.
+    <h1 class = "estilo">Gestionar Organización</h1>
 
+    <div class="estiloDos">{{nombreAsoc}}</div>
+    <br><br>
     <br>
-    <br>
-    Asociacion: {{nombre}}
-    <br>
-    <br>
-    Mostrar aqui las caracteristicas
+    //Las combinaciones de respuestas no registradas dan 0 <br>
+    //No registradas pero respuestas iguales dan 10
+    <div class="fila">
+        <div class="columna">
+    <h2 style="color:red">Caracteristicas</h2>
 
-    <br><br><br><br><br><br><br><br><br><br>
+    {{#each caracteristicas}}
+    <div class= "containerGestion">
+        <br>
+        <h3 class ="titleProfile">{{nombre}}</h3>
+        <h4>Respuestas posibles:</h4>
+        {{#each respuestasPosibles}}
+            {{this}},
+        {{/each}}
+        <br>{{#if comparaciones}}<br>
+        <h5>Puntajes definidos:</h5>
+        {{#each comparaciones}}
+            <h6>{{this}}</h6>
+        {{/each}}
+        {{/if}}
+        <br>
+    </div>
+    {{/each}}
+        </div>
+
+     <div class="columna">
+    <h2 style="color:red">Preguntas</h2>
+
+    {{#each preguntas}}
+        <div class= "containerGestion">
+            <br>
+            <h3 class ="titleProfile">{{nombre}}</h3>
+            <h4>Respuestas posibles:</h4>
+            {{#each respuestasPosibles}}
+                {{this}},
+            {{/each}}
+            <br>{{#if comparaciones}}<br>
+            <h5>Puntajes definidos:</h5>
+            {{#each comparaciones}}
+                <h6>{{this}}</h6>
+            {{/each}}
+        {{/if}}
+            <br>
+        </div>
+    {{/each}}
+     </div>
+    </div>
+    <br><br><br><br><br><br>
 
     <form action="/datos1" method="post">
         <input type="submit" value="Crear datos base">

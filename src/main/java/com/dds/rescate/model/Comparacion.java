@@ -29,4 +29,8 @@ public class Comparacion {
     }
     private Comparacion(){}
 
+    public String toString(){
+        return "'"+respuestaUno+"' y '"+respuestaDos+"' --> "+valor+" puntos";
+    }
+
 }
