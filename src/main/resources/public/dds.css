@@ -55,6 +55,24 @@
   width: 90%;
 }
 
+.containerConfi{
+  text-align: center;
+  border-width: thin;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 5px;
+  width: 1100;
+}
+
+.containerPubli{
+  text-align: center;
+  border-width: thin;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 5px;
+  width: 750;
+}
+
 .columna {
   float: left;
   width: 50%;

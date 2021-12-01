@@ -20,7 +20,7 @@ Mascota Perdida
             <p><b>En hogar de tránsito</b>: {{hogarTransito}}</p>
             <p><b>Asociacion asignada</b>: {{asociacionString}}</p>
             <form action="/publicaciones/{{idString}}" method="get" align="right">
-                <input type="submit" value="Ver Publicacion">
+                <input type="submit" value="Ver Publicacion" {{#if ../tipoUsuario}}{{else}}title="inicie sesión para ver detalles" disabled{{/if}}>
             </form>
         </div>
     </div>

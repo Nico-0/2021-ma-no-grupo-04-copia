@@ -1,5 +1,6 @@
 package com.dds.rescate.service;
 
+import com.dds.rescate.model.ChapitaEncontrada;
 import com.dds.rescate.model.Mascota;
 
 import javax.persistence.EntityManager;
@@ -25,4 +26,10 @@ public class RepoMascota {
                 .getSingleResult();
     }
 
+    public ChapitaEncontrada getChapita(String ID_chapita){
+        return entityManager.createQuery("from ChapitaEncontrada c where c.id_chapita = ?1 and c.publicacion_finalizada = ?2", ChapitaEncontrada.class)
+                .setParameter(1, ID_chapita)
+                .setParameter(2, false)
+                .getSingleResult();
+    }
 }

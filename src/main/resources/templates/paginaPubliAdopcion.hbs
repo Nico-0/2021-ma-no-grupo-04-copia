@@ -7,24 +7,52 @@
     {{>publiAdopcion.hbs}}
 
     <br>
+    <h3 class="titleProfile">Dueño oferente:</h3>
+    <div class= "containerPubli">
+        <p></p>
+        <p><b>Usuario</b>: {{userString}}</p>
+        <p><b>Nombre</b>: {{autorString}}</p>
+        <p><b>Datos contacto</b>: {{contactoString}}</p>
+    </div>
 
+    <br>
+
+    <h3 class="titleProfile">Adoptante:</h3>
+    <div class= "containerPubli">
     {{#if isPublicada}}
-        Publicacion vigente
-        <form action="/publicaciones/{{idString}}/adoptar" method="post" align="left">
-            <input type="submit" value="Adoptar mascota">
-        </form>
+        {{#if awaitingConfirmation}}
+        Esperando confirmación del dueño
+        <p>Mascota reservada por:</p>
+            <p><b>Usuario</b>: {{adoptanteUserString}}</p>
+            <p><b>Nombre</b>: {{adoptanteString}}</p>
+            <p><b>Fecha de reserva</b>: {{fechaAdopcion}}</p>
+                <form action="/publicaciones/{{idString}}/cancelarReserva" method="post" align="center">
+                    <input type="submit" value="Cancelar reserva" {{#if esReservador}}{{else}}title="boton para el reservador" disabled{{/if}}>
+                </form>
+        {{else}}
+            <p><b>Mascota disponible</b></p>
+            <form action="/publicaciones/{{idString}}/adoptar" method="post" align="center">
+                <input type="submit" value="Adoptar mascota" {{#if puedeAdoptar}}title="debe ser un usuario comun distinto del duenio" disabled{{/if}}>
+            </form>
+        {{/if}}
     {{/if}}
 
     {{#if isFinalizada}}
         Mascota ya adoptada
-        <p><b>Dueño original</b>: {{autorString}}</p>
-        <p><b>Nuevo dueño</b>: {{adoptanteString}}</p>
+        <p><b>Nuevo dueño</b>: {{adoptanteString}} ({{adoptanteUserString}})</p>
         <p><b>Fecha de adopción</b>: {{fechaAdopcion}}</p>
         <br>
-        <p>Se ha notificado al dueño de su adopcion. Si no recibe su nueva mascota a la brevedad, por favor contacte al dueño original:</p>
-        <p><b>Datos contacto</b>: {{contactoString}}</p>
+        {{#if esReservador}}
+        <p>El dueño ya ha aceptado la adopción. Si no recibe su nueva mascota a la brevedad, por favor contactese con él.</p>
+        {{/if}}
     {{/if}}
 
+    {{#if isPendiente}}
+        <h2 style="color:red">PUBLICACION PENDIENTE</h2>
+        <p>Contactese con su voluntario mas cercano</p>
+    {{/if}}
+
+    </div>
     {{/with}}
 
 {{/partial}}

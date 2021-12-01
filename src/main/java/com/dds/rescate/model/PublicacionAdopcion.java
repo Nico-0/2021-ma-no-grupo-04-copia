@@ -91,10 +91,30 @@ public class PublicacionAdopcion extends Publicacion {
         return mascota.getFotoString();
     }
 
+    @Override
+    public UsuarioDuenio getInteresado(){
+        return nuevo_duenio;
+    }
 
-    public void adoptarMascota(UsuarioDuenio nuevo_duenio){
-        setEstadoPublicacion(EstadoPubli.FINALIZADA);
+
+    public void reservarMascota(UsuarioDuenio nuevo_duenio){
+        pendienteConfirmacion = true;
         this.nuevo_duenio = nuevo_duenio;
+        this.fecha_adopcion = new Date();
+    }
+
+    @Override
+    public void cancelarReserva(){
+        pendienteConfirmacion = false;
+        this.nuevo_duenio = null;
+        this.fecha_adopcion = null;
+    }
+
+    @Override
+    public void adoptarMascota(UsuarioDuenio nuevo_duenio){
+        pendienteConfirmacion = false;
+        setEstadoPublicacion(EstadoPubli.FINALIZADA);
+        //this.nuevo_duenio = nuevo_duenio;
         this.fecha_adopcion = new Date();
         nuevo_duenio.getMascotas().add(mascota);
         autor.getMascotas().remove(mascota);
@@ -102,7 +122,10 @@ public class PublicacionAdopcion extends Publicacion {
     }
 
     public String getAdoptanteString(){
-        return nuevo_duenio.getNombre();
+        return nuevo_duenio.getNombreCompleto();
+    }
+    public String getAdoptanteUserString(){
+        return nuevo_duenio.getUsername();
     }
     public String getFechaAdopcion(){
         return fecha_adopcion.toString();

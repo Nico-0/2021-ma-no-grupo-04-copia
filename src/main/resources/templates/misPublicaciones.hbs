@@ -18,17 +18,22 @@
 
     <br><br>
 
-    {{#each Publicaciones}}
-            {{>(lookup . 'this.tipoPublihbs') }}
-        <br>
-    {{/each}}
-    <br>
-
     {{#if Pendientes}}
         <h2 class = "content">Pendientes</h2>
+        <p>Un voluntario aceptará a la brevedad</p>
         <br>
         {{#each Pendientes}}
             {{>(lookup . 'this.tipoPublihbs') }}
+            <br>
+        {{/each}}
+        <br>
+    {{/if}}
+
+    {{#if Publicaciones}}
+        <h2 class = "content">Publicadas</h2>
+        <br>
+        {{#each Publicaciones}}
+                {{>(lookup . 'this.tipoPublihbs') }}
             <br>
         {{/each}}
         <br>

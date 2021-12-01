@@ -32,6 +32,8 @@ public class PublicacionPerdida extends Publicacion {
     @Enumerated(EnumType.STRING)
     public EstadoEncontrada estadoEncontrada;
 
+    @OneToOne
+    private UsuarioDuenio nuevo_duenio;
     private Date fecha_recuperacion;
 
     //Constructor
@@ -101,11 +103,45 @@ public class PublicacionPerdida extends Publicacion {
         return mascota_rescatada;
     }
 
-    public void recuperarMascota(UsuarioDuenio nuevo_duenio) {
+    public String getNombreMascota(){
+        return mascota_rescatada.getNombre();
+    }
+
+    public String getApodoMascota(){
+        return mascota_rescatada.getApodo();
+    }
+
+    @Override
+    public UsuarioDuenio getInteresado(){
+        return nuevo_duenio;
+    }
+
+    public void reservarMascota(UsuarioDuenio nuevo_duenio){
+        pendienteConfirmacion = true;
+        this.nuevo_duenio = nuevo_duenio;
+        this.fecha_recuperacion = new Date();
+    }
+    @Override
+    public void cancelarReserva(){
+        pendienteConfirmacion = false;
+        this.nuevo_duenio = null;
+        this.fecha_recuperacion = null;
+    }
+
+    @Override
+    public void adoptarMascota(UsuarioDuenio nuevo_duenio) {
+        pendienteConfirmacion = false;
         setEstadoPublicacion(EstadoPubli.FINALIZADA);
         this.fecha_recuperacion = new Date();
         nuevo_duenio.getMascotas().add(getMascota());
         autor.getMascotas().remove(getMascota());
         getMascota().publicada = false;
+    }
+
+    public String getAdoptanteString(){
+        return nuevo_duenio.getNombreCompleto();
+    }
+    public String getAdoptanteUserString(){
+        return nuevo_duenio.getUsername();
     }
 }

@@ -31,8 +31,22 @@ public class Publicaciones {
         String tipo_publi = publicacion.getTipoPubli();
         Boolean isPublicada = publicacion.isPublicada();
         Boolean isFinalizada = publicacion.isFinalizada();
+        Boolean isPendiente = publicacion.isPendiente();
+        Boolean awaitingConfirmation = publicacion.getPendienteConfirmacion();
+        UsuarioDuenio interesado = publicacion.getInteresado();
+        boolean esDuenio = publicacion.getAutor().getUsername().equals(username);
+        boolean esComun = tipoUsuario.equals("comun");
+        Boolean puedeAdoptar = esDuenio || !esComun;
+        boolean esReservador;
+        if(interesado != null){
+            esReservador = interesado.getUsername().equals(username);
+        } else esReservador = false;
         viewModel.put("isPublicada", isPublicada);
         viewModel.put("isFinalizada", isFinalizada);
+        viewModel.put("isPendiente", isPendiente);
+        viewModel.put("awaitingConfirmation", awaitingConfirmation);
+        viewModel.put("esReservador", esReservador);
+        viewModel.put("puedeAdoptar", puedeAdoptar);
 
         switch (tipo_publi) {
             case "perdida":
@@ -44,7 +58,6 @@ public class Publicaciones {
             default:
                 return new ModelAndView(null, null);
         }
-
 
     }
 
@@ -67,9 +80,9 @@ public class Publicaciones {
 
          duenio_original = publicacion.getAutor();
          verificarCreador(duenio_original, nuevo_duenio);
-         publicacion.adoptarMascota(nuevo_duenio);
+         publicacion.reservarMascota(nuevo_duenio);
         }
-        else {
+        else {//igual si no es comun no sale el boton
             throw new RuntimeException("Solo un usuario de tipo comun puede adoptar");
         }
 
@@ -93,15 +106,14 @@ public class Publicaciones {
         PublicacionService repoPublis = new PublicacionService(em);
 
         if(tipoUsuario.equals("comun")){
+            nuevo_duenio = (UsuarioDuenio) repoUsers.obtenerUsuario(username);
             publicacion = (PublicacionPerdida) repoPublis.getDeID(id_publi);
 
-            nuevo_duenio = (UsuarioDuenio) repoUsers.obtenerUsuario(username);
             duenio_original = publicacion.getAutor();
             verificarCreador(duenio_original, nuevo_duenio);
-
-            publicacion.recuperarMascota(nuevo_duenio);
+            publicacion.reservarMascota(nuevo_duenio);
         }
-        else {
+        else { //igual si no es comun no sale el boton
             throw new RuntimeException("Solo un usuario de tipo comun puede recuperar");
         }
 
@@ -113,7 +125,7 @@ public class Publicaciones {
 
     private static void verificarCreador(UsuarioDuenio autor, UsuarioDuenio consumidor){
         if(autor.equals(consumidor)){
-            throw new RuntimeException("No puede adoptar/recuperar el creador de la publicacion");
+            throw new RuntimeException("No puede adoptar/recuperar el creador de la publicacion"); //TODO no mostrar exception al usuario
         }
     }
 
@@ -128,6 +140,63 @@ public class Publicaciones {
 
         publicacion.darDeBaja();
 
+
+        response.redirect("/publicaciones/"+id_publi);
+
+        return null;
+    }
+
+    public static Void cancelarReserva(Request request, Response response, EntityManager em) {
+
+        String id_publi = request.params(":id");
+
+        String username = request.cookie("username");
+
+        UsuarioDuenio duenio_original;
+        UsuarioDuenio interesado_actual;
+        UsuarioDuenio cancelante;
+        Publicacion publicacion;
+        GeneradorUsuario repoUsers = new GeneradorUsuario(em);
+        PublicacionService repoPublis = new PublicacionService(em);
+
+
+        cancelante = (UsuarioDuenio) repoUsers.obtenerUsuario(username);
+        publicacion = repoPublis.getDeID(id_publi);
+        interesado_actual = publicacion.getInteresado();
+        duenio_original = publicacion.getAutor();
+
+        if(cancelante.equals(interesado_actual) || cancelante.equals(duenio_original)){
+            publicacion.cancelarReserva();
+        } else { //igual esta oculto el boton para el que no sea
+            throw new RuntimeException("Solo puede cancelar el interesado o dueño original");
+        }
+
+        response.redirect("/publicaciones/"+id_publi);
+
+        return null;
+    }
+
+    public static Void aceptar(Request request, Response response, EntityManager em) {
+
+        String id_publi = request.params(":id");
+
+        String username = request.cookie("username");
+
+        UsuarioDuenio duenio_original;
+        UsuarioDuenio aceptante;
+        Publicacion publicacion;
+        GeneradorUsuario repoUsers = new GeneradorUsuario(em);
+        PublicacionService repoPublis = new PublicacionService(em);
+
+        aceptante = (UsuarioDuenio) repoUsers.obtenerUsuario(username);
+        publicacion = repoPublis.getDeID(id_publi);
+        duenio_original = publicacion.getAutor();
+
+        if(aceptante.equals(duenio_original)){
+            publicacion.adoptarMascota(publicacion.getInteresado());
+        } else { //igual solo ve el boton el duenio
+            throw new RuntimeException("Solo aceptar el dueño original");
+        }
 
         response.redirect("/publicaciones/"+id_publi);
 

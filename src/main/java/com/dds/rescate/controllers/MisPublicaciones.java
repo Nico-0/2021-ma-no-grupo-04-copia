@@ -8,11 +8,13 @@ import com.dds.rescate.model.Enum.TipoMascota;
 import com.dds.rescate.service.GeneradorUsuario;
 import com.dds.rescate.service.PublicacionService;
 import com.dds.rescate.service.RepoAsociacion;
+import com.dds.rescate.service.RepoMascota;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -82,4 +84,44 @@ public class MisPublicaciones {
         response.redirect("/recomendador");
         return null;
     }
+
+    public static Void notificar(Request request, Response response, EntityManager em) {
+
+        String ID_chapita = request.queryParams("ID_chapita");
+
+        String username = request.cookie("username");
+        GeneradorUsuario repoUsuarios = new GeneradorUsuario(em);
+        UsuarioDuenio user_1 = (UsuarioDuenio) repoUsuarios.obtenerUsuario(username);
+
+        //verificar chapita no publicada
+        ChapitaEncontrada chapita;
+        try {
+        chapita = em.createQuery("from ChapitaEncontrada c where c.id_chapita = ?1 and c.publicacion_finalizada = ?2", ChapitaEncontrada.class)
+                .setParameter(1, ID_chapita)
+                .setParameter(2, false)
+                .getSingleResult();
+        }catch (NoResultException nre){
+            //do nothing
+            chapita = null;
+        }
+        if(chapita != null){
+            throw new RuntimeException("Chapita ya publicada");
+            //TODO redirigir a pagina de error
+        }
+        //TODO agregar catch y redirigir a pagina de error si la mascota de la chapita no se encuentra perdida
+
+        //crear publicacion de chapita
+        try {
+            ChapitaEncontrada chapitaNueva = new ChapitaEncontrada(user_1, ID_chapita, em);
+            em.persist(chapitaNueva);
+        }catch (NoResultException nre){
+            throw new RuntimeException("Chapita inexistente");
+            //TODO redirigir a pagina de error
+        }
+
+        response.redirect("/mis_publicaciones");
+        return null;
+    }
+
+
 }

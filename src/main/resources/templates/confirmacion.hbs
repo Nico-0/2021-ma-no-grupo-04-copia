@@ -1,0 +1,132 @@
+{{#partial "contenido"}}
+
+    <h1 class = "content">Confirmaciones</h1>
+<br>
+    <p>Aqui puede concretar los intereses en sus publicaciones.</p>
+    <p>Es su responsabilidad entregar las mascotas en tiempo y forma.</p>
+    <p>También puede recuperar sus mascotas que alguien haya encontrado.</p>
+
+    <br><br>
+
+    {{#if vacio}}
+        {{#if Adopciones}}<h2>Mis dadas en adopción</h2>{{/if}}
+        {{#each Adopciones}}
+            <div class= "containerConfi">
+                Mascota En Adopción {{id}}
+                <div class="row">
+                    <div class="col">
+                        <h4><b>{{nombreMascota}}</b> - {{apodoMascota}}</h4>
+                        <p><b>Animal</b>: {{animal}}</p>
+                        <p><b>Dueño</b>: tu mismo</p>
+                        <p><b>Fecha publicacion</b>: {{fechaString}}</p>
+                        <br>
+                        <form action="/publicaciones/{{idString}}" method="get" align="center">
+                            <input type="submit" value="Ver Publicacion">
+                        </form>
+                    </div>
+                    <div class="col">
+                        <img src="/{{fotoString}}" alt="{{nombreMascota}}">
+                    </div>
+                    <div class="col">
+                    <h3 class="titleProfile">Interesado:</h3>
+                    <p><b>Usuario</b>: {{adoptanteUserString}}</p>
+                    <p><b>Nombre</b>: {{adoptanteString}}</p>
+                    <p><b>Fecha de reserva</b>: {{fechaAdopcion}}</p>
+                        <br>
+                    <form action="/publicaciones/{{idString}}/aceptar" method="post" align="center">
+                        <input type="submit" value="Conceder mascota">
+                    </form>
+                    <form action="/publicaciones/{{idString}}/cancelarReserva" method="post" align="center">
+                        <input type="submit" value="Rechazar">
+                    </form>
+                    </div>
+                </div>
+            </div>
+            <br>
+        {{/each}}
+
+        <!-- ------------------------------------------------------------------------------------------------------------------------------------- -->
+
+        {{#if Perdidas}}<h2>Mis Rescatadas</h2>{{/if}}
+        {{#each Perdidas}}
+            <div class= "containerConfi">
+                Mascota Rescatada {{id}}
+                <div class="row">
+                    <div class="col">
+                        <h4><b>{{nombreMascota}}</b> - {{apodoMascota}}</h4>
+                        <p><b>Animal</b>: {{animal}}</p>
+                        <p><b>Rescatista</b>: tu mismo</p>
+                        <p><b>Estado</b>: {{estadoMascotaString}}</p>
+                        <p><b>Fecha publicacion</b>: {{fechaString}}</p>
+                        <br>
+                        <form action="/publicaciones/{{idString}}" method="get" align="center">
+                            <input type="submit" value="Ver Publicacion">
+                        </form>
+                    </div>
+                    <div class="col">
+                        <img src="/{{fotoString}}" alt="{{nombreMascota}}">
+                    </div>
+                    <div class="col">
+                        <h3 class="titleProfile">Interesado:</h3>
+                        <p><b>Usuario</b>: {{adoptanteUserString}}</p>
+                        <p><b>Nombre</b>: {{adoptanteString}}</p>
+                        <p><b>Fecha de reserva</b>: {{fechaRecuperacion}}</p>
+                        <br>
+                        <form action="/publicaciones/{{idString}}/aceptar" method="post" align="center">
+                            <input type="submit" value="Conceder mascota">
+                        </form>
+                        <form action="/publicaciones/{{idString}}/cancelarReserva" method="post" align="center">
+                            <input type="submit" value="Rechazar">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br>
+        {{/each}}
+
+        <!-- ------------------------------------------------------------------------------------------------------------------------------------- -->
+
+        {{#if Encontradas}}<h2>Mis Perdidas</h2>{{/if}}
+        {{#each Encontradas}}
+            <div class= "containerConfi">
+                {{#with mascota_asociada}}
+                Mascota Perdida {{idMascotaString}}
+                <div class="row">
+                    <div class="col">
+                        <h4><b>{{nombre}}</b> - {{apodo}}</h4>
+                        <p><b>Animal</b>: {{tipoMascota}}</p>
+                        <p><b>Dueño triste</b>: tu mismo</p>
+                        <p><b>Sexo</b>: {{sexo}}</p>
+                        <p><b>Descripción Mascota</b>: {{descripcion}}</p>
+                    </div>
+                    <div class="col">
+                        <img src="/{{fotoString}}" alt="{{nombreMascota}}">
+                    </div>
+                    {{/with}}
+                    <div class="col">
+                        <h3 class="titleProfile">Rescatista:</h3>
+                        <p><b>Usuario</b>: {{rescatistaUserString}}</p>
+                        <p><b>Nombre</b>: {{rescatistaString}}</p>
+                        <p><b>Fecha encontrada</b>: {{fechaRescate}}</p>
+                        <br>
+                        <form action="/mascotas/{{mascota_asociada.idMascotaString}}/aceptar" method="post" align="center">
+                            <input type="submit" value="Aceptar mascota :D">
+                        </form>
+                        <form action="/mascotas/{{mascota_asociada.idMascotaString}}/rechazar" method="post" align="center">
+                            <input type="submit" value="Rechazar (devolver a su habitat)">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br>
+        {{/each}}
+
+    {{else}}
+        <h2>Todo listo.</h2>
+        <h6>Si desea seguir aceptando cosas, asegurese de crear mas publicaciones y/o que otros usuarios se interesen por ellas.</h6>
+    {{/if}}
+
+
+{{/partial}}
+
+{{>layout.hbs}}

@@ -52,6 +52,7 @@ public class Router {
         Spark.get("/perfil", TemplWithTransaction(Perfil::perfil), engine);
         Spark.get("/mis_mascotas", TemplWithTransaction(MisMascotas::show), engine);
         Spark.get("/mis_publicaciones", TemplWithTransaction(MisPublicaciones::show), engine);
+        Spark.get("/confirmacion", TemplWithTransaction(Confirmaciones::show), engine);
 
         Spark.post("/", RouteWithTransaction(LoginController::login));
 
@@ -73,7 +74,9 @@ public class Router {
         Spark.post("/publicaciones/:id/recuperar", RouteWithTransaction(Publicaciones::recuperar));
         Spark.post("/publicaciones/:id/finalizar", RouteWithTransaction(Publicaciones::finalizar));
 
-        Spark.post("/mascotas/notificar", (req, res) -> "Si existe la chapita, entonces el dueño ha sido notificado. El dueño se acercará a su domicilio (a retirar el animal) a la brevedad.");
+        Spark.post("/publicaciones/:id/cancelarReserva", RouteWithTransaction(Publicaciones::cancelarReserva));
+        Spark.post("/publicaciones/:id/aceptar", RouteWithTransaction(Publicaciones::aceptar));
+
 
         Spark.get("/usuarios/:id_user/recomendaciones", RouteWithTransaction(RecomendadorController::get_json));
 
@@ -84,13 +87,20 @@ public class Router {
 
         Spark.post("/mis_mascotas", RouteWithTransaction(MisMascotas::registrarGenerica));
         Spark.post("/mascotas/:id/publicarAdopcion", RouteWithTransaction(MisMascotas::darAdopcion));
-        //Spark.post("/mascotas/:id/perdida", RouteWithTransaction(MisMascotas::perdida));
+
         Spark.post("/publicaciones/perdidaGenerica", RouteWithTransaction(MisPublicaciones::publicarPerdidaGenerica));
         Spark.post("/publicaciones/intencionGenerica", RouteWithTransaction(MisPublicaciones::publicarIntencionGenerica));
 
-        Spark.get("/error/usuario", (req, res) -> "<h1>No existe el usuario</h1> <a href=../../>Volver al inicio</a>");
-        Spark.get("/error/contrasenia", (req, res) -> "<h1>Contraseña incorrecta</h1> <a href=../../>Volver al inicio</a>");
+        Spark.get("/error/usuario", (req, res) -> { res.status(401);
+            return "<h1>No existe el usuario</h1> <a href=../../>Volver al inicio</a>";});
+        Spark.get("/error/contrasenia", (req, res) -> { res.status(401);
+            return "<h1>Contraseña incorrecta</h1> <a href=../../>Volver al inicio</a>";});
 
+        Spark.post("/mascotas/:id/perdida", RouteWithTransaction(MisMascotas::perdida));
+        Spark.post("/mascotas/notificar", RouteWithTransaction(MisPublicaciones::notificar));
+
+        Spark.post("/mascotas/:id/aceptar", RouteWithTransaction(MisMascotas::aceptar));
+        Spark.post("/mascotas/:id/rechazar", RouteWithTransaction(MisMascotas::rechazar));
     }
 
     private static TemplateViewRoute  TemplWithTransaction(WithTransaction<ModelAndView> fn) {

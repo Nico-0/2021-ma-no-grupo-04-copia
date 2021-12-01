@@ -100,8 +100,20 @@ public class PublicacionService {
         return intenciones.stream().filter(Publicacion::isPublicada).collect(Collectors.toList());
     }
 
+    public List<Publicacion> getPublicadasParaConfirmar(UsuarioDuenio usuario){
+        return entityManager.createQuery("from Publicacion p where p.estadoPublicacion = ?1 and p.pendienteConfirmacion = ?2 and p.autor = ?3", Publicacion.class)
+                .setParameter(1, EstadoPubli.PUBLICADA)
+                .setParameter(2, true)
+                .setParameter(3, usuario)
+                .getResultList();
+    }
 
-
+    public List<ChapitaEncontrada> getChapitasPublicadas(UsuarioDuenio duenio_mascota_original){
+        return entityManager.createQuery("from ChapitaEncontrada c where c.publicacion_finalizada = ?1 and c.duenio_mascota = ?2", ChapitaEncontrada.class)
+                .setParameter(1, false)
+                .setParameter(2, duenio_mascota_original)
+                .getResultList();
+    }
 
 
 

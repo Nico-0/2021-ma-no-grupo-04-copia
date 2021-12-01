@@ -30,6 +30,8 @@ public class Publicacion {
     @Enumerated(EnumType.STRING)
     private TipoMascota tipoMascota;
 
+    public Boolean pendienteConfirmacion = false;
+
     //Cnstructor
     public Publicacion(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota) {
         this.autor = autor;
@@ -94,7 +96,10 @@ public class Publicacion {
     }
 
     public String getAutorString(){
-        return this.autor.getNombre();
+        return this.autor.getNombreCompleto();
+    }
+    public String getUserString(){
+        return this.autor.getUsername();
     }
     public String getAsociacionString(){
         return this.asociacionAsignada.getNombre();
@@ -110,6 +115,11 @@ public class Publicacion {
     }
     public String getAnimal(){
         return tipoMascota.toString();
+    }
+
+    public Boolean getPendienteConfirmacion(){return pendienteConfirmacion;}
+    public UsuarioDuenio getInteresado(){
+        return null;
     }
 
     //Metodos
@@ -171,6 +181,11 @@ public class Publicacion {
         if(mascota.publicada){
             throw new RuntimeException("La mascota "+mascota.getNombre()+" ya se encuentra en otra publicacion");
         }
+    }
+
+    public void cancelarReserva(){
+    }
+    public void adoptarMascota(UsuarioDuenio nuevo_duenio) {
     }
 }
 

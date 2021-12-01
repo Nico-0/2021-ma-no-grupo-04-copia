@@ -29,6 +29,7 @@
                         <li><a href="/" class="nav-link px-2 link-dark">Home</a></li>
                         <li><a href="/muro" class="nav-link px-2 link-dark">Muro de Publicaciones</a></li>
                         {{#equals tipoUsuario 'comun'}}<li><a href="/recomendador" class="nav-link px-2 link-dark">Recomendaciones</a></li>{{/equals}}
+                        {{#equals tipoUsuario 'comun'}}<li><a href="/confirmacion" class="nav-link px-2 link-dark">Confirmaciones</a></li>{{/equals}}
                         {{#equals tipoUsuario 'voluntario'}}<li><a href="/aprobar" class="nav-link px-2 link-dark">Aprobar Publicaciones</a></li>{{/equals}}
                         {{#equals tipoUsuario 'administrador'}}<li><a href="/gestion" class="nav-link px-2 link-dark">Gestión Organización</a></li>{{/equals}}
                     </ul>

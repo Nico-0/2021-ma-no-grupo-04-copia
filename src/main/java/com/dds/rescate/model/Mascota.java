@@ -10,7 +10,9 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.dds.rescate.service.ImageLoader.resizeImage;
 
@@ -39,6 +41,8 @@ public class Mascota {
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
 
+    String id_chapita;
+
     @Type(type="yes_no")
     private boolean perdida;
 
@@ -65,6 +69,7 @@ public class Mascota {
         this.perdida = false;
         this.fotos.add(fotoMinima);
         this.publicada = false;
+        this.id_chapita = nombre+apodo+Calendar.getInstance().get(Calendar.MILLISECOND);
     }
 
 
@@ -93,6 +98,9 @@ public class Mascota {
     }
 
     public void perder(){
+        if(publicada){
+            throw new RuntimeException("En este universo no puede perder a su mascota si se encuentra publicada");
+        }
         this.perdida = true;
     }
 
@@ -161,6 +169,10 @@ public class Mascota {
         this.sexo = sexo;
     }
 
+    public String getChapita(){
+        return id_chapita;
+    }
+
     public String getNombreAsociacionString(){
         return this.asociacionRegistrada.getNombre();
     }
@@ -195,6 +207,12 @@ public class Mascota {
                 ", sexo=" + sexo +
                 ", fotos=" + fotos +
                 '}';
+    }
+
+    public UsuarioDuenio getDuenio(EntityManager entityManager){
+        List<UsuarioDuenio> usuarios = entityManager.createQuery("from UsuarioDuenio", UsuarioDuenio.class)
+                .getResultList();
+        return usuarios.stream().filter(u -> u.getMascotas().contains(this)).collect(Collectors.toList()).get(0);
     }
 
 }

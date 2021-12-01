@@ -20,8 +20,7 @@
                     <div class="col">
                         <h4><b>{{this.nombre}}</b> - {{this.apodo}}</h4>
                         <p><b>Tipo Mascota</b>: {{this.tipoMascota}}</p>
-                        <p><b>Nombre Mascota</b>: {{this.nombre}}</p>
-                        <p><b>Apodo Mascota</b>: {{this.apodo}}</p>
+                        <p><b>ID chapita</b>: {{this.chapita}}</p>
                         <p><b>Sexo</b>: {{this.sexoString}}</p>
                         <p><b>Descripcion Mascota</b>: {{this.descripcion}}</p>
                         <p><b>Asociacion</b>: {{this.nombreAsociacionString}}</p>
@@ -40,11 +39,40 @@
     {{/each}}
 
     <!-- Eliminar codigo duplicado -->
+    {{#if Perdidas}}
+        <br><br>
+        <h2>Perdidas:</h2>
+        (Insertar ID chapita en publicaciones para recuperar)
+        <br><br>
+        {{#each Perdidas}}
+            <div class="cuadroMascota">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <img src="/{{fotoString}}" alt="{{this.nombre}}" style="width:100%">
+                        </div>
+                        <div class="col">
+                            <h4><b>{{this.nombre}}</b> - {{this.apodo}}</h4>
+                            <p><b>Tipo Mascota</b>: {{this.tipoMascota}}</p>
+                            <p><b>ID chapita</b>: {{this.chapita}}</p>
+                            <p><b>Sexo</b>: {{this.sexoString}}</p>
+                            <p><b>Descripcion Mascota</b>: {{this.descripcion}}</p>
+                            <p><b>Asociacion</b>: {{this.nombreAsociacionString}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br>
+        {{/each}}
+    {{/if}}
+
+    <!-- Eliminar codigo duplicado -->
     {{#if MascotasComprometidas}}
         <br><br>
         <h2>Comprometidas:</h2>
         (Publicadas)
-        <br>
+        <br><br>
         {{#each MascotasComprometidas}}
             <div class="cuadroMascota">
                 <div class="container">
@@ -55,8 +83,7 @@
                         <div class="col">
                             <h4><b>{{this.nombre}}</b> - {{this.apodo}}</h4>
                             <p><b>Tipo Mascota</b>: {{this.tipoMascota}}</p>
-                            <p><b>Nombre Mascota</b>: {{this.nombre}}</p>
-                            <p><b>Apodo Mascota</b>: {{this.apodo}}</p>
+                            <p><b>ID chapita</b>: {{this.chapita}}</p>
                             <p><b>Sexo</b>: {{this.sexoString}}</p>
                             <p><b>Descripcion Mascota</b>: {{this.descripcion}}</p>
                             <p><b>Asociacion</b>: {{this.nombreAsociacionString}}</p>

@@ -15,6 +15,7 @@ import spark.Response;
 
 import javax.persistence.EntityManager;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MisMascotas {
     public static ModelAndView show(Request request, Response response, EntityManager em){
@@ -31,7 +32,10 @@ public class MisMascotas {
 
         //Mascotas de usuario
         List<Mascota> mascotas = user.getMascotasSinPublicar();
-        viewMascotas.put("Mascotas", mascotas);
+        List<Mascota> mascotasSinPerder = mascotas.stream().filter(m -> !m.estaPerdida()).collect(Collectors.toList());
+        List<Mascota> mascotasPerdidas = mascotas.stream().filter(Mascota::estaPerdida).collect(Collectors.toList());
+        viewMascotas.put("Mascotas", mascotasSinPerder);
+        viewMascotas.put("Perdidas", mascotasPerdidas);
         List<Mascota> mascotasComprometidas = user.getMascotasComprometidas();
         viewMascotas.put("MascotasComprometidas", mascotasComprometidas);
         /*for(Mascota  masc : mascotas){
@@ -89,26 +93,40 @@ public class MisMascotas {
 
     public static Void perdida(Request request, Response response, EntityManager em) {
 
-        //esta mal generar esta publicacion de mascota perdida
-        //puedo definir a mi mascota con el Bool perdida sin mas
-        //el rescatista encuentra mascotas fuera del sistema, y luego la puede publicar dentro del sistema, y yo encontrar la publicacion
-        /*
         String id_mascota = request.params(":id");
         RepoMascota repoMascota = new RepoMascota(em);
         Mascota mascota = repoMascota.getMascotaByID(Integer.parseInt(id_mascota));
 
-        String username = request.cookie("username");
-        GeneradorUsuario repoUsuarios = new GeneradorUsuario(em);
-        UsuarioDuenio user_1 = (UsuarioDuenio) repoUsuarios.obtenerUsuario(username);
+        mascota.perder();
 
-        RepoAsociacion repoAsociacion = new RepoAsociacion(em);
-        Asociacion asociacion_1 = repoAsociacion.getAsociacion1();
+        response.redirect("/mis_mascotas");
+        return null;
+    }
 
-        PublicacionPerdida perdida_1 = new PublicacionPerdida(user_1, asociacion_1, mascota, EstadoEncontrada.PERDIDA, "Ayudeme a encontrar mi mascota", user_1.getContacto());
+    public static Void aceptar(Request request, Response response, EntityManager em) {
 
-        em.persist(perdida_1);
+        String id_mascota = request.params(":id");
+        RepoMascota repoMascota = new RepoMascota(em);
+        Mascota mascota = repoMascota.getMascotaByID(Integer.parseInt(id_mascota));
 
-        response.redirect("/mis_mascotas");*/
+        mascota.recuperar();
+        ChapitaEncontrada chapita = repoMascota.getChapita(mascota.getChapita());
+        chapita.finalizar();
+
+        response.redirect("/mis_mascotas");
+        return null;
+    }
+
+    public static Void rechazar(Request request, Response response, EntityManager em) {
+
+        String id_mascota = request.params(":id");
+        RepoMascota repoMascota = new RepoMascota(em);
+        Mascota mascota = repoMascota.getMascotaByID(Integer.parseInt(id_mascota));
+
+        ChapitaEncontrada chapita = repoMascota.getChapita(mascota.getChapita());
+        chapita.finalizar();
+
+        response.redirect("/mis_mascotas");
         return null;
     }
 

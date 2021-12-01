@@ -7,21 +7,54 @@
     {{>publiPerdida.hbs}}
 
     <br>
-
-    {{#if isPublicada}}
-        La mascota aún no se encuentra en manos de su dueño. Presione el botón para recuperarla
-        <form action="/publicaciones/{{idString}}/recuperar" method="post" align="left">
-            <input type="submit" value="Es mi mascota">
-        </form>
-    {{/if}}
-
-    {{#if isFinalizada}}
-        La mascota ha vuelto a su dueño. Gracias por utilizar Patitas al Rescate.
-        <p><b>Fecha de Recuperación</b>: {{fechaRecuperacion}}</p>
-        <br>
-        <p>Se ha notificado al rescatista (o al hogar) sobre el dueño de la mascota. Si no recibe su mascota a la brevedad, por favor vuelva a contactarse:</p>
+    <h3 class="titleProfile">Rescatista:</h3>
+    <div class= "containerPubli">
+        <p></p>
+        <p><b>Usuario</b>: {{userString}}</p>
+        <p><b>Nombre</b>: {{autorString}}</p>
         <p><b>Datos contacto</b>: {{contactoString}}</p>
-    {{/if}}
+    </div>
+
+    <br>
+
+    <h3 class="titleProfile">Adoptante:</h3>
+    <div class= "containerPubli">
+        {{#if isPublicada}}
+            {{#if awaitingConfirmation}}
+                Esperando confirmación del dueño
+                <p>Mascota reservada por:</p>
+                <p><b>Usuario</b>: {{adoptanteUserString}}</p>
+                <p><b>Nombre</b>: {{adoptanteString}}</p>
+                <p><b>Fecha de reserva</b>: {{fechaRecuperacion}}</p>
+                <form action="/publicaciones/{{idString}}/cancelarReserva" method="post" align="center">
+                    <input type="submit" value="Cancelar reserva" {{#if esReservador}}{{else}}title="boton para el reservador" disabled{{/if}}>
+                </form>
+            {{else}}
+                <p><b>Mascota disponible</b></p>
+                <form action="/publicaciones/{{idString}}/recuperar" method="post" align="center">
+                    <input type="submit" value="Adoptar mascota" {{#if puedeAdoptar}}title="debe ser un usuario comun distinto del duenio" disabled{{/if}}>
+                </form>
+            {{/if}}
+        {{/if}}
+
+        {{#if isFinalizada}}
+            Mascota ya adoptada
+            <p><b>Nuevo dueño</b>: {{adoptanteString}} ({{adoptanteUserString}})</p>
+            <p><b>Fecha de adopción</b>: {{fechaRecuperacion}}</p>
+            <br>
+            {{#if esReservador}}
+                <p>El rescatista ya aceptó entregarle la mascota. Si no recibe su nueva mascota a la brevedad, por favor contactese con él.</p>
+                <p>Gracias por utilizar Patitas al Rescate.</p>
+            {{/if}}
+        {{/if}}
+
+        {{#if isPendiente}}
+            <h2 style="color:red">PUBLICACION PENDIENTE</h2>
+            <p>Contactese con su voluntario mas cercano</p>
+        {{/if}}
+
+    </div>
+
 
     {{/with}}
 

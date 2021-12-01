@@ -15,6 +15,7 @@ public class Data {
 
     public static void limpiar(EntityManager em){
 
+        em.createQuery("DELETE FROM ChapitaEncontrada").executeUpdate();
         em.createQuery("DELETE FROM Respuesta").executeUpdate();
         em.createQuery("DELETE FROM Recomendacion").executeUpdate();
         em.createQuery("DELETE FROM PublicacionIntencionDeAdopcion").executeUpdate();
@@ -47,15 +48,15 @@ public class Data {
 
 //Generar usuarios
 
-        Contacto contacto = new Contacto("Papo", "Pepe", "🙌@✌.com", notiEmail, 118003330);
+        Contacto contacto = new Contacto("Papo", "Pepe", "🙌✌@mail.com", notiEmail, 118003330);
         Contacto contacto2 = new Contacto("Pabloman", "so", "cualquiera2@gmail.com", notiEmail , 1165565654);
         Contacto contacto3 = new Contacto("Cristi", "Naa", "cualquiera3@gmail.com", notiEmail , 1165565654);
         Contacto contacto4 = new Contacto("Lunes", "Primero", "cualquiera4@gmail.com", notiEmail , 1185855858);
         Contacto contacto5 = new Contacto("Jueves", "Segundo", "cualquiera5@gmail.com", notiEmail , 1165565654);
 
-        DatosPersonales datos_1 = new DatosPersonales("pepe", null,null,null,contacto);
-        DatosPersonales datos_2 = new DatosPersonales("pablo", null,null,null,contacto2);
-        DatosPersonales datos_3 = new DatosPersonales("cristina", null ,null,null,contacto3);
+        DatosPersonales datos_1 = new DatosPersonales("pepe", "pepe",null,null,contacto);
+        DatosPersonales datos_2 = new DatosPersonales("pablo", "pablo",null,null,contacto2);
+        DatosPersonales datos_3 = new DatosPersonales("cristina", "cristina" ,null,null,contacto3);
         DatosPersonales datos_4 = new DatosPersonales("Lunes", "Testing" , new Date( 96, 9, 19),12345678,contacto4);
         DatosPersonales datos_5 = new DatosPersonales("Jueves", "Testing" , new Date( 05, 2, 15),87654321,contacto5);
 
