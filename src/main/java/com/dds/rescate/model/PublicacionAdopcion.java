@@ -114,6 +114,13 @@ public class PublicacionAdopcion extends Publicacion {
         getMascota().publicada = false;
     }
 
+    @Override
+    public void darDeBaja(){
+        pendienteConfirmacion = false;
+        this.estadoPublicacion = EstadoPubli.FINALIZADA;
+        getMascota().publicada = false;
+    }
+
     public String getAdoptanteString(){
         return nuevo_duenio.getNombreCompleto();
     }
@@ -130,4 +137,8 @@ public class PublicacionAdopcion extends Publicacion {
         }
     }
 
+    @Override
+    public Boolean getConcretada(){
+        return nuevo_duenio != null;
+    }
 }

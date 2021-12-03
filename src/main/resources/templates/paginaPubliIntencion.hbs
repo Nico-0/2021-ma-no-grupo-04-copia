@@ -11,7 +11,7 @@
     {{#if isPublicada}}
         <h2>Publicacion activa</h2>
         <form action="/publicaciones/{{idString}}/finalizar" method="post" align="left">
-            <input type="submit" value="Dar de baja">
+            <input type="submit" value="Dar de baja" onclick="return confirm('Seguro desea dar de baja?');">
         </form>
     {{/if}}
 

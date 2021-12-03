@@ -32,7 +32,7 @@ public class Publicacion {
 
     public Boolean pendienteConfirmacion = false;
 
-    //Cnstructor
+    //Constructor
     public Publicacion(UsuarioDuenio autor, Asociacion asociacionAsignada, TipoMascota tipoMascota) {
         this.autor = autor;
         this.asociacionAsignada = asociacionAsignada;
@@ -40,9 +40,8 @@ public class Publicacion {
         this.estadoPublicacion = EstadoPubli.PENDIENTE;
         this.tipoMascota = tipoMascota;
     }
-    public Publicacion(){
 
-    }
+    public Publicacion(){}
 
     public int getId(){
         return ID;
@@ -176,6 +175,13 @@ public class Publicacion {
     public void cancelarReserva(){
     }
     public void adoptarMascota(UsuarioDuenio nuevo_duenio) {
+    }
+
+    public Boolean getIsFinalizada(){
+        return isFinalizada();
+    }
+    public Boolean getConcretada(){
+        return false;
     }
 }
 

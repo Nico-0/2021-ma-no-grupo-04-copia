@@ -138,10 +138,22 @@ public class PublicacionPerdida extends Publicacion {
         getMascota().publicada = false;
     }
 
+    @Override
+    public void darDeBaja(){
+        pendienteConfirmacion = false;
+        this.estadoPublicacion = EstadoPubli.FINALIZADA;
+        getMascota().publicada = false;
+    }
+
     public String getAdoptanteString(){
         return nuevo_duenio.getNombreCompleto();
     }
     public String getAdoptanteUserString(){
         return nuevo_duenio.getUsername();
+    }
+
+    @Override
+    public Boolean getConcretada(){
+        return nuevo_duenio != null;
     }
 }

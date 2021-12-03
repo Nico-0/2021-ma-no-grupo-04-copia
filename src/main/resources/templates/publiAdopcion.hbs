@@ -10,7 +10,11 @@ Mascota En Adopción
                 <p><b>Animal</b>: {{animal}}</p>
                 <p><b>Dueño</b>: {{autorString}}</p>
                 {{#if isFinalizada}}
+                    {{#if concretada}}
                     <p><b>Nuevo dueño</b>: {{adoptanteString}}</p>
+                    {{else}}
+                    <p style="color:red">PUBLICACION CANCELADA O RECHAZADA</p>
+                    {{/if}}
                 {{/if}}
                 <p><b>Fecha</b>: {{fechaString}}</p>
             </div>

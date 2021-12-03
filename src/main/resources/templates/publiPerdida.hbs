@@ -11,6 +11,13 @@ Mascota Perdida
                 <p><b>Animal</b>: {{animal}}</p>
                 <p><b>Ubicación</b>: {{ubicacionEncontrada}}</p>
                 <p><b>Rescatista</b>: {{autorString}}</p>
+                {{#if isFinalizada}}
+                    {{#if concretada}}
+                        <p><b>Nuevo dueño</b>: {{adoptanteString}}</p>
+                    {{else}}
+                        <p style="color:red">PUBLICACION CANCELADA O RECHAZADA</p>
+                    {{/if}}
+                {{/if}}
                 <p><b>Fecha</b>: {{fechaString}}</p>
             </div>
         </div>

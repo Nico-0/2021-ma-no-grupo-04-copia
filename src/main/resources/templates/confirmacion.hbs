@@ -34,10 +34,10 @@
                     <p><b>Fecha de reserva</b>: {{fechaAdopcion}}</p>
                         <br>
                     <form action="/publicaciones/{{idString}}/aceptar" method="post" align="center">
-                        <input type="submit" value="Conceder mascota">
+                        <input type="submit" value="Conceder mascota" onclick="return confirm('Seguro desea conceder mascota?');">
                     </form>
                     <form action="/publicaciones/{{idString}}/cancelarReserva" method="post" align="center">
-                        <input type="submit" value="Rechazar">
+                        <input type="submit" value="Rechazar" onclick="return confirm('Seguro desea rechazar?');">
                     </form>
                     </div>
                 </div>
@@ -73,10 +73,10 @@
                         <p><b>Fecha de reserva</b>: {{fechaRecuperacion}}</p>
                         <br>
                         <form action="/publicaciones/{{idString}}/aceptar" method="post" align="center">
-                            <input type="submit" value="Conceder mascota">
+                            <input type="submit" value="Conceder mascota" onclick="return confirm('Seguro desea conceder mascota?');">
                         </form>
                         <form action="/publicaciones/{{idString}}/cancelarReserva" method="post" align="center">
-                            <input type="submit" value="Rechazar">
+                            <input type="submit" value="Rechazar" onclick="return confirm('Seguro desea rechazar?');">
                         </form>
                     </div>
                 </div>
@@ -110,10 +110,10 @@
                         <p><b>Fecha encontrada</b>: {{fechaRescate}}</p>
                         <br>
                         <form action="/mascotas/{{mascota_asociada.idMascotaString}}/aceptar" method="post" align="center">
-                            <input type="submit" value="Aceptar mascota :D">
+                            <input type="submit" value="Aceptar mascota :D" onclick="return confirm('Seguro desea recuperar su mascota?');">
                         </form>
                         <form action="/mascotas/{{mascota_asociada.idMascotaString}}/rechazar" method="post" align="center">
-                            <input type="submit" value="Rechazar (devolver a su habitat)">
+                            <input type="submit" value="Rechazar (devolver a su habitat)" onclick="return confirm('Seguro no es su mascota?');">
                         </form>
                     </div>
                 </div>

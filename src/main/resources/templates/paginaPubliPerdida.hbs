@@ -27,24 +27,28 @@
                 <p><b>Nombre</b>: {{adoptanteString}}</p>
                 <p><b>Fecha de reserva</b>: {{fechaRecuperacion}}</p>
                 <form action="/publicaciones/{{idString}}/cancelarReserva" method="post" align="center">
-                    <input type="submit" value="Cancelar reserva" {{#if esReservador}}{{else}}title="boton para el reservador" disabled{{/if}}>
+                    <input type="submit" value="Cancelar reserva" onclick="return confirm('Seguro desea cancelar?');" {{#if esReservador}}{{else}}title="boton para el reservador" disabled{{/if}}>
                 </form>
             {{else}}
                 <p><b>Mascota disponible</b></p>
                 <form action="/publicaciones/{{idString}}/recuperar" method="post" align="center">
-                    <input type="submit" value="Adoptar mascota" {{#if puedeAdoptar}}title="debe ser un usuario comun distinto del duenio" disabled{{/if}}>
+                    <input type="submit" value="Adoptar mascota" onclick="return confirm('Seguro desea adoptar?');" {{#if puedeAdoptar}}title="debe ser un usuario comun distinto del duenio" disabled{{/if}}>
                 </form>
             {{/if}}
         {{/if}}
 
         {{#if isFinalizada}}
-            Mascota ya adoptada
-            <p><b>Nuevo dueño</b>: {{adoptanteString}} ({{adoptanteUserString}})</p>
-            <p><b>Fecha de adopción</b>: {{fechaRecuperacion}}</p>
-            <br>
-            {{#if esReservador}}
-                <p>El rescatista ya aceptó entregarle la mascota. Si no recibe su nueva mascota a la brevedad, por favor contactese con él.</p>
-                <p>Gracias por utilizar Patitas al Rescate.</p>
+            {{#if concretada}}
+                Mascota ya adoptada
+                <p><b>Nuevo dueño</b>: {{adoptanteString}} ({{adoptanteUserString}})</p>
+                <p><b>Fecha de adopción</b>: {{fechaRecuperacion}}</p>
+                <br>
+                {{#if esReservador}}
+                    <p>El rescatista ya aceptó entregarle la mascota. Si no recibe su nueva mascota a la brevedad, por favor contactese con él.</p>
+                    <p>Gracias por utilizar Patitas al Rescate.</p>
+                {{/if}}
+            {{else}}
+                <h3 style="color:red">PUBLICACION CANCELADA O RECHAZADA</h3>
             {{/if}}
         {{/if}}
 

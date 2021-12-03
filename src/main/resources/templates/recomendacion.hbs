@@ -6,14 +6,14 @@
 
     <div>
         <form action="/recomendador/regenerar" method="post">
-            <input type="submit" value="Recomendar para todos">
+            <input type="submit" value="Recomendar para todos" onclick="return confirm('Seguro desea recomendar para todos los usuarios?');">
         </form>
     </div>
     <table>
         <tr>
             <td>
         <form action="/recomendador/{{id_user}}/regenerar" method="post">
-            <input type="submit" value="Recomendar user actual">
+            <input type="submit" value="Recomendar user actual" onclick="return confirm('Seguro desea recomendar user actual?');">
         </form>
             </td>
             <td>

@@ -38,15 +38,21 @@ public class Publicaciones {
         boolean esComun = tipoUsuario.equals("comun");
         Boolean puedeAdoptar = esDuenio || !esComun;
         boolean esReservador;
+        boolean concretada;
         if(interesado != null){
             esReservador = interesado.getUsername().equals(username);
-        } else esReservador = false;
+            concretada = true;
+        } else{
+            esReservador = false;
+            concretada = false;
+        }
         viewModel.put("isPublicada", isPublicada);
         viewModel.put("isFinalizada", isFinalizada);
         viewModel.put("isPendiente", isPendiente);
         viewModel.put("awaitingConfirmation", awaitingConfirmation);
         viewModel.put("esReservador", esReservador);
         viewModel.put("puedeAdoptar", puedeAdoptar);
+        viewModel.put("concretada", concretada);
 
         switch (tipo_publi) {
             case "perdida":

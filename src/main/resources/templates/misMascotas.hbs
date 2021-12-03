@@ -25,10 +25,10 @@
                         <p><b>Descripcion Mascota</b>: {{this.descripcion}}</p>
                         <p><b>Asociacion</b>: {{this.nombreAsociacionString}}</p>
                         <form action="/mascotas/{{idMascotaString}}/publicarAdopcion" method="post" align="right">
-                            <input type="submit" value="Dar en adopción">
+                            <input type="submit" value="Dar en adopción" onclick="return confirm('Seguro desea publicar en adopción?');">
                         </form>
                         <form action="/mascotas/{{idMascotaString}}/perdida" method="post" align="right">
-                            <input type="submit" value="Perdí mi mascota">
+                            <input type="submit" value="Perdí mi mascota" onclick="return confirm('Seguro perdió su mascota?');">
                         </form>
                     </div>
                     </div>
