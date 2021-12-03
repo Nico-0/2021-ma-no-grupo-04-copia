@@ -13,4 +13,5 @@ Links:
 
 [Enunciado](https://aulasvirtuales.frba.utn.edu.ar/pluginfile.php/918221/mod_resource/content/1/TP%20DDS%202021.pdf)
 
-DDC - https://lucid.app/lucidchart/invitations/accept/inv_82cd7d8f-a800-47b0-9014-c87b805585a1
+-----Diagrama de clases- Diagrama Entidad Relacion- Diagrama de Despliegue ------
+https://lucid.app/lucidchart/0642de96-96b6-4142-80f7-df26273773e9/edit?invitationId=inv_b2b94db4-6b0c-44d3-843d-79d2f43a2e74
