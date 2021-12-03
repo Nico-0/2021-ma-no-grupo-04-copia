@@ -41,6 +41,13 @@ public class PublicacionService {
                 .getResultList();
     }
 
+    public List<Publicacion> getPendientes(Asociacion asociacion){
+        return entityManager.createQuery("from Publicacion p where p.estadoPublicacion = ?1 and p.asociacionAsignada = ?2", Publicacion.class)
+                .setParameter(1, EstadoPubli.PENDIENTE)
+                .setParameter(2, asociacion)
+                .getResultList();
+    }
+
     public List<Publicacion> getFinalizadas(){
         return entityManager.createQuery("from Publicacion p where p.estadoPublicacion = ?1", Publicacion.class)
                 .setParameter(1, EstadoPubli.FINALIZADA)

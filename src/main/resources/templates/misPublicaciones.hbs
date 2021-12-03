@@ -23,7 +23,16 @@
         <p>Un voluntario aceptará a la brevedad</p>
         <br>
         {{#each Pendientes}}
-            {{>(lookup . 'this.tipoPublihbs') }}
+            <div class="fila">
+                <div class="columnaAux1">
+                    {{>(lookup . 'this.tipoPublihbs') }}
+                </div>
+                <div class="columnaAux2" align="left">
+                    <form action="/publicaciones/{{idString}}/finalizar" method="post">
+                        <input type="submit" value="Cancelar publicación" onclick="return confirm('Seguro cancelar publicación? La mascota quedará disponible para volver a publicar');">
+                    </form>
+                </div>
+            </div>
             <br>
         {{/each}}
         <br>
@@ -33,7 +42,17 @@
         <h2 class = "content">Publicadas</h2>
         <br>
         {{#each Publicaciones}}
-                {{>(lookup . 'this.tipoPublihbs') }}
+            <div class="fila">
+                <div class="columnaAux1">
+                    {{>(lookup . 'this.tipoPublihbs') }}
+                </div>
+                <div class="columnaAux2" align="left">
+                    <form action="/publicaciones/{{idString}}/finalizar" method="post">
+                        <input type="submit" value="Cancelar publicación" onclick="return confirm('Seguro cancelar publicación? La mascota quedará disponible para volver a publicar');">
+                    </form>
+                </div>
+            </div>
+
             <br>
         {{/each}}
         <br>

@@ -139,10 +139,10 @@ public class Publicaciones {
 
         String id_publi = request.params(":id");
 
-        PublicacionIntencionDeAdopcion publicacion;
+        Publicacion publicacion;
         PublicacionService repoPublis = new PublicacionService(em);
 
-        publicacion = (PublicacionIntencionDeAdopcion) repoPublis.getDeID(id_publi);
+        publicacion = repoPublis.getDeID(id_publi);
 
         publicacion.darDeBaja();
 

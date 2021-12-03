@@ -47,7 +47,7 @@ public class Router {
         Spark.get("/muro", RouteWithTransaction(MuroPublicaciones::muroSinPag));
         Spark.get("/muro/:nro_pag", TemplWithTransaction(MuroPublicaciones::muro), engine);
         Spark.get("/recomendador", TemplWithTransaction(RecomendadorController::recomendador), engine);
-        Spark.get("/aprobar", Aprobar::aprobar, engine);
+        Spark.get("/aprobar", TemplWithTransaction(Aprobar::show), engine);
         Spark.get("/gestion", TemplWithTransaction(Gestion::gestion), engine);
         Spark.get("/perfil", TemplWithTransaction(Perfil::perfil), engine);
         Spark.get("/mis_mascotas", TemplWithTransaction(MisMascotas::show), engine);
@@ -73,6 +73,7 @@ public class Router {
         Spark.post("/publicaciones/:id/adoptar", RouteWithTransaction(Publicaciones::adoptar));
         Spark.post("/publicaciones/:id/recuperar", RouteWithTransaction(Publicaciones::recuperar));
         Spark.post("/publicaciones/:id/finalizar", RouteWithTransaction(Publicaciones::finalizar));
+        Spark.post("/publicaciones/:id/aprobar", RouteWithTransaction(Aprobar::aprobar));
 
         Spark.post("/publicaciones/:id/cancelarReserva", RouteWithTransaction(Publicaciones::cancelarReserva));
         Spark.post("/publicaciones/:id/aceptar", RouteWithTransaction(Publicaciones::aceptar));

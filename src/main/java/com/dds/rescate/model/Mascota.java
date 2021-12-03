@@ -52,6 +52,7 @@ public class Mascota {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<String> fotos = new ArrayList<>();
 
+    //seria util tener la referencia a la publicacion, para poder cancelar la publicacion desde la mascota
     public boolean publicada;
 
     public Mascota(TipoMascota tipoMascota, String nombre, String apodo, String descripcion, Asociacion asociacionRegistrada,

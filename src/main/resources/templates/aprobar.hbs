@@ -1,9 +1,34 @@
 {{#partial "contenido"}}
 
-    <h1 class = "content">Aprobar Publicaciones</h1>
+    <h1 class = "estilo">Aprobar Publicaciones</h1>
 <br>
     Aqui puede aprobar publicaciones
+    <h2><b class ="titleAsoc">Asociacion</b>: {{nombreAsoc}}</h2>
 
+    <br><br>
+    {{#if Pendientes}}
+    {{#each Pendientes}}
+        <div class="fila">
+            <div class="columnaAux1">
+                {{>(lookup . 'this.tipoPublihbs') }}
+            </div>
+            <div class="columnaAux2" align="left">
+                <form action="/publicaciones/{{idString}}/aprobar" method="post">
+                    <input type="submit" value="Aprobar publicación" onclick="return confirm('Seguro aprobar publicación? Esta acción no se puede revertir');">
+                </form>
+                <br>
+                <form action="/publicaciones/{{idString}}/finalizar" method="post">
+                    <input type="submit" value="Rechazar publicación" onclick="return confirm('Seguro rechazar publicación? El dueño puso mucho esfuerzo en ella');">
+                </form>
+            </div>
+        </div>
+        <br>
+    {{/each}}
+    {{else}}
+        <div class="estiloDos">Todo listo.</div>
+        <br><br><br>
+        <h5>No quedan publicaciones pendientes de su asociación.</h5>
+    {{/if}}
 
 {{/partial}}
 

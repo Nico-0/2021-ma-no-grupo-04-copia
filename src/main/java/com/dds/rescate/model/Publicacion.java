@@ -142,6 +142,10 @@ public class Publicacion {
         this.estadoPublicacion = EstadoPubli.FINALIZADA;
     }
 
+    public void aprobar(){
+        this.estadoPublicacion = EstadoPubli.PUBLICADA;
+    }
+
     public void setEstado(EstadoPubli estadoPubli) {
         this.estadoPublicacion = estadoPubli;
     }
