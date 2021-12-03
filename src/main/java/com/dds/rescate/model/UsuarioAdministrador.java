@@ -8,7 +8,7 @@ public class UsuarioAdministrador extends Usuario{
 
 	public UsuarioAdministrador(String username, String password, Asociacion asociacion) {
 		super(username, password);
-		// TODO Auto-generated constructor stub
+		//  Auto-generated constructor stub
 		this.asociacion = asociacion;
 	}
 	private UsuarioAdministrador(){};
@@ -25,4 +25,3 @@ public class UsuarioAdministrador extends Usuario{
 		return "administrador";
 	}
 }
-//TODO asociar organizacion al administrador

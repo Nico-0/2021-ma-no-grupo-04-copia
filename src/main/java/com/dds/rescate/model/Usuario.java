@@ -10,7 +10,7 @@ public class Usuario {
 	public int ID;
 	private String username;
 	private String password;
-	@OneToOne
+	@ManyToOne
 	public Asociacion asociacion;
 
 	public Usuario(String username, String password) {

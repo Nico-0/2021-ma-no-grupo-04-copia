@@ -15,7 +15,7 @@ public class HogarApiService {
 	private Client client;
 
     public HogarApiService() {
-        // TODO Auto-generated constructor stub
+        //  Auto-generated constructor stub
     }
     /*
     public void getHogares() {
@@ -31,7 +31,7 @@ public class HogarApiService {
             ApiMap map = gson.fromJson(respuesta.body(), ApiMap.class);
             System.out.println(map);
           } catch (IOException | InterruptedException e) {
-            // TODO Auto-generated catch block
+            //  Auto-generated catch block
             e.printStackTrace();
           }
     }

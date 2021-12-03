@@ -11,7 +11,7 @@ public class Recomendacion {
     @Id
     @GeneratedValue
     public int ID;
-    @OneToOne
+    @ManyToOne //si el usuario tiene varias intenciones entonces la misma adopcion se puede recomendar varias veces
     private PublicacionAdopcion adopcion;
     private int puntajeCaracteristicas;
     private int puntajePreguntas;

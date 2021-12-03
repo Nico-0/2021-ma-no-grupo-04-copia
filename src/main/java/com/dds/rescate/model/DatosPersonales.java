@@ -19,8 +19,7 @@ public class DatosPersonales {
     public Integer nroDoc;
     @Transient
     public Ubicacion direccion;
-    @ManyToMany
-    //@JoinColumn(name = "FK_datosPersonales") mejor que datos personales guarde la referencia al contacto (tabla adicional)
+    @ManyToMany //al crear los datos creo que reciclamos el mismo contacto en varios DatosPersonales. Quizá tambien se puede registrar la misma persona varias veces y reutilizar el contacto, o poner como suyo el contacto de algun familiar que ya estaba registrado
     @LazyCollection(LazyCollectionOption.FALSE)
     public List<Contacto> contactos = new ArrayList<>();
 

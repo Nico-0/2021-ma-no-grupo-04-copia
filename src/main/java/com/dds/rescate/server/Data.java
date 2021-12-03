@@ -309,9 +309,20 @@ public class Data {
 
 //Generar publicaciones
 
-        Mascota mascota_p1 = new Mascota(TipoMascota.GATO, "Name5", "Como se llama??", "Es gato", asociacion_1, carac_perro, Sexo.MACHO, "gato.jpg");
-        Mascota mascota_p2 = new Mascota(TipoMascota.MINIPIG, "Name6", "Decime un nombre", "Es cerdo", asociacion_2, carac_gato, Sexo.MACHO, "minipig.jpg");
-        Mascota mascota_p3 = new Mascota(TipoMascota.PERRO, "Name7", "El que adopta elige", "Es perra", asociacion_1, carac_pig, Sexo.HEMBRA, "perro.jpg");
+        //nuevas instancias de List<Respuesta> caracteristicas, para respetar el OneToMany en Mascota
+        List<Respuesta> carac_perro__ = Arrays.asList(new Respuesta(color, "marron"),
+                new Respuesta(tamanio, "grande"), new Respuesta(pelo, "largo"), new Respuesta(cola, "corta"));
+        carac_perro__.forEach(em::persist);
+        List<Respuesta> carac_gato__ = Arrays.asList(new Respuesta(color, "blanco"),
+                new Respuesta(castrada, "si"), new Respuesta(cantidadPatas, "cuatro"));
+        carac_gato__.forEach(em::persist);
+        List<Respuesta> carac_pig__ = Arrays.asList(new Respuesta(color, "rosa"),
+                new Respuesta(tamanio, "mediano"), new Respuesta(pelo, "sin"), new Respuesta(cola, "corta"));
+        carac_pig__.forEach(em::persist);
+
+        Mascota mascota_p1 = new Mascota(TipoMascota.GATO, "Name5", "Como se llama??", "Es gato", asociacion_1, carac_perro__, Sexo.MACHO, "gato.jpg");
+        Mascota mascota_p2 = new Mascota(TipoMascota.MINIPIG, "Name6", "Decime un nombre", "Es cerdo", asociacion_2, carac_gato__, Sexo.MACHO, "minipig.jpg");
+        Mascota mascota_p3 = new Mascota(TipoMascota.PERRO, "Name7", "El que adopta elige", "Es perra", asociacion_1, carac_pig__, Sexo.HEMBRA, "perro.jpg");
         em.persist(mascota_p1);
         em.persist(mascota_p2);
         em.persist(mascota_p3);
@@ -567,12 +578,32 @@ public class Data {
 
 //publis perdidas
 
-        Mascota mascota_p1 = new Mascota(TipoMascota.GATO, "No", "Tiene", "", asociacion_1, carac_perro, Sexo.HEMBRA, "gato.jpg");
-        Mascota mascota_p2 = new Mascota(TipoMascota.MINIPIG, "Le", "Encantaria", "", asociacion_1, carac_cat, Sexo.MACHO, "minipig.jpg");
-        Mascota mascota_p3 = new Mascota(TipoMascota.PERRO, "Tener", "Nombre", "", asociacion_2, carac_gato2, Sexo.HEMBRA, "perro.jpg");
-        Mascota mascota_p4 = new Mascota(TipoMascota.GATO, "Pero", "no", "", asociacion_2, carac_cerdo2, Sexo.MACHO, "gato.jpg");
-        Mascota mascota_p5 = new Mascota(TipoMascota.MINIPIG, "La", "Voy", "", asociacion_2, carac_gato, Sexo.MACHO, "minipig.jpg");
-        Mascota mascota_p6 = new Mascota(TipoMascota.PERRO, "Adoptar", "Yo", "", asociacion_1, carac_pig2, Sexo.HEMBRA, "perro.jpg");
+        //nuevas instancias de List<Respuesta> caracteristicas, para respetar el OneToMany en Mascota
+        List<Respuesta> carac_perro__ = Arrays.asList(new Respuesta(color, "blanco"),
+                new Respuesta(tamanio, "grande"), new Respuesta(pelo, "largo"), new Respuesta(cola, "larga"));
+        carac_perro__.forEach(em::persist);
+        List<Respuesta> carac_cat__ = Arrays.asList(new Respuesta(color, "marron"),
+                new Respuesta(tamanio, "peque"), new Respuesta(pelo, "corto"), new Respuesta(cola, "corta"));
+        carac_cat__.forEach(em::persist);
+        List<Respuesta> carac_gato2__ = Arrays.asList(new Respuesta(color, "negro"),
+                new Respuesta(castrada, "indistinto"), new Respuesta(cantidadPatas, "cuatro"));
+        carac_gato2__.forEach(em::persist);
+        List<Respuesta> carac_cerdo2__ = Arrays.asList(new Respuesta(color, "marron"),
+                new Respuesta(castrada, "si"), new Respuesta(cantidadPatas, "cuatro"));
+        carac_cerdo2__.forEach(em::persist);
+        List<Respuesta> carac_gato__ = Arrays.asList(new Respuesta(color, "rosa"),
+                new Respuesta(castrada, "si"), new Respuesta(cantidadPatas, "dos"));
+        carac_gato__.forEach(em::persist);
+        List<Respuesta> carac_pig2__ = Arrays.asList(new Respuesta(color, "negro"),
+                new Respuesta(tamanio, "mediano"), new Respuesta(pelo, "sin"), new Respuesta(cola, "larga"));
+        carac_pig2__.forEach(em::persist);
+
+        Mascota mascota_p1 = new Mascota(TipoMascota.GATO, "No", "Tiene", "", asociacion_1, carac_perro__, Sexo.HEMBRA, "gato.jpg");
+        Mascota mascota_p2 = new Mascota(TipoMascota.MINIPIG, "Le", "Encantaria", "", asociacion_1, carac_cat__, Sexo.MACHO, "minipig.jpg");
+        Mascota mascota_p3 = new Mascota(TipoMascota.PERRO, "Tener", "Nombre", "", asociacion_2, carac_gato2__, Sexo.HEMBRA, "perro.jpg");
+        Mascota mascota_p4 = new Mascota(TipoMascota.GATO, "Pero", "no", "", asociacion_2, carac_cerdo2__, Sexo.MACHO, "gato.jpg");
+        Mascota mascota_p5 = new Mascota(TipoMascota.MINIPIG, "La", "Voy", "", asociacion_2, carac_gato__, Sexo.MACHO, "minipig.jpg");
+        Mascota mascota_p6 = new Mascota(TipoMascota.PERRO, "Adoptar", "Yo", "", asociacion_1, carac_pig2__, Sexo.HEMBRA, "perro.jpg");
         em.persist(mascota_p1);
         em.persist(mascota_p2);
         em.persist(mascota_p3);

@@ -11,15 +11,15 @@ import java.util.List;
 @Entity
 public class PublicacionAdopcion extends Publicacion {
 
-    @OneToOne //TODO es oneToOne??
+    @ManyToOne //puede publicarse la mascota varias veces, solo en una publicacion a la vez, pero el registro de las viejas queda
     public Mascota mascota;
 
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany(cascade = {CascadeType.ALL}) //Todas las respuestas son unicas, creadas al instanciar la publicacion
     @JoinColumn(name = "FK_adopcion")
     @LazyCollection(LazyCollectionOption.FALSE)
     public List<Respuesta> preguntas;
 
-    @OneToOne
+    @ManyToOne
     private UsuarioDuenio nuevo_duenio;
     private Date fecha_adopcion;
 
@@ -28,7 +28,7 @@ public class PublicacionAdopcion extends Publicacion {
                                Mascota mascotaPublicacion, List<Respuesta> preguntas) {
         super(autor, asociacionAsignada, mascotaPublicacion.getTipoMascota());
         asociacionAsignada.validarPreguntasAsociacion(preguntas);
-        //TODO validar respuestas a las preguntas
+        //validar respuestas a las preguntas, en el caso de implementar el ingreso manual de estas
         this.mascota = mascotaPublicacion;
         this.preguntas = preguntas;
         verificarDuenioMascota(autor, mascotaPublicacion);
@@ -61,13 +61,6 @@ public class PublicacionAdopcion extends Publicacion {
     }
 
     //Metodos
-    public void contactarDuenio(UsuarioDuenio adoptante){
-        //TODO
-    }
-
-    public void confirmarAdopcion(UsuarioDuenio adoptante){
-        //TODO
-    }
 
     @Override
     public String getTipoPublihbs(){

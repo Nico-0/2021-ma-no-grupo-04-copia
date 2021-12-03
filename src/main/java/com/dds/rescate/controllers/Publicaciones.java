@@ -125,7 +125,7 @@ public class Publicaciones {
 
     private static void verificarCreador(UsuarioDuenio autor, UsuarioDuenio consumidor){
         if(autor.equals(consumidor)){
-            throw new RuntimeException("No puede adoptar/recuperar el creador de la publicacion"); //TODO no mostrar exception al usuario
+            throw new RuntimeException("No puede adoptar/recuperar el creador de la publicacion"); //igual esta oculto el boton para el creador
         }
     }
 

@@ -15,7 +15,7 @@ public class RespuestasAsociacion {
     @GeneratedValue
     public int ID;
 
-    @OneToOne
+    @ManyToOne //la misma pregunta pueden responderla varias asociaciones
     public PreguntaCaracteristica pregunta;
 
     @ElementCollection
@@ -24,7 +24,7 @@ public class RespuestasAsociacion {
     @LazyCollection(LazyCollectionOption.FALSE)
     public List<String> respuestasPosibles;
 
-    @OneToMany
+    @OneToMany //es dificil de ver pero, al menos en la instancia de datos, todos los List<Comparacion> valoresRespuestas entran en un unico objeto RespuestasAsociacion
     @JoinColumn(name = "FK_respuestasAsociacion")
     @LazyCollection(LazyCollectionOption.FALSE)
     public List<Comparacion> valoresRespuestas;

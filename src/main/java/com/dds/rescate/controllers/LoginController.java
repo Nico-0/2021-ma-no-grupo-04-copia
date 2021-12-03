@@ -36,7 +36,8 @@ public class LoginController {
                     Usuario usuario = repositorio.obtenerUsuario(username);
                     response.cookie("tipoUsuario", usuario.getTipo());
                     response.cookie("nombrePersona", usuario.getNombreCompleto());
-                    //TODO guardar asociacion para voluntario y admin
+                    //TO DO guardar asociacion para voluntario y admin
+                    //al menos admin no lo maneja por cookie
                     response.cookie("username", username);
 
                     response.redirect("/");
@@ -73,13 +74,15 @@ public class LoginController {
         return new ModelAndView(viewModel, "registro.hbs");
     }
 
-    //TODO verificar que ningun campo se complete con espacios
+    //------------------------------no hacemos el alta de usuarios----------------------------------------------------------------------------------------
+
+    //TO DO verificar que ningun campo se complete con espacios
     public static Void comun(Request request, Response response, EntityManager em) {
         if(request.queryParams("user_name") != null && request.queryParams("password") != null) {
             String username = request.queryParams("user_name");
             String password = request.queryParams("password");
 
-            //TODO crear metodo que no pida datos personales y cargar datos personales en /perfil
+            //TO DO crear metodo que no pida datos personales y cargar datos personales en /perfil
 
             UsuarioDuenio nuevoUsuario = new UsuarioDuenio(username, password, null);
             GeneradorUsuario repo = new GeneradorUsuario(em);
@@ -105,8 +108,8 @@ public class LoginController {
             RepoAsociacion repoAsociacion = new RepoAsociacion(em);
             Asociacion asociacion_objeto = repoAsociacion.getAsociacionByNombre(asociacion);
 
-            //TODO no dar asociacion null
-            //TODO verificar que la asociacion ya exista
+            //TO DO no dar asociacion null
+            //TO DO verificar que la asociacion ya exista
             UsuarioVoluntario nuevoUsuario = new UsuarioVoluntario(username, password, asociacion_objeto);
             GeneradorUsuario repo = new GeneradorUsuario(em);
             repo.registrarUsuario(nuevoUsuario);
@@ -132,8 +135,8 @@ public class LoginController {
             RepoAsociacion repoAsociacion = new RepoAsociacion(em);
             Asociacion asociacion_objeto = repoAsociacion.getAsociacionByNombre(asociacion);
 
-            //TODO asociar organizacion al administrador
-            //TODO crear organizacion si no existe
+            //TO DO asociar organizacion al administrador
+            //TO DO crear organizacion si no existe
             UsuarioAdministrador nuevoUsuario = new UsuarioAdministrador(username, password, asociacion_objeto);
             GeneradorUsuario repo = new GeneradorUsuario(em);
             repo.registrarUsuario(nuevoUsuario);

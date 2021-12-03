@@ -9,7 +9,7 @@ public class Respuesta {
 	@GeneratedValue
 	public int ID;
 
-	@OneToOne
+	@ManyToOne //hay varios objetos Respuesta con la misma pregunta y distina respuesta
 	private PreguntaCaracteristica preg_carac;
 
 	private String valorRespuesta;

@@ -89,8 +89,8 @@ public class PublicacionService {
         getPendientes().stream().forEach(Publicacion::aceptarPublicacion);
     }
 
-    public List<Publicacion> getIntencionesPublicadas(String username){
-        List<Publicacion> intenciones = getDeTipo("intencion");
+    public List<PublicacionIntencionDeAdopcion> getIntencionesPublicadas(String username){
+        List<PublicacionIntencionDeAdopcion> intenciones = getDeTipo("intencion").stream().map(p -> (PublicacionIntencionDeAdopcion) p).collect(Collectors.toList());
         return intenciones.stream().filter(Publicacion::isPublicada).
                 filter(p -> p.getAutor().getUsername().equals(username)).collect(Collectors.toList());
     }

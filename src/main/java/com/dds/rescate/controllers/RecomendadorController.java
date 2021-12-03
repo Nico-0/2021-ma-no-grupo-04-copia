@@ -31,8 +31,8 @@ public class RecomendadorController {
         viewModel.put("tipoUsuario", tipoUsuario);
 
         PublicacionService repo = new PublicacionService(em);
-        List<Publicacion> publicaciones = repo.getIntencionesPublicadas(username);
-        //publicaciones.forEach(Publicacion::ordenarRecomendaciones);
+        List<PublicacionIntencionDeAdopcion> publicaciones = repo.getIntencionesPublicadas(username);
+        publicaciones.forEach(Publicacion::ordenarRecomendaciones); //TODO reemplazar para que tome el orden de la tabla directo?
 
         viewModel.put("Intenciones", publicaciones);
 
@@ -74,10 +74,10 @@ public class RecomendadorController {
 
         if(tipo.equals("comun")) {
             PublicacionService repoPubli = new PublicacionService(em);
-            List<Publicacion> intenciones = repoPubli.getIntencionesPublicadas(username);
+            List<PublicacionIntencionDeAdopcion> intenciones = repoPubli.getIntencionesPublicadas(username);
 
             Recomendador reco = new Recomendador(em);
-            intenciones.forEach(intencion -> reco.recomendar((PublicacionIntencionDeAdopcion) intencion));
+            intenciones.forEach(intencion -> reco.recomendar(intencion));
 
             //guardar json en mongo
             GeneradorUsuario repoUser = new GeneradorUsuario(em);

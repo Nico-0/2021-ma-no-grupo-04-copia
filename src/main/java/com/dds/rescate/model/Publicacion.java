@@ -15,10 +15,10 @@ public class Publicacion {
     @Id
     @GeneratedValue
     public int ID;
-    @OneToOne
+    @ManyToOne
     public UsuarioDuenio autor;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "asoc_id")
     public Asociacion asociacionAsignada;
 
@@ -143,18 +143,8 @@ public class Publicacion {
         this.estadoPublicacion = EstadoPubli.FINALIZADA;
     }
 
-    public void setDescripcion(String descripcion) {
-    }
-
-    public void setNombreRescatista(String nombre) {
-    }
-
     public void setEstado(EstadoPubli estadoPubli) {
         this.estadoPublicacion = estadoPubli;
-    }
-
-    public void setContactos(List<Contacto> contactos) {
-        //TODO asignar los contactos
     }
 
     public TipoMascota getTipoMascota(){

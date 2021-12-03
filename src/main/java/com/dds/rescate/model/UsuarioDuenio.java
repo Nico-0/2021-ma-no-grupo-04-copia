@@ -13,11 +13,11 @@ import javax.persistence.*;
 @Entity
 public class UsuarioDuenio extends Usuario{
 
-    @OneToMany//(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany//(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //una mascota puede cambiar de dueño pero siempre va a estar en uno solo
     @JoinColumn(name = "FK_duenio")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Mascota> mascotas = new ArrayList<>();
-    @OneToOne
+    @OneToOne //DatosPersonales es unico para cada usuario
     private DatosPersonales perfil;
 
     public UsuarioDuenio(String username, String password, DatosPersonales perfil) {

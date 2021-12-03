@@ -26,13 +26,13 @@ public class PublicacionPerdida extends Publicacion {
     @Transient
     public String hogarTransito;
 
-    @OneToOne //TODO es oneToOne??
+    @ManyToOne
     Mascota mascota_rescatada;
 
     @Enumerated(EnumType.STRING)
     public EstadoEncontrada estadoEncontrada;
 
-    @OneToOne
+    @ManyToOne
     private UsuarioDuenio nuevo_duenio;
     private Date fecha_recuperacion;
 
@@ -41,11 +41,11 @@ public class PublicacionPerdida extends Publicacion {
                               EstadoEncontrada estadoEncontrada, String descripcion, Contacto contactoMinimo) {
         super(autor, asociacionAsignada, mascota_rescatada.getTipoMascota());
         this.mascota_rescatada = mascota_rescatada;
-        //TODO asociacionAsignada debe ser la mas cercana a la ubicacionEncontrada
+        //asociacionAsignada debe ser la mas cercana a la ubicacionEncontrada en el caso de implementar ubicaciones
         this.descripcion = descripcion;
         this.contactos.add(contactoMinimo);
         this.estadoEncontrada = estadoEncontrada;
-        //TODO se elige el contacto o se saca del usuario rescatista?
+
         verificarMascotaPublicada(mascota_rescatada);
         mascota_rescatada.publicada = true;
         autor.agregarMascota(mascota_rescatada);

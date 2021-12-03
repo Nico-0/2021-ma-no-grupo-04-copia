@@ -5,9 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 public class Foto {
-    @Id
+    /*@Id
     @GeneratedValue
-    private Long id;
+    private Long id;*/
 
     public String nombreFoto;
 
@@ -16,6 +16,6 @@ public class Foto {
     }
 
     public void normalizar(){
-        //Todo
+        //por configuracion elegir resolucion unica en caso de implementar carga de fotos
     }
 }

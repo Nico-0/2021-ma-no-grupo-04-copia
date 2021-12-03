@@ -29,12 +29,12 @@ public class Mascota {
     private String apodo;
     private String descripcion;
 
-    @OneToMany//(fetch = FetchType.EAGER)
+    @OneToMany//Todas las respuestas son unicas, creadas al instanciar la mascota
     @JoinColumn(name = "FK_mascota")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Respuesta> caracteristicas = new ArrayList<>();
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "asoc_id")
     private Asociacion asociacionRegistrada;
 
@@ -57,14 +57,13 @@ public class Mascota {
     public Mascota(TipoMascota tipoMascota, String nombre, String apodo, String descripcion, Asociacion asociacionRegistrada,
                    List<Respuesta> caracteristicas, Sexo sexo, String fotoMinima) throws ValidadorException {
         asociacionRegistrada.validarCaracteristicasAsociacion(caracteristicas);
-        //TODO validar respuestas a las caracteristicas
+        //validar respuestas a las caracteristicas, en el caso de implementar el ingreso manual de estas
         this.asociacionRegistrada = asociacionRegistrada;
         this.caracteristicas = caracteristicas;
         this.tipoMascota = tipoMascota;
         this.nombre = nombre;
         this.apodo = apodo;
         this.descripcion = descripcion;
-        //this.caracteristicas = validarCaracteristicas(caracteristicas);
         this.sexo = sexo;
         this.perdida = false;
         this.fotos.add(fotoMinima);

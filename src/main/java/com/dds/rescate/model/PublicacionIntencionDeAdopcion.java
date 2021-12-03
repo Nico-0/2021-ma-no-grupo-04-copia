@@ -15,17 +15,17 @@ import java.util.stream.Collectors;
 @Entity
 public class PublicacionIntencionDeAdopcion extends Publicacion {
 
-    @OneToMany(cascade = {CascadeType.ALL})//(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(cascade = {CascadeType.ALL})//Todas las respuestas son unicas, creadas al instanciar la mascota
     @JoinColumn(name = "FK_intencion")
     @LazyCollection(LazyCollectionOption.FALSE)
     List<Respuesta> preferencias;
 
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany(cascade = {CascadeType.ALL})//Todas las respuestas son unicas, creadas al instanciar la mascota
     @JoinColumn(name = "FK_intencion")
     @LazyCollection(LazyCollectionOption.FALSE)
     List<Respuesta> preguntas;
 
-    @OneToMany
+    @OneToMany //al recomendar se cargan en esta lista y siempre son instancias nuevas
     @JoinColumn(name = "FK_intencion")
     @LazyCollection(LazyCollectionOption.FALSE)
     @OrderColumn(name = "orden") //TODO no anda??????????????????
@@ -39,15 +39,14 @@ public class PublicacionIntencionDeAdopcion extends Publicacion {
         super(autor, asociacionAsignada, tipoMascota);
         asociacionAsignada.validarCaracteristicasAsociacion(preferenciasPubli);
         asociacionAsignada.validarPreguntasAsociacion(preguntasPubli);
-        //TODO validar respuestas a las preguntas y caracteristicas
+        //validar respuestas a las preguntas y caracteristicas, en el caso de implementar el ingreso manual de estas
         this.preferencias = preferenciasPubli;
         this.preguntas = preguntasPubli;
         this.ultimaRecomendacion = "nunca";
         this.estadoPublicacion = EstadoPubli.PUBLICADA; //no necesitan aprobarse las intenciones ya que no aparecen en el muro
     }
-    private PublicacionIntencionDeAdopcion(){
 
-    }
+    private PublicacionIntencionDeAdopcion(){}
 
     //Getters y Setters
     public List<Respuesta> getPreferencias() {
@@ -87,17 +86,6 @@ public class PublicacionIntencionDeAdopcion extends Publicacion {
     }
 
     //Metodos
-    public void contactar(UsuarioDuenio duenioNuevo){
-        //TODO
-    }
-
-    public void confirmarAdopcion(Mascota mascotaAdoptada){
-        //TODO
-    }
-
-    public void confirmarAdopcion(PublicacionAdopcion publicacion){
-        //TODO
-    }
 
     @Override
     public String getTipoPublihbs(){
@@ -111,7 +99,7 @@ public class PublicacionIntencionDeAdopcion extends Publicacion {
 
     @Override
     public void ordenarRecomendaciones() {
-        recomendaciones = recomendaciones.stream().sorted(Comparator.comparing(Recomendacion::getTotal).reversed()).collect(Collectors.toList());
+        recomendaciones = recomendaciones.stream().sorted(Comparator.comparingInt(Recomendacion::getTotalInt).reversed()).collect(Collectors.toList());
     }
 
 }

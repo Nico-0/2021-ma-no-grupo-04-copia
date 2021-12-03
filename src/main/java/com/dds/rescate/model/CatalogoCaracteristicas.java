@@ -3,7 +3,7 @@ package com.dds.rescate.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CatalogoCaracteristicas {  //TODO para que sirve?
+public class CatalogoCaracteristicas {  //no se llegó a usar
 
 	private List<PreguntaCaracteristica> caracteristicas= new ArrayList<>();
 	private static CatalogoCaracteristicas instance;
@@ -16,7 +16,7 @@ public class CatalogoCaracteristicas {  //TODO para que sirve?
 	}
 	
 	private CatalogoCaracteristicas() {
-		// TODO Auto-generated constructor stub
+		//  Auto-generated constructor stub
 	}
 
 	public List<PreguntaCaracteristica> getCaracteristicas() {

@@ -49,6 +49,36 @@
     {{/if}}
 
 
+    <div id="popupChapitaYaPublicada" class="overlay">
+        <div class="popup">
+            <h2>ERROR. Chapita ya publicada</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                Solo puede publicar la chapita encontrada una vez. Intente recuperar y volver a perder a la mascota.
+            </div>
+        </div>
+    </div>
+
+    <div id="popupChapitaInexistente" class="overlay">
+        <div class="popup">
+            <h2>ERROR. Chapita inexistente</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                No existe mascota registrada con esa chapita.
+            </div>
+        </div>
+    </div>
+
+    <div id="popupMascotaNoPerdida" class="overlay">
+        <div class="popup">
+            <h2>ERROR. Mascota no perdida</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                La mascota asociada a la chapita no se encuentra perdida.
+            </div>
+        </div>
+    </div>
+
 {{/partial}}
 
 {{>layout.hbs}}

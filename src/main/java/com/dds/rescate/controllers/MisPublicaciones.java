@@ -1,5 +1,6 @@
 package com.dds.rescate.controllers;
 
+import com.dds.rescate.exception.ChapitaException;
 import com.dds.rescate.model.*;
 import com.dds.rescate.model.Enum.EstadoEncontrada;
 import com.dds.rescate.model.Enum.EstadoPubli;
@@ -105,18 +106,18 @@ public class MisPublicaciones {
             chapita = null;
         }
         if(chapita != null){
-            throw new RuntimeException("Chapita ya publicada");
-            //TODO redirigir a pagina de error
+            response.redirect("/mis_publicaciones#popupChapitaYaPublicada");
         }
-        //TODO agregar catch y redirigir a pagina de error si la mascota de la chapita no se encuentra perdida
+
 
         //crear publicacion de chapita
         try {
             ChapitaEncontrada chapitaNueva = new ChapitaEncontrada(user_1, ID_chapita, em);
             em.persist(chapitaNueva);
         }catch (NoResultException nre){
-            throw new RuntimeException("Chapita inexistente");
-            //TODO redirigir a pagina de error
+            response.redirect("/mis_publicaciones#popupChapitaInexistente");
+        }catch (ChapitaException mascota_no_perdida){
+            response.redirect("/mis_publicaciones#popupMascotaNoPerdida");
         }
 
         response.redirect("/mis_publicaciones");

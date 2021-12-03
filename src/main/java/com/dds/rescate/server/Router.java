@@ -34,7 +34,7 @@ public class Router {
             if(request.requestMethod().equals("GET") && !request.pathInfo().equals("/") && !request.pathInfo().startsWith("/muro") && !request.pathInfo().startsWith("/error") && verificarLogin(request).equals("null")) {
                 response.redirect("/");
             }
-            //TODO verificar que el usuario loginado exista en el repositorio de usuarios
+            //aca solo se verifica que exista el usuario al momento del login
         });
 
         /*

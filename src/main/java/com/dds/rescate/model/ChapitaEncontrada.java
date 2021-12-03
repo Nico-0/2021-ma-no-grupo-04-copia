@@ -1,6 +1,8 @@
 package com.dds.rescate.model;
 
 
+import com.dds.rescate.exception.ChapitaException;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,15 +13,15 @@ public class ChapitaEncontrada {
     @GeneratedValue
     public int ID;
 
-    @OneToOne //TODO ???
+    @ManyToOne //puede estar el mismo rescatista en muchas chapitas
     UsuarioDuenio rescatista;
 
     String id_chapita;
 
-    @OneToOne
+    @ManyToOne //puede perderse y volver a encontrarse varias veces la misma mascota
     Mascota mascota_asociada;
 
-    @OneToOne //TODO ???
+    @ManyToOne //puede estar el mismo dueño en muchas chapitas
     UsuarioDuenio duenio_mascota;
 
     Date fecha_rescate;
@@ -33,7 +35,7 @@ public class ChapitaEncontrada {
                 .setParameter(1, id_chapita)
                 .getSingleResult();
         if(!mascota_asociada.estaPerdida()){
-            throw new RuntimeException("La mascota asociada a la chapita no se encuentra perdida");
+            throw new ChapitaException("La mascota asociada a la chapita no se encuentra perdida");
         }
         this.duenio_mascota = mascota_asociada.getDuenio(entityManager);
         if(duenio_mascota == null){
