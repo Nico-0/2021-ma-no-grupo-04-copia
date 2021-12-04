@@ -56,7 +56,7 @@ public class MisMascotas {
         List<Respuesta> caracteristicas = repoAsociacion.crearRespuestasGenericasCaracAsoc1();
 
         String apodo = Integer.toString(Calendar.getInstance().get(Calendar.MILLISECOND));
-        Mascota mascota = new Mascota(TipoMascota.GATO, "Generica", apodo, "Me sentia con ganas de tener una mascota adicional", asociacion_1, caracteristicas, Sexo.HEMBRA,"guess.png");
+        Mascota mascota = new Mascota(TipoMascota.GATO, "Generica", apodo, "Me sentia con ganas de tener una mascota adicional", asociacion_1, caracteristicas, Sexo.HEMBRA,"guess.jpg");
 
 
         em.persist(mascota);

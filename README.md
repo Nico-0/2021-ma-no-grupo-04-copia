@@ -1,5 +1,7 @@
 # 2021-ma-no-grupo-04
-# Patitas al Rescate
+# Rescate de patitas
+
+![Patitas](patitas.jpg)
 
 Nombre del grupo: The Coders
 

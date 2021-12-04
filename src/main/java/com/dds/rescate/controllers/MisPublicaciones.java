@@ -9,7 +9,6 @@ import com.dds.rescate.model.Enum.TipoMascota;
 import com.dds.rescate.service.GeneradorUsuario;
 import com.dds.rescate.service.PublicacionService;
 import com.dds.rescate.service.RepoAsociacion;
-import com.dds.rescate.service.RepoMascota;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -55,7 +54,7 @@ public class MisPublicaciones {
         List<Respuesta> caracteristicas = repoAsociacion.crearRespuestasGenericasCaracAsoc1();
 
         String apodo = Integer.toString(Calendar.getInstance().get(Calendar.MILLISECOND));
-        Mascota mascota = new Mascota(TipoMascota.PERRO, "A_Definir", apodo, "Será perro?", asociacion_1, caracteristicas, Sexo.HEMBRA, "guess.png");
+        Mascota mascota = new Mascota(TipoMascota.PERRO, "A_Definir", apodo, "Será perro?", asociacion_1, caracteristicas, Sexo.HEMBRA, "guess.jpg");
 
         PublicacionPerdida perdida_1 = new PublicacionPerdida(user_1, asociacion_1, mascota, EstadoEncontrada.EXCELENTE, "Iba por la calle y apareció este animal ???", user_1.getContacto());
 
