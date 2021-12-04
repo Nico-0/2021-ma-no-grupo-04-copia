@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.dds</groupId>
   <artifactId>2021-ma-no-grupo-04</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>rescate</name>
   <packaging>jar</packaging>
   <build>
@@ -50,7 +50,7 @@
 			<processTypes>
 				<!-- Tell Heroku how to launch your application -->
 				<!-- You might have to remove the ./ in front   -->
-				<web>java -jar target/2021-ma-no-grupo-04-0.0.3-SNAPSHOT-jar-with-dependencies.jar</web>
+				<web>java -jar target/2021-ma-no-grupo-04-1.0.0-jar-with-dependencies.jar</web>
 			</processTypes>
 		</configuration>
 	</plugin>

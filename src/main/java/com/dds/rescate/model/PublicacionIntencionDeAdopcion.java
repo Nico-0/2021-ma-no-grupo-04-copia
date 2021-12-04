@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 public class PublicacionIntencionDeAdopcion extends Publicacion {
 
     @OneToMany(cascade = {CascadeType.ALL})//Todas las respuestas son unicas, creadas al instanciar la mascota
-    @JoinColumn(name = "FK_intencion")
+    @JoinColumn(name = "FK_intencion_pref")
     @LazyCollection(LazyCollectionOption.FALSE)
     List<Respuesta> preferencias;
 
     @OneToMany(cascade = {CascadeType.ALL})//Todas las respuestas son unicas, creadas al instanciar la mascota
-    @JoinColumn(name = "FK_intencion")
+    @JoinColumn(name = "FK_intencion_preg")
     @LazyCollection(LazyCollectionOption.FALSE)
     List<Respuesta> preguntas;
 

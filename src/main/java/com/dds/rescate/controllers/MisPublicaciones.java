@@ -120,7 +120,7 @@ public class MisPublicaciones {
             response.redirect("/mis_publicaciones#popupMascotaNoPerdida");
         }
 
-        response.redirect("/mis_publicaciones");
+        response.redirect("/mis_publicaciones#popupChapitaSuccess");
         return null;
     }
 
