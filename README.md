@@ -27,6 +27,10 @@ https://lucid.app/lucidchart/0642de96-96b6-4142-80f7-df26273773e9/edit?invitatio
 
 
 ## Instalación
+### Run with Docker
+- `docker compose up`
+- Once everything is up, generate starting data with `docker exec app-patitas-2021 ./target/bin/crear`
+
 ### Para correr local o subir a Heroku
 
 - Configurar las credenciales de MongoDB en `src\main\java\com\dds\rescate\service\MongoDB.java`
@@ -48,6 +52,10 @@ https://lucid.app/lucidchart/0642de96-96b6-4142-80f7-df26273773e9/edit?invitatio
 
 
 ## Funcionamiento
+
+### Ver mis mascotas
+- Iniciar sesión con el Usuario1, usuario y contraseña  `Usuario1`
+- Arriba a la derecha, en el ícono del usuario, se puede ver mi perfil, mis mascotas, y mis publicaciones.
 
 ### Muro de Publicaciones
 -  Se pueden ver las publicaciones en adopción y rescatadas, filtrar y pasar de página.
@@ -88,5 +96,8 @@ https://lucid.app/lucidchart/0642de96-96b6-4142-80f7-df26273773e9/edit?invitatio
 ### Recomendaciones periódicas
 - Para comodidad del usuario se pueden ejecutar las recomendaciones de forma periódica y estar al tanto si aparece una publicación con mayor puntaje para él.
 - Añadir el plugin Heroku Scheduler y setearle el comando `heroku run sh target/bin/recomendar -a nombreApp`
+    - Recomendacion manual: `docker exec app-patitas-2021 ./target/bin/recomendar`
 - Los usuarios que lo deseen pueden consultar sus últimas recomendaciones de forma externa con un GET a la ruta `/usuarios/{{idUsuario}}/recomendaciones`
 - Se puede consultar el historial de las recomendaciones anteriores, en la base MongoDB.
+    - `mongosh "mongodb://localhost:27017/" --username admin --password aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`
+	- `use patitas` -> `db.recomendaciones.find()`

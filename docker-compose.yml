@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+
+  mysql:
+    container_name: mysql-patitas-2021
+    image: mysql:8.0
+    ports:
+      - 3345:3306
+    volumes:
+      - mysql-data-2021:/var/lib/mysql
+    environment: 
+      MYSQL_DATABASE: 'patitas'
+      MYSQL_ROOT_PASSWORD: '1234'
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping"]
+      start_period: 1m
+      interval: 30s
+      timeout: 5s
+      retries: 20
+    expose:
+      - '3306'
+
+  mongo:
+    container_name: mongo-patitas-2021
+    image: mongo:7.0
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    volumes:
+      - mongo-data-2021:/data/db
+    expose:
+      - '27017'
+
+  backend:
+    container_name: app-patitas-2021
+    build:
+        dockerfile: Dockerfile
+    ports:
+      - 9001:9000
+    restart: on-failure
+    depends_on:
+      mysql:
+        condition: service_healthy
+    expose:
+      - '9000'
+    
+
+volumes:
+  mysql-data-2021:
+  mongo-data-2021:

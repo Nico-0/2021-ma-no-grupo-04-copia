@@ -26,7 +26,8 @@ public class MongoDB {
         if(instance == null) {
             instance = new MongoDB();
 
-            connectionString = new MongoClientURI("mongodb+srv://admin:"+password+"@patitas.o9qjv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+            //connectionString = new MongoClientURI("mongodb+srv://admin:"+password+"@patitas.o9qjv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+			connectionString = new MongoClientURI("mongodb://admin:" + password +"@mongo:27017/patitas");
             mongoClient = new MongoClient(connectionString);
 
             morphia = new Morphia();
